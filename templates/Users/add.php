@@ -75,12 +75,13 @@
                 'phone' => [
                     'placeholder' => "Phone Number", 
                     'required' => false,
-                    'class' => ($this->Form->isFieldError('phonenumber')) ? 'form-control is-invalid' : 'form-control'
+                    'class' => ($this->Form->isFieldError('phone')) ? 'form-control is-invalid' : 'form-control'
                 ],
+                
             ]
          
         );
- 		echo $this->Form->select('role', $roles, ['empty' => 'Select Role', 'id' => 'user_rolename', 'class' =>'border p-3 w-100 my-2']);?>
+ 		echo $this->Form->select('role', $roles, ['empty' => 'Select Role', 'id' => 'user_rolename', 'class' =>($this->Form->isFieldError('phone')) ? 'form-control is-invalid' : 'form-control']);?>
 
  	<div class="loggedin-forgot d-inline-flex my-3">
 		<input type="checkbox" id="registering" class="mt-1">

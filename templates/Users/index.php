@@ -53,13 +53,13 @@
                     
                     
                     <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $user->user_id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->user_id]) ?>
+                        <?= $this->Html->link('View', ['action' => 'view', $user->user_id]) ?>
+                        <?= $this->Html->link('Edit', ['action' => 'edit', $user->user_id]) ?>
                         <?php 
                             if($user->status==1)
-                               echo  $this->Html->link(__('Block'), ['action' => 'block', $user->user_id]); 
+                               echo  $this->Html->link('Block', ['action' => 'block', $user->user_id]); 
                             else
-                               echo  $this->Html->link(__('Unblock'), ['action' => 'block', $user->user_id]); ?>
+                               echo  $this->Html->link('Unblock', ['action' => 'block', $user->user_id]); ?>
                         
                     </td>
                 </tr>

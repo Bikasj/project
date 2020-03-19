@@ -5,7 +5,7 @@
     <style>
         .view {
         width: 41%;
-        margin: -80px 365px;
+        margin: 40px 299px;
         padding: 20px;
         
     }
@@ -18,13 +18,13 @@
             <?= $this->Html->link('Edit User', ['action' => 'edit', $user->user_id], ['class' => 'side-nav-item']) ?><br>
             <?= $this->Html->link('List Users', ['action' => 'index'], ['class' => 'side-nav-item']) ?>
             <br>
-            <?= $this->Html->link('New User', ['action' => 'add'], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link('Add User', ['action' => 'add'], ['class' => 'side-nav-item']) ?>
             <br>
         </div>
     </aside>
     <div class="column-responsive column-80">
         <div class="users view content class="view" >    
-            <h3><?= h($user->name) ?></h3>
+            <h3><?= h($user->firstname." ".$user->lastname) ?></h3>
             <table class="table">
                 <tr>
                     <th><?= __('FirstName') ?></th>
@@ -69,7 +69,13 @@
                     <th><?= __('Updated') ?></th>
                     <td><?= h($user->updated) ?></td>
                 </tr>
-            </table>
+            </table><h5><b>
+            <?php 
+                            if($user->status==1)
+                               echo  $this->Html->link('Block User', ['action' => 'block', $user->user_id]); 
+                            else
+                               echo  $this->Html->link('Unblock User', ['action' => 'block', $user->user_id]); ?>
+                    </h5></b>
         </div>
     </div>
 </div>
