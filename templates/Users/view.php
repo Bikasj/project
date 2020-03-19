@@ -1,23 +1,31 @@
 <?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\User $user
- */
+
 ?>
+<head>
+    <style>
+        .view {
+        width: 41%;
+        margin: -80px 365px;
+        padding: 20px;
+        
+    }
+    </style>
+</head>
 <div class="row">
-    <aside class="column">
+    <aside class="column"><br>
         <div class="side-nav">
             <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('Edit User'), ['action' => 'edit', $user->user_id], ['class' => 'side-nav-item']) ?>
-            <?= $this->Form->postLink(__('Delete User'), ['action' => 'delete', $user->user_id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->user_id), 'class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('List Users'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('New User'), ['action' => 'add'], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link('Edit User', ['action' => 'edit', $user->user_id], ['class' => 'side-nav-item']) ?><br>
+            <?= $this->Html->link('List Users', ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+            <br>
+            <?= $this->Html->link('New User', ['action' => 'add'], ['class' => 'side-nav-item']) ?>
+            <br>
         </div>
     </aside>
     <div class="column-responsive column-80">
-        <div class="users view content">
+        <div class="users view content class="view" >    
             <h3><?= h($user->name) ?></h3>
-            <table>
+            <table class="table">
                 <tr>
                     <th><?= __('FirstName') ?></th>
                     <td><?= h($user->firstname) ?></td>
@@ -30,7 +38,6 @@
                     <th><?= __('Email') ?></th>
                     <td><?= h($user->email) ?></td>
                 </tr>
-               
                 <tr>
                     <th><?= __('Status') ?></th>
                     <td><?php if($user->status==1)

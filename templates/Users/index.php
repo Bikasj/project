@@ -1,15 +1,22 @@
 <?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\User[]|\Cake\Collection\CollectionInterface $users
- */
+
 ?>
+<head>
+    <style type="text/css">
+        .paginator {
+        width: 80%;
+        margin: 16px 365px;
+        padding: 20px;
+        
+    }
+    </style>
+</head>
 <div class="users index content">
     <?= $this->Html->link(__('New User'), ['action' => 'add'], ['class' => 'button float-right'])  ?> <br>
     <?= $this->Html->link(__('Logout'), ['action' => 'logout'], ['class' => 'button float-right']) ?>
     <h3><?= __('Users') ?></h3>
     <div class="table-responsive">
-        <table border='3'>
+        <table border='0' class='table'>
             <thead>
                 <tr>    
                     <th><?= $this->Paginator->sort('Sr.No.') ?></th>
@@ -60,14 +67,14 @@
             </tbody>
         </table>
     </div>
-    <div class="paginator">
-        <ul class="pagination">
+    <div class="paginator paginator" >
+         <ul class="pagination" >
             <?= $this->Paginator->first('<< ' . __('first')) ?>
             <?= $this->Paginator->prev('< ' . __('previous')) ?>
             <?= $this->Paginator->numbers() ?>
             <?= $this->Paginator->next(__('next') . ' >') ?>
             <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
+        </ul>                           
         <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
     </div>
 </div>

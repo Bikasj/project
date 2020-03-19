@@ -1,15 +1,7 @@
 <?php
 declare(strict_types=1);
-
 namespace App\Controller;
 
-/**
- * Users Controller
- *
- * @property \App\Model\Table\UsersTable $Users
- *
- * @method \App\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
- */
 class UsersController extends AppController
 {
 
@@ -22,16 +14,9 @@ class UsersController extends AppController
         parent::initialize();
         $this->loadComponent('Paginator');
     }
-    /**
-     * Index method
-     *
-     * @return \Cake\Http\Response|null
-     */
-
     public function index()
     {   
      
-
     $users = $this->paginate($this->Users,[
         'contain' => ['Userroles']]); 
 
@@ -39,13 +24,6 @@ class UsersController extends AppController
                                                                                                                  
     }   
 
-    /**
-     * View method
-     *
-     * @param string|null $id User id.
-     * @return \Cake\Http\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
     public function view($id = null)
     {   $this->loadModel('Userroles');
         $user = $this->Users->get($id, [
@@ -58,16 +36,11 @@ class UsersController extends AppController
         $this->set('user', $user);
     }
 
-    /**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
-     */
     public function add()
     {    $this->loadModel('Userroles');
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
+            $user = $this->Users->newEntity($this->request->getData());
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
 
@@ -83,14 +56,6 @@ class UsersController extends AppController
          $this->set('user', $user);
          $this->set(compact('user'));
     }
-
-    /**
-     * Edit method
-     *
-     * @param string|null $id User id.
-     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
     public function edit($id = null)
     {   $this->loadModel('Userroles');
         $user = $this->Users->get($id, [
@@ -128,14 +93,6 @@ class UsersController extends AppController
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
     }
 
-    /**
-     * Delete method
-     *
-     * @param string|null $id User id.
-     * @return \Cake\Http\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    
     public function beforeFilter(\Cake\Event\EventInterface $event)
 {
     parent::beforeFilter($event);
