@@ -3,7 +3,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<nav class="navbar navbar-expand-lg navbar-light navigation">
-					<a class="navbar-brand" href="index.html">
+					<a class="navbar-brand" href="/users/index">
 						<img src="/images/logo.jpg" alt="">
 					</a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -59,11 +59,25 @@
 						</ul>
 						<ul class="navbar-nav ml-auto mt-10">
 							<li class="nav-item">	
-								<?= $this->Form->PostLink('Login',
-						                ['action' => 'logout'],
+								<?php
+
+								// echo $GLOBALS['val'];
+									//$GLOBALS['val'];
+								// 	 if($val==1)
+								//	{ 
+								echo $this->Form->PostLink('Login',
+						                ['action' => 'login'],
 						                ['confirm' => __('You need to logout first. Are you sure, you want to proceed?'), 'class' => 'add-button']
-						            ) ?>
-						           
+						            ); 
+						  //          }
+						  //          else
+						  //          {
+						  //          	echo  $this->Form->PostLink('Logout',
+						  //               ['action' => 'logout'],
+						  //               ['confirm' => __('You need to logout first. Are you sure, you want to proceed?'), 'class' => 'add-button']
+						  //           ); 
+						  //          }
+						        ?>
 							</li>&nbsp;
 							<li class="nav-item">
 								<a class="nav-link text-white add-button" href="/users/add" >Register Now</a>

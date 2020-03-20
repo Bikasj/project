@@ -5,7 +5,7 @@
     <style>
         .view {
         width: 41%;
-        margin: 40px 299px;
+        margin: -134px 299px 100px;
         padding: 20px;
         
     }
@@ -14,18 +14,31 @@
 <div class="row">
     <aside class="column"><br>
         <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link('Edit User', ['action' => 'edit', $user->user_id], ['class' => 'side-nav-item']) ?><br>
+            <h3 class="heading"><?= __('Actions') ?></h3><h5><br>
+            <?= $this->Html->link('Edit User', ['action' => 'edit', $user->user_id], ['class' => 'side-nav-item']) ?><br><br>
             <?= $this->Html->link('List Users', ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-            <br>
+            <br><br>
             <?= $this->Html->link('Add User', ['action' => 'add'], ['class' => 'side-nav-item']) ?>
-            <br>
+            <br><br></h5>
         </div>
     </aside>
     <div class="column-responsive column-80">
         <div class="users view content class="view" >    
             <h3><?= h($user->firstname." ".$user->lastname) ?></h3>
             <table class="table">
+                <tr>
+                    
+                    <?php  
+                    // if($user->image!=null)
+                    {   echo "<td colspan='2'>";
+                         echo '<img src="data:image/jpg;base64, '.base64_encode(stream_get_contents($user->image)).' " height=200px width=400px></td>' ;
+                    }
+                    // else
+                    // {
+                    //     echo "<td> </td>";
+                    // }
+                    ?>
+                </tr>
                 <tr>
                     <th><?= __('FirstName') ?></th>
                     <td><?= h($user->firstname) ?></td>

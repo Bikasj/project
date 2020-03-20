@@ -32,7 +32,7 @@
         ];
         $this->Form->setTemplates($myTemplates);
         ?>
-<?= $this->Form->create($user) ?>
+<?= $this->Form->create($user,['type'=>'file']) ?>
 <fieldset>
 
 <?php
@@ -81,7 +81,13 @@
             ]
          
         );
- 		echo $this->Form->select('role', $roles, ['empty' => 'Select Role', 'id' => 'user_rolename', 'class' =>($this->Form->isFieldError('phone')) ? 'form-control is-invalid' : 'form-control']);?>
+        ?>
+        Image Upload : <center>
+        <?=  $this->Form->input('image', array('type' => 'file')); ?>
+    </center>
+        <br>
+        <br>
+ 		<?= $this->Form->select('role', $roles, ['empty' => 'Select Role', 'id' => 'user_rolename', 'class' =>($this->Form->isFieldError('phone')) ? 'form-control is-invalid' : 'form-control']); ?>
 
  	<div class="loggedin-forgot d-inline-flex my-3">
 		<input type="checkbox" id="registering" class="mt-1">
