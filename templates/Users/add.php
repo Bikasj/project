@@ -70,11 +70,13 @@
                 'adharcard' => [
                     'placeholder' => "Adhar Card", 
                     'required' => false,
+                     'minLength'=>'12',
                     'class' => ($this->Form->isFieldError('adharcard')) ? 'form-control is-invalid' : 'form-control'
                 ],
                 'phone' => [
                     'placeholder' => "Phone Number", 
                     'required' => false,
+                    'minLength'=>'10',
                     'class' => ($this->Form->isFieldError('phone')) ? 'form-control is-invalid' : 'form-control'
                 ],
                 
