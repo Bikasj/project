@@ -5,7 +5,7 @@
     <style>
         .view {
         width: 41%;
-        margin: -134px 299px 100px;
+        margin: 16px 116px 109px;
         padding: 20px;
         
     }
@@ -22,21 +22,21 @@
             <br><br></h5>
         </div>
     </aside>
-    <div class="column-responsive column-80">
-        <div class="users view content class="view" >    
+    <div class="column-responsive column-80 view">
+        <div class="users view content " >    
             <h3><?= h($user->firstname." ".$user->lastname) ?></h3>
             <table class="table">
                 <tr>
                     
                     <?php  
-                    // if($user->image!=null)
+                    if($user->image!=NULL)
                     {   echo "<td colspan='2'>";
                          echo '<img src="data:image/jpg;base64, '.base64_encode(stream_get_contents($user->image)).' " height=200px width=400px></td>' ;
                     }
-                    // else
-                    // {
-                    //     echo "<td> </td>";
-                    // }
+                    else
+                    {
+                        echo "<td colspan='2' height=200px width=400px><center> <span style='font-size:45px'>No Image available !</span></center></td>";
+                    }
                     ?>
                 </tr>
                 <tr>
