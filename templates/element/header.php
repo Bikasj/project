@@ -1,3 +1,6 @@
+<?php
+	$val=0; 
+?>
 <section>
 	<div class="container">
 		<div class="row">
@@ -16,45 +19,38 @@
 								<a class="nav-link" href="index.html">Home</a>
 							</li>
 							<li class="nav-item dropdown dropdown-slide">
-								<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="">Dashboard<span><i class="fa fa-angle-down"></i></span>
+								<a class="nav-link dropdown-toggle" data-toggle="Available for" href="">Available for<span><i class="fa fa-angle-down"></i></span>
 								</a>
 
 								<!-- Dropdown list -->
 								<div class="dropdown-menu">
-									<a class="dropdown-item" href="dashboard.html">Dashboard</a>
-									<a class="dropdown-item" href="dashboard-my-ads.html">Dashboard My Ads</a>
-									<a class="dropdown-item" href="dashboard-favourite-ads.html">Dashboard Favourite Ads</a>
-									<a class="dropdown-item" href="dashboard-archived-ads.html">Dashboard Archived Ads</a>
-									<a class="dropdown-item" href="dashboard-pending-ads.html">Dashboard Pending Ads</a>
+									<a class="dropdown-item" href="dashboard.html">Girls</a>
+									<a class="dropdown-item" href="dashboard-my-ads.html">Boys</a>
+									<a class="dropdown-item" href="dashboard-favourite-ads.html">Girls and Boys</a>
+									
 								</div>
 							</li>
 							<li class="nav-item dropdown dropdown-slide">
 								<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									Pages <span><i class="fa fa-angle-down"></i></span>
+									Popular Area <span><i class="fa fa-angle-down"></i></span>
 								</a>
 								<!-- Dropdown list -->
 								<div class="dropdown-menu">
-									<a class="dropdown-item" href="about-us.html">About Us</a>
-									<a class="dropdown-item" href="contact-us.html">Contact Us</a>
-									<a class="dropdown-item" href="user-profile.html">User Profile</a>
-									<a class="dropdown-item" href="404.html">404 Page</a>
-									<a class="dropdown-item" href="package.html">Package</a>
-									<a class="dropdown-item" href="single.html">Single Page</a>
-									<a class="dropdown-item" href="store.html">Store Single</a>
-									<a class="dropdown-item" href="single-blog.html">Single Post</a>
-									<a class="dropdown-item" href="blog.html">Blog</a>
-
+									<a class="dropdown-item" href="dashboard.html">Sector-37 chandigarh</a>
+									<a class="dropdown-item" href="dashboard-my-ads.html">Sahibzada Ajit singh Nagar</a>
+									<a class="dropdown-item" href="dashboard-favourite-ads.html">Daddu Majra colony</a>
+									<a class="dropdown-item" href="dashboard-archived-ads.html">Shivalik Enclave</a>
+									<a class="dropdown-item" href="dashboard-pending-ads.html">Manimajra</a><a class="dropdown-item" href="dashboard-pending-ads.html">Sector-63 Mohali</a>
+									<a class="dropdown-item" href="dashboard-pending-ads.html">Sector-22 Chandigarh</a>
+									<a class="dropdown-item" href="dashboard-pending-ads.html">Sector-13 chandigarh</a>
 								</div>
 							</li>
-							<li class="nav-item dropdown dropdown-slide">
-								<a class="nav-link dropdown-toggle" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									Listing <span><i class="fa fa-angle-down"></i></span>
+							<li class="nav-item ">
+								<a class="nav-link" href=""  aria-expanded="false">
+									Contact us <span></span>
 								</a>
 								<!-- Dropdown list -->
-								<div class="dropdown-menu">
-									<a class="dropdown-item" href="category.html">Ad-Gird View</a>
-									<a class="dropdown-item" href="ad-listing-list.html">Ad-List View</a>
-								</div>
+								
 							</li>
 						</ul>
 						<ul class="navbar-nav ml-auto mt-10">
