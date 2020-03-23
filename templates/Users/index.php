@@ -6,15 +6,45 @@
         .paginator {
         width: 80%;
         margin: 16px 365px;
-        padding: 20px;
-        
+        padding: 20px;}
+
+        .view {
+            width: 112%;
+            margin: -24px -346px 103px -274px;
+            padding: 20px;
+                
     }
     </style>
 </head>
+<div class="row">
+    <aside class="column col-lg-2 shadow" style="background-color: #2d282838;margin-left: -64px;">
+        <div class="side-nav" >
+            <br>
+            <br>
+            <h3 class="heading"><?= __('Menu') ?></h3>
+            
+            <br><h6>
+            <?= $this->Html->link(__('PG Owners'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+            
+            <br><br>
+            <?= $this->Html->link('Rooms Available', ['action' => ''], ['class' => 'side-nav-item']) ?>
+            <br><br>
+             <?= $this->Html->link('Rooms Booked', ['action' => ''], ['class' => 'side-nav-item']) ?>
+              <br><br>
+            <?= $this->Html->link('New PG Request', ['action' => ''], ['class' => 'side-nav-item']) ?>
+            <br><br></h6>
+        </div>
+</aside>
+
+        <section class="col-lg-10 col-md-8 login py-5 border-top-1 ">
+<div class="container ">
+<div class="row justify-content-center">
+<div class=" view">
+         <div class="shadow p-3 mb-5 bg-white rounded">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Total PGs <font color="blue" size="10"><b>: <?= $pgs ?> </font> </b> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;           Total Rooms :   <font color="blue" size="10"><b>  <?= $rooms ?>  </font> </b>   &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;        Total Users : <font color="blue" size="10"><b>  <?= $totalusers ?>     </font> </b>          </div>
 <div class="users index content">
-    <?= $this->Html->link(__('New User'), ['action' => 'add'], ['class' => 'button float-right'])  ?> <br>
+    <?= $this->Html->link(__('Add New User'), ['action' => 'add'], ['class' => 'button float-right'])  ?> <br>
     <?= $this->Html->link(__('Logout'), ['action' => 'logout'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Users') ?></h3>
+    <h3><?= __('PG Owners') ?></h3>
     <div class="table-responsive">
         <table border='0' class='table'>
             <thead>
@@ -78,3 +108,8 @@
         <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
     </div>
 </div>
+</div></div></div>
+</div>
+</section>
+
+

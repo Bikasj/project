@@ -16,10 +16,17 @@ class UsersController extends AppController
     }
     public function index()
     {   
-     
+     $this->loadModel('Userroles');
+     $this->loadModel('Rooms');
+
     $users = $this->paginate($this->Users,[
         'contain' => ['Userroles']]); 
-
+    $pgs = $this->Users->findByRole('1')->count();
+    $rooms = $this->Rooms->find()->count();
+    $totalusers = $this->Users->find()->count();
+    $this->set('pgs', $pgs);
+    $this->set('rooms', $rooms);
+    $this->set('totalusers', $totalusers);
     $this->set(compact('users'));
                                                                                                                  
     }   
@@ -29,9 +36,9 @@ class UsersController extends AppController
         $user = $this->Users->get($id, [
             'contain' => [],
         ]);
-        
+
         $role= $this->Userroles->findById($user->role)->firstOrFail();
-        
+        $this->set('list',$list);
         $this->set('role', $role);
         $this->set('user', $user);
     }
@@ -136,6 +143,10 @@ public function logout()
         return $this->redirect(['controller' => 'Users', 'action' => 'login']);
         $GLOBALS['val'] = 1;
     }
+}
+public function contactus()
+{
+
 }
 
 }

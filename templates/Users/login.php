@@ -1,4 +1,8 @@
+<?php 
 
+    if($val==1)
+    {
+        ?>
 <section class="login py-5 border-top-1">
     <div class="container">
         <div class="row justify-content-center">
@@ -25,3 +29,10 @@
         </div>
     </div>
 </section>
+  <?php 
+    }
+    else
+    {
+        ech
+
+    }
