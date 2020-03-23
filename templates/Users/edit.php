@@ -43,7 +43,7 @@
     <h3 class="bg-gray p-4">Edit User</h3>
     <div class="column-responsive column-80">
         <div class="users form content">
-            <?= $this->Form->create($user) ?>
+            <?= $this->Form->create($user,['type'=>'file']) ?>
             <fieldset>
                 
                 <?php

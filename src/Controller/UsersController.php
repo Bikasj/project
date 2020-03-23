@@ -44,7 +44,7 @@ class UsersController extends AppController
             $tmpName = $imgdata->getStream()->getMetadata('uri');
             $img=file_get_contents($tmpName);
             $data=$this->request->getData();
-             $data['image']=$img;
+            $data['image']=$img;
              // $data['password']=password_hash($data['password'],PASSWORD_DEFAULT);
             $user = $this->Users->newEntity($data);
             if ($this->Users->save($user)) {
@@ -59,7 +59,6 @@ class UsersController extends AppController
             'valueField' => 'user_rolename'
         ]);
          $this->set('roles', $roles);
-         $this->set('user', $user);
          $this->set(compact('user'));
     }
     public function edit($id = null)
@@ -69,7 +68,12 @@ class UsersController extends AppController
         ]);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
+            $imgdata = $this->request->getData('image');
+            $tmpName = $imgdata->getStream()->getMetadata('uri');
+            $img=file_get_contents($tmpName);
+            $data=$this->request->getData();
+            $data['image']=$img;
+            $user = $this->Users->patchEntity($user, $data);
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been modified.'));
 
