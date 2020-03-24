@@ -1,10 +1,10 @@
 <?php
+
 declare(strict_types=1);
 namespace App\Controller;
 
 class UsersController extends AppController
 {
-
     public $paginate = [
         'maxLimit' => 5
         
@@ -16,35 +16,34 @@ class UsersController extends AppController
     }
     public function index()
     {   
-     $this->loadModel('Userroles');
-     $this->loadModel('Rooms');
+    $this->loadModel('Userroles');
+    $this->loadModel('Rooms');
 
-    $users = $this->paginate($this->Users,[
-        'contain' => ['Userroles']]); 
+    $users = $this->paginate($this->Users/*,[
+        'contain' => ['Userroles']]*/); 
     $pgs = $this->Users->findByRole('1')->count();
     $rooms = $this->Rooms->find()->count();
     $totalusers = $this->Users->find()->count();
-    $this->set('pgs', $pgs);
-    $this->set('rooms', $rooms);
-    $this->set('totalusers', $totalusers);
-    $this->set(compact('users'));
-                                                                                                                 
+    $users= $this->Users->findByRole('1');
+    $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'totalusers'=> $totalusers , 'users' => $this -> paginate( $this ->Users ->findByRole('1'))));
     }   
 
     public function view($id = null)
     {   $this->loadModel('Userroles');
+        $this->loadModel('Rooms');
         $user = $this->Users->get($id, [
             'contain' => [],
         ]);
-
         $role= $this->Userroles->findById($user->role)->firstOrFail();
-        $this->set('list',$list);
-        $this->set('role', $role);
-        $this->set('user', $user);
+        $pgs = $this->Users->findByRole('1')->count();
+        $rooms = $this->Rooms->find()->count();
+        $totalusers = $this->Users->find()->count();
+        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'totalusers'=> $totalusers ,'role' => $role, 'user' => $user));
     }
 
     public function add()
     {    $this->loadModel('Userroles');
+         $this->loadModel('Rooms');
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
             $imgdata = $this->request->getData('image');
@@ -65,11 +64,14 @@ class UsersController extends AppController
             'keyField' => 'id',
             'valueField' => 'user_rolename'
         ]);
-         $this->set('roles', $roles);
-         $this->set(compact('user'));
+         $pgs = $this->Users->findByRole('1')->count();
+        $rooms = $this->Rooms->find()->count();
+        $totalusers = $this->Users->find()->count();
+        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'totalusers'=> $totalusers ,'roles' => $roles, 'user' => $user));
     }
     public function edit($id = null)
     {   $this->loadModel('Userroles');
+        $this->loadModel('Rooms');
         $user = $this->Users->get($id, [
             'contain' => [],
         ]);
@@ -92,8 +94,11 @@ class UsersController extends AppController
             'keyField' => 'id',
             'valueField' => 'user_rolename'
         ]);
-        $this->set('roles', $roles);
-        $this->set(compact('user'));
+        $pgs = $this->Users->findByRole('1')->count();
+        $rooms = $this->Rooms->find()->count();
+        $totalusers = $this->Users->find()->count();
+        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'totalusers'=> $totalusers ,'roles' => $roles, 'user' => $user));
+        
     }
     public function block($id)
     {
@@ -117,7 +122,8 @@ class UsersController extends AppController
     $this->Authentication->addUnauthenticatedActions(['login', 'add']);
 }
 
-public function login() { 
+public function login() 
+{ 
     
     $this->request->allowMethod([ 'get','post']);
     $result = $this->Authentication->getResult();

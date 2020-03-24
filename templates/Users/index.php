@@ -17,10 +17,11 @@
     </style>
 </head>
 <div class="row">
-    <aside class="column col-lg-2 shadow" style="background-color: #2d282838;margin-left: -64px;">
-        <div class="side-nav" >
+    <aside class="column col-lg-2 shadow" style="position:relative;background-color: #2d282838;margin-left: -64px;margin-bottom: 0px;">
+        <div class="side-nav" style="position: absolute;">
             <br>
             <br>
+            
             <h3 class="heading"><?= __('Menu') ?></h3>
             
             <br><h6>
@@ -33,6 +34,7 @@
               <br><br>
             <?= $this->Html->link('New PG Request', ['action' => ''], ['class' => 'side-nav-item']) ?>
             <br><br></h6>
+        
         </div>
 </aside>
 
@@ -40,7 +42,23 @@
 <div class="container ">
 <div class="row justify-content-center">
 <div class=" view">
-         <div class="shadow p-3 mb-5 bg-white rounded">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Total PGs <font color="blue" size="10"><b>: <?= $pgs ?> </font> </b> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;           Total Rooms :   <font color="blue" size="10"><b>  <?= $rooms ?>  </font> </b>   &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;        Total Users : <font color="blue" size="10"><b>  <?= $totalusers ?>     </font> </b>          </div>
+         <div class="shadow p-3 mb-5 bg-white rounded" style="position: sticky;top:0;" >
+            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+            Total PGs :
+                <font color="blue" size="10"><b>
+                    <?= $pgs ?>
+                </font> </b>
+            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+            Total Rooms :   
+                <font color="blue" size="10"><b>  
+                    <?= $rooms ?>  
+                </font> </b>   
+            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;        
+            Total Users : 
+                <font color="blue" size="10"><b>  
+                    <?= $totalusers ?>     
+                </font> </b>          
+        </div>
 <div class="users index content">
     <?= $this->Html->link(__('Add New User'), ['action' => 'add'], ['class' => 'button float-right'])  ?> <br>
     <?= $this->Html->link(__('Logout'), ['action' => 'logout'], ['class' => 'button float-right']) ?>
@@ -50,11 +68,11 @@
             <thead>
                 <tr>    
                     <th><?= $this->Paginator->sort('Sr.No.') ?></th>
+                    <th colspan="2"><?= $this->Paginator->sort('image') ?></th>
                     <th><?= $this->Paginator->sort('firstname') ?></th>
                     <th><?= $this->Paginator->sort('lastname') ?></th>
                     <th><?= $this->Paginator->sort('email') ?></th>
                     <th><?= $this->Paginator->sort('adharcard') ?></th>
-                    <th><?= $this->Paginator->sort('role') ?></th>
                     <th><?= $this->Paginator->sort('status') ?></th>
                     
                     <th class="actions"><?= __('Actions') ?></th>
@@ -64,18 +82,28 @@
                 <?php
                     $i=1;
                      foreach ($users as $user): ?>
-                <tr>
+                    <tr>
                     <td><?= h($i++) ?></td>
+                     <?php  
+                    if($user->image!=NULL)
+                    {   echo "<td colspan='2'>";
+                         echo '<img style="border-radius: 50%;" src="data:image/jpg;base64, '.base64_encode(stream_get_contents($user->image)).' " height=50px width=50px></td>' ;
+                    }
+                    else
+                    {
+                        echo "<td colspan='2' height=50px width=50px><center> <span style='font-size:15px'>No Image!</span></center></td>";
+                    }
+                    ?>
                     <td><?= h($user->firstname) ?></td>
                     <td><?= h($user->lastname) ?></td>
                     <td><?= h($user->email) ?></td>
                     <td><?= h($user->adharcard) ?></td>
                    
-                    <td>
+                    <!-- <td>
                         <?php 
-                                echo $user->userrole->user_rolename;
+                                //echo $user->userrole->user_rolename;
                               ?>
-                    </td>
+                    </td> -->
                     <td><?php if($user->status==0)
                                 echo "Inactive";
                                else
@@ -83,8 +111,8 @@
                     
                     
                     <td class="actions">
-                        <?= $this->Html->link('View', ['action' => 'view', $user->user_id]) ?>
-                        <?= $this->Html->link('Edit', ['action' => 'edit', $user->user_id]) ?>
+                        <?= $this->Html->link('View', ['action' => 'view', $user->user_id]) ?> | 
+                        <?= $this->Html->link('Edit', ['action' => 'edit', $user->user_id]) ?> |
                         <?php 
                             if($user->status==1)
                                echo  $this->Html->link('Block', ['action' => 'block', $user->user_id]); 

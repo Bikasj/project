@@ -5,10 +5,58 @@
 	<style>
 		fieldset {
   padding: 0.35em 1.75em 0.625em;
-}
-	</style>
+}.view {
+        width: 41%;
+        margin: -64px 299px 100px;
+        padding: 20px;
+            }
+        
+ 
+    </style>
 </head>
-<section class="login py-5 border-top-1">
+<div class="row">
+    <aside class="column col-lg-2 shadow" style="position:relative;background-color: #2d282838;margin-left: -64px;margin-bottom: 0px;">
+        <div class="side-nav" style="position: absolute;">
+            <br>
+            <br>
+            
+            <h3 class="heading"><?= __('Menu') ?></h3>
+            
+            <br><h6>
+            <?= $this->Html->link(__('PG Owners'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+            
+            <br><br>
+            <?= $this->Html->link('Rooms Available', ['action' => ''], ['class' => 'side-nav-item']) ?>
+            <br><br>
+             <?= $this->Html->link('Rooms Booked', ['action' => ''], ['class' => 'side-nav-item']) ?>
+              <br><br>
+            <?= $this->Html->link('New PG Request', ['action' => ''], ['class' => 'side-nav-item']) ?>
+            <br><br></h6>
+        
+        </div>
+</aside>
+
+        <section class="col-lg-10 col-md-8 login py-5 border-top-1 ">
+<div class=" vieww">
+         <div class="shadow p-3 mb-5 bg-white rounded" style="position: sticky;top:0;" >
+            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+            Total PGs :
+                <font color="blue" size="10"><b>
+                    <?= $pgs ?>
+                </font> </b>
+            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+            Total Rooms :   
+                <font color="blue" size="10"><b>  
+                    <?= $rooms ?>  
+                </font> </b>   
+            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;        
+            Total Users : 
+                <font color="blue" size="10"><b>  
+                    <?= $totalusers ?>     
+                </font> </b>          
+        
+    </div>
+       
 <div class="container">
 <div class="row justify-content-center">
 <div class="col-lg-5 col-md-8 align-item-center">

@@ -5,23 +5,68 @@
     <style>
         .view {
         width: 41%;
-        margin: 16px 116px 109px;
+        margin: -51px 116px -100px;
         padding: 20px;
         
     }
+    .vieww {
+            width: 112%;
+            margin: -24px -346px 103px -274px;
+            padding: 20px;
+        }
     </style>
 </head>
 <div class="row">
-    <aside class="column"><br>
-        <div class="side-nav">
-            <h3 class="heading"><?= __('Actions') ?></h3><h5><br>
-            <?= $this->Html->link('Edit User', ['action' => 'edit', $user->user_id], ['class' => 'side-nav-item']) ?><br><br>
-            <?= $this->Html->link('List Users', ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+    <aside class="column col-lg-2 shadow" style="position:relative;background-color: #2d282838;margin-left: -64px;margin-bottom: 0px;">
+        <div class="side-nav" style="position: absolute;">
+            <br>
+            <br>
+            
+            <h3 class="heading"><?= __('Menu') ?></h3>
+            
+            <br><h6>
+            <?= $this->Html->link(__('PG Owners'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+            
             <br><br>
-            <?= $this->Html->link('Add User', ['action' => 'add'], ['class' => 'side-nav-item']) ?>
-            <br><br></h5>
+            <?= $this->Html->link('Rooms Available', ['action' => ''], ['class' => 'side-nav-item']) ?>
+            <br><br>
+             <?= $this->Html->link('Rooms Booked', ['action' => ''], ['class' => 'side-nav-item']) ?>
+              <br><br>
+            <?= $this->Html->link('New PG Request', ['action' => ''], ['class' => 'side-nav-item']) ?>
+            <br><br></h6>
+        
         </div>
-    </aside>
+</aside>
+
+        <section class="col-lg-10 col-md-8 login py-5 border-top-1 ">
+<div class="container ">
+<div class="row justify-content-center">
+<div class=" vieww">
+         <div class="shadow p-3 mb-5 bg-white rounded" style="position: sticky;top:0;" >
+            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+            Total PGs :
+                <font color="blue" size="10"><b>
+                    <?= $pgs ?>
+                </font> </b>
+            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+            Total Rooms :   
+                <font color="blue" size="10"><b>  
+                    <?= $rooms ?>  
+                </font> </b>   
+            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;        
+            Total Users : 
+                <font color="blue" size="10"><b>  
+                    <?= $totalusers ?>     
+                </font> </b>          
+        </div>
+<div class="users index content">
+   
+  <?php 
+                          if($user->status==1)
+                               echo  $this->Html->link('Block User', ['action' => 'block', $user->user_id], ['class' => 'nav-link text-white add-button  float-right'])."<br>";  
+                            else
+                               echo $this->Html->link('Unblock User', ['action' => 'block', $user->user_id], ['class' => 'nav-link text-white add-button     float-right'])."<br>"; ?>
+
     <div class="column-responsive column-80 view">
         <div class="users view content " >    
             <h3><?= h($user->firstname." ".$user->lastname) ?></h3>
@@ -82,15 +127,12 @@
                     <th><?= __('Updated') ?></th>
                     <td><?= h($user->updated) ?></td>
                 </tr>
-            </table><h5><b>
-            <?php 
-                            if($user->status==1)
-                               echo  $this->Html->link('Block User', ['action' => 'block', $user->user_id]); 
-                            else
-                               echo  $this->Html->link('Unblock User', ['action' => 'block', $user->user_id]); ?>
-                    </h5></b>
+            </table><h6>
+        
+            <br><br></h6>
         </div>
     </div>
+            
 </div>
 
 
