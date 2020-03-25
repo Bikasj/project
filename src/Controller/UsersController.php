@@ -27,6 +27,19 @@ class UsersController extends AppController
     $users= $this->Users->findByRole('1');
     $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'totalusers'=> $totalusers , 'users' => $this -> paginate( $this ->Users ->findByRole('1'))));
     }   
+     public function indexfortransients()
+    {   
+    $this->loadModel('Userroles');
+    $this->loadModel('Rooms');
+
+    $users = $this->paginate($this->Users/*,[
+        'contain' => ['Userroles']]*/); 
+    $pgs = $this->Users->findByRole('1')->count();
+    $rooms = $this->Rooms->find()->count();
+    $totalusers = $this->Users->find()->count();
+    $users= $this->Users->findByRole('1');
+    $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'totalusers'=> $totalusers , 'users' => $this -> paginate( $this ->Users ->findByRole('2'))));
+    }   
 
     public function view($id = null)
     {   $this->loadModel('Userroles');
