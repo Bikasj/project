@@ -24,17 +24,14 @@
             <br>
             <br>
             
-            <h3 class="heading"><?= __('Menu') ?></h3>
-            
-            <br><h6>
-            <?= $this->Html->link(__('PG Owners'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-            
+           <br><h6>
+            <?= $this->Html->link(__('PG Owners'), ['action' => 'index','controller' => 'users'], ['class' => 'side-nav-item']) ?>
             <br><br>
-            <?= $this->Html->link('Rooms Available', ['action' => ''], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link('Rooms Available/Booked', ['action' => 'index','controller' => 'rooms'], ['class' => 'side-nav-item']) ?>
             <br><br>
-             <?= $this->Html->link('Rooms Booked', ['action' => ''], ['class' => 'side-nav-item']) ?>
+             <?= $this->Html->link('Transient Guests', ['action' => 'indexfortransients','controller' => 'users'], ['class' => 'side-nav-item']) ?>
               <br><br>
-            <?= $this->Html->link('New PG Request', ['action' => ''], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link('PG Request', ['action' => 'pgrequest','controller' => 'rooms'], ['class' => 'side-nav-item']) ?>
             <br><br></h6>
         
         </div>
@@ -43,32 +40,29 @@
         <section class="col-lg-10 col-md-8 login py-5 border-top-1 ">
 <div class=" vieww">
          <div class="shadow p-3 mb-5 bg-white rounded" style="position: sticky;top:0;" >
-            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
             Total PGs :
                 <font color="blue" size="10"><b>
                     <?= $pgs ?>
                 </font> </b>
-            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
             Total Rooms :   
                 <font color="blue" size="10"><b>  
                     <?= $rooms ?>  
                 </font> </b>   
-            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;        
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;        
             Total Users : 
                 <font color="blue" size="10"><b>  
                     <?= $totalusers ?>     
                 </font> </b>          
         
-    </div>
-       
-<div class="container ">
+        </div>
+
 <div class="row justify-content-center">
 <div class="col-lg-5 col-md-8 align-item-center view">
-<div class="border border">
 
     <h3 class="bg-gray p-4">Edit User</h3>
-    <div class="column-responsive column-80">
-        <div class="users form content">
+        
             <?= $this->Form->create($user,['type'=>'file']) ?>
             <fieldset>
                 
@@ -98,7 +92,6 @@
         </div>
 </div>
 </div>
-</div>
-</div>
-</div>
+
+
 </section>

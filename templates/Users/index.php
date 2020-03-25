@@ -25,14 +25,13 @@
             <h3 class="heading"><?= __('Menu') ?></h3>
             
             <br><h6>
-            <?= $this->Html->link(__('PG Owners'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-            
+            <?= $this->Html->link(__('PG Owners'), ['action' => 'index','controller' => 'users'], ['class' => 'side-nav-item']) ?>
             <br><br>
-            <?= $this->Html->link('Rooms Available', ['action' => ''], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link('Rooms Available/Booked', ['action' => 'index','controller' => 'rooms'], ['class' => 'side-nav-item']) ?>
             <br><br>
-             <?= $this->Html->link('Rooms Booked', ['action' => ''], ['class' => 'side-nav-item']) ?>
+             <?= $this->Html->link('Transient Guests', ['action' => 'indexfortransients','controller' => 'users'], ['class' => 'side-nav-item']) ?>
               <br><br>
-            <?= $this->Html->link('New PG Request', ['action' => ''], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link('PG Request', ['action' => 'pgrequest','controller' => 'rooms'], ['class' => 'side-nav-item']) ?>
             <br><br></h6>
         
         </div>
@@ -60,8 +59,8 @@
                 </font> </b>          
         </div>
 <div class="users index content">
-    <?= $this->Html->link(__('Add New User'), ['action' => 'add'], ['class' => 'button float-right'])  ?> <br>
-    <?= $this->Html->link(__('Logout'), ['action' => 'logout'], ['class' => 'button float-right']) ?>
+    <?= $this->Html->link(__('Add New User'), ['action' => 'add'], ['class' => 'btn btn-dark button float-right'])  ?> <br>
+    
     <h3><?= __('PG Owners') ?></h3>
     <div class="table-responsive">
         <table border='0' class='table'>
@@ -72,7 +71,6 @@
                     <th><?= $this->Paginator->sort('firstname') ?></th>
                     <th><?= $this->Paginator->sort('lastname') ?></th>
                     <th><?= $this->Paginator->sort('email') ?></th>
-                    <th><?= $this->Paginator->sort('adharcard') ?></th>
                     <th><?= $this->Paginator->sort('status') ?></th>
                     
                     <th class="actions"><?= __('Actions') ?></th>
@@ -97,7 +95,7 @@
                     <td><?= h($user->firstname) ?></td>
                     <td><?= h($user->lastname) ?></td>
                     <td><?= h($user->email) ?></td>
-                    <td><?= h($user->adharcard) ?></td>
+                    
                    
                     <!-- <td>
                         <?php 
@@ -111,13 +109,13 @@
                     
                     
                     <td class="actions">
-                        <?= $this->Html->link('View', ['action' => 'view', $user->user_id]) ?> | 
-                        <?= $this->Html->link('Edit', ['action' => 'edit', $user->user_id]) ?> |
+                        <?=  $this->Html->link('view', ['action' => 'view', $user->user_id], ['class' => 'text-white btn btn-success btn-sm ']) ?> 
+                        <?=  $this->Html->link('edit', ['action' => 'edit', $user->user_id], ['class' => 'text-white btn btn-info btn-sm']) ?> 
                         <?php 
                             if($user->status==1)
-                               echo  $this->Html->link('Block', ['action' => 'block', $user->user_id]); 
+                               echo $this->Html->link('block', ['action' => 'block', $user->user_id], ['class' => 'text-white btn btn-danger btn-sm ']); 
                             else
-                               echo  $this->Html->link('Unblock', ['action' => 'block', $user->user_id]); ?>
+                                echo $this->Html->link('unblock', ['action' => 'block', $user->user_id], ['class' => 'text-white btn btn-danger btn-sm ']); ?>
                         
                     </td>
                 </tr>

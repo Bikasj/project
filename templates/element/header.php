@@ -61,17 +61,17 @@
 									//$GLOBALS['val'];
 								// 	 if($val==1)
 								//	{ 
-								echo $this->Form->PostLink('Login',
-						                ['action' => 'login'],
-						                ['confirm' => __('You need to logout first. Are you sure, you want to proceed?'), 'class' => 'add-button']
-						            ); 
-						  //          }
-						  //          else
-						  //          {
-						  //          	echo  $this->Form->PostLink('Logout',
-						  //               ['action' => 'logout'],
+								// echo $this->Form->PostLink('Login',
+						  //               ['action' => 'login'],
 						  //               ['confirm' => __('You need to logout first. Are you sure, you want to proceed?'), 'class' => 'add-button']
 						  //           ); 
+						  //          }
+						  //          else
+						   //        {
+						           	echo  $this->Form->PostLink('Logout',
+						                ['action' => 'logout'],
+						                ['confirm' => __('You are logging out. Are you sure, you want to proceed?'), 'class' => 'add-button']
+						            ); 
 						  //          }
 						        ?>
 							</li>&nbsp;

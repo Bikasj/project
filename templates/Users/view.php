@@ -22,17 +22,14 @@
             <br>
             <br>
             
-            <h3 class="heading"><?= __('Menu') ?></h3>
-            
             <br><h6>
-            <?= $this->Html->link(__('PG Owners'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-            
+            <?= $this->Html->link(__('PG Owners'), ['action' => 'index','controller' => 'users'], ['class' => 'side-nav-item']) ?>
             <br><br>
-            <?= $this->Html->link('Rooms Available', ['action' => ''], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link('Rooms Available/Booked', ['action' => 'index','controller' => 'rooms'], ['class' => 'side-nav-item']) ?>
             <br><br>
-             <?= $this->Html->link('Rooms Booked', ['action' => ''], ['class' => 'side-nav-item']) ?>
+             <?= $this->Html->link('Transient Guests', ['action' => 'indexfortransients','controller' => 'users'], ['class' => 'side-nav-item']) ?>
               <br><br>
-            <?= $this->Html->link('New PG Request', ['action' => ''], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link('PG Request', ['action' => 'pgrequest','controller' => 'rooms'], ['class' => 'side-nav-item']) ?>
             <br><br></h6>
         
         </div>
@@ -63,9 +60,9 @@
    
   <?php 
                           if($user->status==1)
-                               echo  $this->Html->link('Block User', ['action' => 'block', $user->user_id], ['class' => 'nav-link text-white add-button  float-right'])."<br>";  
+                               echo  $this->Html->link('Block User', ['action' => 'block', $user->user_id], ['class' => 'nav-link text-white btn btn-danger btn-primary  float-right'])."<br>";  
                             else
-                               echo $this->Html->link('Unblock User', ['action' => 'block', $user->user_id], ['class' => 'nav-link text-white add-button     float-right'])."<br>"; ?>
+                               echo $this->Html->link('Unblock User', ['action' => 'block', $user->user_id], ['class' => 'nav-link text-white btn btn-primary       float-right'])."<br>"; ?>
 
     <div class="column-responsive column-80 view">
         <div class="users view content " >    
