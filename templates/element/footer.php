@@ -12,7 +12,7 @@
     <div class="row">
       <div class="col-lg-2 offset-lg-1 col-md-3">
         <div class="block">
-          <h4>Popular Area</h4>
+          <h4>Popular Areas</h4>
           <ul>
             <li><a href="#">Sector-37 chandigarh</a></li>
             <li><a href="#">Sahibzada Ajit singh Nagar</a></li>
@@ -28,7 +28,7 @@
       <!-- Link list -->
       <div class="col-lg-2 offset-lg-1 col-md-3">
         <div class="block">
-          <h4>About</h4>
+          <h4>About us</h4>
           <ul>
             <li><a href="#">About PG</a></li>
             <li><a href="#">Contact us</a></li>
@@ -38,7 +38,7 @@
       <!-- Link list -->
       <div class="col-lg-2 col-md-3 offset-md-1 offset-lg-0">
         <div class="block">
-          <h4>Social Media</h4>
+          <h4>Connect with us</h4>
           <ul>
             <li><a href="single.html"class="facebook">facebook <i class="fa fa-facebook"></i></a></li>
             <li><a href="single.html"class="twitter">twitter <i class="fa fa-twitter"></i></a></li>

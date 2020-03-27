@@ -29,6 +29,8 @@
             <br><br>
              <?= $this->Html->link('Transient Guests', ['action' => 'indexfortransients','controller' => 'users'], ['class' => 'side-nav-item']) ?>
               <br><br>
+              <?= $this->Html->link('All PGs', ['action' => 'index','controller' => 'pgDetails'], ['class' => 'side-nav-item']) ?>
+              <br><br>
             <?= $this->Html->link('PG Request', ['action' => 'pgrequest','controller' => 'rooms'], ['class' => 'side-nav-item']) ?>
             <br><br></h6>
         
@@ -91,7 +93,7 @@
                 </tr>
                 <tr>
                     <th><?= __('AC facility') ?></th>
-                    <td><?= h($room->ac_noac) ?></td>
+                    <td><?= h($room->ac_facilty) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Status') ?></th>
@@ -106,15 +108,15 @@
                 </tr>
                 <tr>
                     <th><?= __('Booked Seats') ?></th>
-                    <td><?= $room->seater-$room->seates_available ?></td>
+                    <td><?= $room->seater-$room->seats_available ?></td>
                 </tr>
                  <tr>
                     <th><?= __('Available Seats') ?></th>
-                    <td><?= h($room->seates_available) ?></td>
+                    <td><?= h($room->seats_available) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Food Availability') ?></th>
-                    <td><?= h($room->with_or_without_food) ?></td>
+                    <td><?= h($room->food_availability) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Security Charge') ?></th>
@@ -122,7 +124,7 @@
                 </tr>
                 <tr>
                     <th><?= __('Notice Period (in months)') ?></th>
-                    <td><?= h($room->notic_period) ?></td>
+                    <td><?= h($room->notice_period) ?></td>
                 </tr>
                
                 <tr>

@@ -32,17 +32,17 @@
 							</li>
 							<li class="nav-item dropdown dropdown-slide">
 								<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									Popular Area <span><i class="fa fa-angle-down"></i></span>
+									Popular Areas <span><i class="fa fa-angle-down"></i></span>
 								</a>
 								<!-- Dropdown list -->
 								<div class="dropdown-menu">
-									<a class="dropdown-item" href="dashboard.html">Sector-37 chandigarh</a>
-									<a class="dropdown-item" href="dashboard-my-ads.html">Sahibzada Ajit singh Nagar</a>
+									<a class="dropdown-item" href="dashboard.html">Sector-37 Chandigarh</a>
+									<a class="dropdown-item" href="dashboard-my-ads.html">Sahibzada Ajit Singh Nagar</a>
 									<a class="dropdown-item" href="dashboard-favourite-ads.html">Daddu Majra colony</a>
 									<a class="dropdown-item" href="dashboard-archived-ads.html">Shivalik Enclave</a>
 									<a class="dropdown-item" href="dashboard-pending-ads.html">Manimajra</a><a class="dropdown-item" href="dashboard-pending-ads.html">Sector-63 Mohali</a>
 									<a class="dropdown-item" href="dashboard-pending-ads.html">Sector-22 Chandigarh</a>
-									<a class="dropdown-item" href="dashboard-pending-ads.html">Sector-13 chandigarh</a>
+									<a class="dropdown-item" href="dashboard-pending-ads.html">Sector-13 Chandigarh</a>
 								</div>
 							</li>
 							<li class="nav-item ">
@@ -58,7 +58,7 @@
 								<?php
 
 								// echo $GLOBALS['val'];
-									//$GLOBALS['val'];
+								//$GLOBALS['val'];
 								// 	 if($val==1)
 								//	{ 
 								// echo $this->Form->PostLink('Login',
@@ -67,9 +67,9 @@
 						  //           ); 
 						  //          }
 						  //          else
-						   //        {
+						  //        {
 						           	echo  $this->Form->PostLink('Logout',
-						                ['action' => 'logout'],
+						                ['action' => 'logout','controller' => 'Users'],
 						                ['confirm' => __('You are logging out. Are you sure, you want to proceed?'), 'class' => 'add-button']
 						            ); 
 						  //          }

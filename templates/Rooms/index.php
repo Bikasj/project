@@ -31,6 +31,8 @@
             <br><br>
              <?= $this->Html->link('Transient Guests', ['action' => 'indexfortransients','controller' => 'users'], ['class' => 'side-nav-item']) ?>
               <br><br>
+              <?= $this->Html->link('All PGs', ['action' => 'index','controller' => 'pgDetails'], ['class' => 'side-nav-item']) ?>
+              <br><br>
             <?= $this->Html->link('PG Request', ['action' => 'pgrequest','controller' => 'rooms'], ['class' => 'side-nav-item']) ?>
             <br><br></h6>
         
@@ -94,10 +96,10 @@
                         echo "<td colspan='2' height=50px width=50px><center> <span style='font-size:15px'>No Image!</span></center></td>";
                     }
                     ?>
-                    <td><?= h($rooms->ac_noac) ?></td>
+                    <td><?= h($rooms->ac_fscility) ?></td>
                     <td><?= h($rooms->seater) ?></td>
-                    <td><?= $rooms->seater-$rooms->seates_available ?></td>
-                    <td><?= h($rooms->seates_available) ?></td>
+                    <td><?= $rooms->seater-$rooms->seats_available ?></td>
+                    <td><?= h($rooms->seats_available) ?></td>
                     <td><?= number_format($rooms->rent) ?></td>
                    
                     <!-- <td>

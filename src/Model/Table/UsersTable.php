@@ -24,6 +24,9 @@ class UsersTable extends Table
         $this->belongsTo('Userroles', [
             'foreignKey' => 'role',
         ]);
+        $this->hasMany('pg_details', [
+            'foreignKey' => 'pg_id',
+        ]);
     }
 
     public function validationDefault(Validator $validator): Validator

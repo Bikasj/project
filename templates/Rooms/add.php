@@ -1,26 +1,32 @@
 <?php
-
+        $myTemplates = [
+            'inputContainer' => '<div class="form-group">{{content}}</div>',
+            'inputContainerError' => '<div class="form-group {{required}} error">{{content}}{{error}}</div>',
+            'error' => '<div class="invalid-feedback">{{content}}</div>',
+        ];
+        $this->Form->setTemplates($myTemplates);
+        
 ?>
 <head>
-	<style>
-		fieldset {
-  padding: 0.35em 1.75em 0.625em;
-}.view {
-        width: 41%;
-        margin: -64px 299px 100px;
+    <style>
+       .view {
+        width: 75%;
+        margin: -53px 102px 100px;
         padding: 20px;
             }
+            .vieww {
+            width: 112%;
+            margin: -24px -346px 103px -274px;
+            padding: 20px;
+        }
         
- 
-    </style>
+  </style>
 </head>
 <div class="row">
     <aside class="column col-lg-2 shadow" style="position:relative;background-color: #2d282838;margin-left: -64px;margin-bottom: 0px;">
         <div class="side-nav" style="position: absolute;">
             <br>
             <br>
-            
-            <h3 class="heading"><?= __('Menu') ?></h3>
             
             <br><h6>
             <?= $this->Html->link(__('PG Owners'), ['action' => 'index','controller' => 'users'], ['class' => 'side-nav-item']) ?>
@@ -29,6 +35,8 @@
             <br><br>
              <?= $this->Html->link('Transient Guests', ['action' => 'indexfortransients','controller' => 'users'], ['class' => 'side-nav-item']) ?>
               <br><br>
+              <?= $this->Html->link('All PGs', ['action' => 'index','controller' => 'pgDetails'], ['class' => 'side-nav-item']) ?>
+              <br><br>
             <?= $this->Html->link('PG Request', ['action' => 'pgrequest','controller' => 'rooms'], ['class' => 'side-nav-item']) ?>
             <br><br></h6>
         
@@ -36,6 +44,8 @@
 </aside>
 
         <section class="col-lg-10 col-md-8 login py-5 border-top-1 ">
+<div class="container ">
+<div class="row justify-content-center">
 <div class=" vieww">
          <div class="shadow p-3 mb-5 bg-white rounded" style="position: sticky;top:0;" >
             &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
@@ -53,46 +63,38 @@
                 <font color="blue" size="10"><b>  
                     <?= $totalusers ?>     
                 </font> </b>          
+        </div>
+<div class="users index content">
+   
+  <br>
+    <div class="column-responsive column-80 view">
+        <div class="users view content " >    
+
+    <h3 class="bg-gray p-4">Add New Room</h3>
         
-    
-       </div>
-<div class="container">
-<div class="row justify-content-center">
-<div class="col-lg-5 col-md-8 align-item-center">
-<div class="border border">
-<h3 class="bg-gray p-4"><?= $this->Form->create($room,['type'=>'file']) ?></h3>
-<div class="row">
-<aside class="column">
-<div class="side-nav">
-
-
-</aside>
-<div class="column-responsive column-100">
-<div class="users form content">
-
-
-	<?php
-        $myTemplates = [
-            'inputContainer' => '<div class="form-group">{{content}}</div>',
-            'inputContainerError' => '<div class="form-group {{required}} error">{{content}}{{error}}</div>',
-            'error' => '<div class="invalid-feedback">{{content}}</div>',
-        ];
-        $this->Form->setTemplates($myTemplates);
-        ?>
-
-<fieldset>
+            <?= $this->Form->create($room,['type'=>'file']) ?>
+                
 
 <?php
 
- echo $this->Form->controls(
-            [
-                'ac_noac' => [
-                    'placeholder' => "AC facility", 
-                    'required' => false,
-                    'class' => ($this->Form->isFieldError('ac_noac')) ? 'form-control is-invalid' : 'form-control'
-                ],
+
+// Create a radio set with our custom wrapping div.
+echo $this->Form->control(' ac_facility  ', [
+    'options' => [' yes' ,'class '=>'form-control', ' no '],
+    'type' => 'radio',
+    'class' => ($this->Form->isFieldError('ac_facility')) ? ' is-invalid' : ''
+]);
+  echo $this->Form->controls(
+                [
+    
+                 // 'ac_facility ' => [
+                 //            'options' => [' yes ' , ' no ',' faaa'],
+                 //            'type' => 'radio',
+                 //            'class' => ($this->Form->isFieldError('ac_facility')) ? 'form-control is-invalid' : 'form-control','radio'
+                           
+                // ],
                 'seater' => [
-                    'placeholder' => "Seater", 
+                    'placeholder' => "Enter Seater ", 
                     'required' => false,
                     'class' => ($this->Form->isFieldError('seater')) ? 'form-control is-invalid' : 'form-control'
                 ],
@@ -101,10 +103,10 @@
                     'required' => false,
                     'class' => ($this->Form->isFieldError('rent')) ? 'form-control is-invalid' : 'form-control'
                 ],
-                'with_or_without_food' => [
+                'food_availability' => [
                     'placeholder' => "Food availability", 
                     'required' => false,
-                    'class' => ($this->Form->isFieldError('Food availability')) ? 'form-control is-invalid' : 'form-control'
+                    'class' => ($this->Form->isFieldError('food_availability')) ? 'form-control is-invalid' : 'form-control'
                 ],
                 'security_charge' => [
                     'placeholder' => "Security Charge", 
@@ -112,17 +114,17 @@
                      'minLength'=>'12',
                     'class' => ($this->Form->isFieldError('security_charge')) ? 'form-control is-invalid' : 'form-control'
                 ],
-                'notic_period' => [
+                'notice_period' => [
                     'placeholder' => "Notice Period", 
                     'required' => false,
                     'minLength'=>'10',
-                    'class' => ($this->Form->isFieldError('notic_period')) ? 'form-control is-invalid' : 'form-control'
+                    'class' => ($this->Form->isFieldError('notice_period')) ? 'form-control is-invalid' : 'form-control'
                 ],
-                'seates_available' => [
+                'seats_available' => [
                     'placeholder' => "Seats Available", 
                     'required' => false,
                     'minLength'=>'10',
-                    'class' => ($this->Form->isFieldError('seates_available')) ? 'form-control is-invalid' : 'form-control'
+                    'class' => ($this->Form->isFieldError('seats_available')) ? 'form-control is-invalid' : 'form-control'
                 ],
                 
             ]
@@ -139,7 +141,7 @@
  	
 		<?php echo $this->Form->button('Submit' ,['class'=>'d-block py-3 px-4 bg-primary text-white border-0 rounded font-weight-bold']	);
 		?>
-</fieldset>
+
 
 
 <?= $this->Form->end() ?>
@@ -152,3 +154,4 @@
 </div>
 </div></div>
 </section>
+
