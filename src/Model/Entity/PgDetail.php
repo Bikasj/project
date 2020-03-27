@@ -41,7 +41,6 @@ class PgDetail extends Entity
         'location' => true,
         'address' => true,
         'area' => true,
-        'gender' => true,
         'availability' => true,
         'no_of_room' => true,
         'status' => true,

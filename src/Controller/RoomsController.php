@@ -16,26 +16,24 @@ class RoomsController extends AppController
     public function index()
     {   
     $this->loadModel('Users');
-    $this->loadModel('Rooms');
-    $this->loadModel('pg_details');
+    $this->loadModel('PgDetails');
 
     $room = $this->paginate($this->Rooms/*,[
         'contain' => ['Userroles']]*/); 
-    $pgs = $this->Users->findByRole('1')->count();
+    $pgs = $this->PgDetails->find()->count();
     $rooms = $this->Rooms->find()->count();
     $totalusers = $this->Users->find()->count();
     $users= $this->Users->findByRole('1');
-    $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'totalusers'=> $totalusers , 'room' => $this -> paginate( $this ->Rooms->findByStatus('1') )));
+    $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'totalusers'=> $totalusers , 'room' => $this -> paginate( $this ->Rooms )));
     }   
 
     public function view($id = null)
     {   $this->loadModel('Users');
-        $this->loadModel('Rooms');
-        $this->loadModel('pg_details');
+        $this->loadModel('PgDetails');
         $room = $this->Rooms->get($id, [
             'contain' => [],
         ]);
-        $pgs = $this->Users->findByRole('1')->count();
+        $pgs = $this->PgDetails->find()->count();
         $rooms = $this->Rooms->find()->count();
         $totalusers = $this->Users->find()->count();
         $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'totalusers'=> $totalusers , 'room' => $room));
@@ -61,9 +59,9 @@ class RoomsController extends AppController
         }
          $pg_id = $this->PgDetails->find('list', [ 
             'keyField' => 'pg_id',
-            'valueField' => 'pg_id'
+            'valueField' => 'firstname'
         ]);
-        $pgs = $this->Users->findByRole('1')->count();
+        $pgs = $this->PgDetails->find()->count();
         $rooms = $this->Rooms->find()->count();
         $totalusers = $this->Users->find()->count();
         $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'totalusers'=> $totalusers ,'pg_id' => $pg_id, 'room' => $room));
@@ -121,19 +119,6 @@ class RoomsController extends AppController
     $this->Authentication->addUnauthenticatedActions(['login', 'add']);
 }
 
-    public function pgrequest()
-    {
-    $this->loadModel('Users');
-    $this->loadModel('Rooms');
-    $this->loadModel('pg_details');
-
-    $room = $this->paginate($this->Rooms/*,[
-        'contain' => ['Userroles']]*/); 
-    $pgs = $this->Users->findByRole('1')->count();
-    $rooms = $this->Rooms->find()->count();
-    $totalusers = $this->Users->find()->count();
-    $users= $this->Users->findByRole('1');
-    $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'totalusers'=> $totalusers , 'room' => $this -> paginate( $this ->Rooms->findByStatus('0') )));
-    } 
+     
 
 }

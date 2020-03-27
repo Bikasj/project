@@ -66,10 +66,10 @@ class RoomsTable extends Table
             ->allowEmptyString('room_id', null, 'create');
 
         $validator
-            ->scalar('ac_noac')
-            ->maxLength('ac_noac', 20)
-            ->requirePresence('ac_noac', 'create')
-            ->notEmptyString('ac_noac');
+            ->scalar('ac_facility')
+            ->maxLength('ac_facility', 20)
+            ->requirePresence('ac_facility', 'create')
+            ->notEmptyString('ac_facility');
 
         $validator
             ->scalar('seater')
@@ -86,10 +86,10 @@ class RoomsTable extends Table
             ->allowEmptyFile('image');
 
         $validator
-            ->scalar('with_or_without_food')
-            ->maxLength('with_or_without_food', 10)
-            ->requirePresence('with_or_without_food', 'create')
-            ->notEmptyString('with_or_without_food');
+            ->scalar('food_availability')
+            ->maxLength('food_availability', 10)
+            ->requirePresence('food_availability', 'create')
+            ->notEmptyString('food_availability');
 
         $validator
             ->integer('security_charge')
@@ -97,14 +97,14 @@ class RoomsTable extends Table
             ->notEmptyString('security_charge');
 
         $validator
-            ->integer('notic_period')
-            ->requirePresence('notic_period', 'create')
-            ->notEmptyString('notic_period');
+            ->integer('notice_period')
+            ->requirePresence('notice_period', 'create')
+            ->notEmptyString('notice_period');
 
         $validator
-            ->integer('seates_available')
-            ->requirePresence('seates_available', 'create')
-            ->notEmptyString('seates_available');
+            ->integer('seats_available')
+            ->requirePresence('seats_available', 'create')
+            ->notEmptyString('seats_available');
 
         $validator
             ->scalar('status')

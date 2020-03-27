@@ -33,7 +33,7 @@
               <br><br>
               <?= $this->Html->link('All PGs', ['action' => 'index','controller' => 'pgDetails'], ['class' => 'side-nav-item']) ?>
               <br><br>
-            <?= $this->Html->link('PG Request', ['action' => 'pgrequest','controller' => 'rooms'], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link('PG Request', ['action' => 'pgrequest','controller' => 'pg_details'], ['class' => 'side-nav-item']) ?>
             <br><br></h6>
         
         </div>
@@ -73,7 +73,7 @@
                     <th><?= $this->Paginator->sort('location') ?></th>
                     <th><?= $this->Paginator->sort('address') ?></th>
                     <th><?= $this->Paginator->sort('area') ?></th>
-                    <th><?= $this->Paginator->sort('gender') ?></th>
+                    <th><?= $this->Paginator->sort('phone') ?></th>
                     <th><?= $this->Paginator->sort('availability') ?></th>
                     <th><?= $this->Paginator->sort('Status') ?></th>
                     
@@ -87,21 +87,15 @@
                     <tr>
                     <td><?= h($i++) ?></td>
                     <td>
-                        <?php 
-                                echo $pg->user->firstname." ".$pg->user->lastname;
-                        ?>
+                        
+                         <?=  $this->Html->link($pg->user->firstname." ".$pg->user->lastname, ['action' => 'view','controller' => 'users', $pg->user->user_id]) 
+                         ?> 
                     </td>
                     <td><?= h($pg->location) ?></td>
                     <td><?= h($pg->address) ?></td>
                     <td><?= h($pg->area) ?></td>
-                    <td><?= h($pg->gender) ?></td>
+                    <td><?= h($pg->phone) ?></td>
                     <td><?= h($pg->availability) ?></td>
-                   
-                    <!-- <td>
-                        <?php 
-                                //echo $user->userrole->user_rolename;
-                              ?>
-                    </td> -->
                     <td><?php if($pg->status==0)
                                 echo "Inactive";
                                else

@@ -37,14 +37,14 @@ class Room extends Entity
      */
     protected $_accessible = [
         'pg_id' => true,
-        'ac_noac' => true,
+        'ac_facility' => true,
         'seater' => true,
         'rent' => true,
         'image' => true,
-        'with_or_without_food' => true,
+        'food_availability' => true,
         'security_charge' => true,
-        'notic_period' => true,
-        'seates_available' => true,
+        'notice_period' => true,
+        'seats_available' => true,
         'status' => true,
         'created' => true,
         'updated' => true,

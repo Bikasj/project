@@ -31,7 +31,7 @@
               <br><br>
               <?= $this->Html->link('All PGs', ['action' => 'index','controller' => 'pgDetails'], ['class' => 'side-nav-item']) ?>
               <br><br>
-            <?= $this->Html->link('PG Request', ['action' => 'pgrequest','controller' => 'rooms'], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link('PG Request', ['action' => 'pgrequest','controller' => 'pg_details'], ['class' => 'side-nav-item']) ?>
             <br><br></h6>
         
         </div>
@@ -67,7 +67,8 @@
                                echo $this->Html->link('Unblock', ['action' => 'block', $room->room_id], ['class' => 'nav-link text-white btn btn-primary       float-right'])."<br>"; ?>
 
     <div class="column-responsive column-80 view">
-        <div class="users view content " >    
+        <div class="users view content " >    <br>
+            Room Details
            
             <table class="table">
                 <tr>
@@ -89,11 +90,12 @@
                 </tr>
                 <tr>
                     <th><?= __('PG ID') ?></th>
-                    <td><?= h($room->pg_id) ?></td>
+                    <td><?=  $this->Html->link($room->pg_id, ['action' => 'view','controller' => 'PgDetails', $room->pg_id]) 
+                         ?></td>
                 </tr>
                 <tr>
                     <th><?= __('AC facility') ?></th>
-                    <td><?= h($room->ac_facilty) ?></td>
+                    <td><?= h($room->ac_facility) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Status') ?></th>

@@ -37,7 +37,7 @@
               <br><br>
               <?= $this->Html->link('All PGs', ['action' => 'index','controller' => 'pgDetails'], ['class' => 'side-nav-item']) ?>
               <br><br>
-            <?= $this->Html->link('PG Request', ['action' => 'pgrequest','controller' => 'rooms'], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link('PG Request', ['action' => 'pgrequest','controller' => 'pg_details'], ['class' => 'side-nav-item']) ?>
             <br><br></h6>
         
         </div>
@@ -79,20 +79,19 @@
 
 
 // Create a radio set with our custom wrapping div.
-echo $this->Form->control(' ac_facility  ', [
-    'options' => [' yes' ,'class '=>'form-control', ' no '],
-    'type' => 'radio',
-    'class' => ($this->Form->isFieldError('ac_facility')) ? ' is-invalid' : ''
-]);
+// echo $this->Form->control(' ac_facility  ', [
+//     'options' => [' yes' ,'class '=>'form-control', ' no '],
+//     'type' => 'radio',
+//     'class' => ($this->Form->isFieldError('ac_facility')) ? ' is-invalid' : ''
+// ]);
   echo $this->Form->controls(
                 [
     
-                 // 'ac_facility ' => [
-                 //            'options' => [' yes ' , ' no ',' faaa'],
-                 //            'type' => 'radio',
-                 //            'class' => ($this->Form->isFieldError('ac_facility')) ? 'form-control is-invalid' : 'form-control','radio'
-                           
-                // ],
+                 'ac_facility' => [
+                            'placeholder' => "Enter yes or no ", 
+                            'required' => false,
+                            'class' => ($this->Form->isFieldError('ac_facility')) ? 'form-control is-invalid' : 'form-control'
+                ],
                 'seater' => [
                     'placeholder' => "Enter Seater ", 
                     'required' => false,

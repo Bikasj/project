@@ -18,10 +18,10 @@ class UsersController extends AppController
     {   
     $this->loadModel('Userroles');
     $this->loadModel('Rooms');
-
+    $this->loadModel('PgDetails');
     $users = $this->paginate($this->Users/*,[
         'contain' => ['Userroles']]*/); 
-    $pgs = $this->Users->findByRole('1')->count();
+    $pgs = $this->PgDetails->find()->count();
     $rooms = $this->Rooms->find()->count();
     $totalusers = $this->Users->find()->count();
     $users= $this->Users->findByRole('1');
@@ -31,10 +31,10 @@ class UsersController extends AppController
     {   
     $this->loadModel('Userroles');
     $this->loadModel('Rooms');
-
+    $this->loadModel('PgDetails');
     $users = $this->paginate($this->Users/*,[
         'contain' => ['Userroles']]*/); 
-    $pgs = $this->Users->findByRole('1')->count();
+    $pgs = $this->PgDetails->find()->count();
     $rooms = $this->Rooms->find()->count();
     $totalusers = $this->Users->find()->count();
     $users= $this->Users->findByRole('1');
@@ -44,11 +44,12 @@ class UsersController extends AppController
     public function view($id = null)
     {   $this->loadModel('Userroles');
         $this->loadModel('Rooms');
+        $this->loadModel('PgDetails');
         $user = $this->Users->get($id, [
             'contain' => [],
         ]);
         $role= $this->Userroles->findById($user->role)->firstOrFail();
-        $pgs = $this->Users->findByRole('1')->count();
+        $pgs = $this->PgDetails->find()->count();
         $rooms = $this->Rooms->find()->count();
         $totalusers = $this->Users->find()->count();
         $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'totalusers'=> $totalusers ,'role' => $role, 'user' => $user));
@@ -57,6 +58,7 @@ class UsersController extends AppController
     public function add()
     {    $this->loadModel('Userroles');
          $this->loadModel('Rooms');
+         $this->loadModel('PgDetails');
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
             $imgdata = $this->request->getData('image');
@@ -77,7 +79,7 @@ class UsersController extends AppController
             'keyField' => 'id',
             'valueField' => 'user_rolename'
         ]);
-         $pgs = $this->Users->findByRole('1')->count();
+        $pgs = $this->PgDetails->find()->count();
         $rooms = $this->Rooms->find()->count();
         $totalusers = $this->Users->find()->count();
         $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'totalusers'=> $totalusers ,'roles' => $roles, 'user' => $user));
@@ -85,6 +87,7 @@ class UsersController extends AppController
     public function edit($id = null)
     {   $this->loadModel('Userroles');
         $this->loadModel('Rooms');
+        $this->loadModel('PgDetails');
         $user = $this->Users->get($id, [
             'contain' => [],
         ]);
@@ -107,7 +110,7 @@ class UsersController extends AppController
             'keyField' => 'id',
             'valueField' => 'user_rolename'
         ]);
-        $pgs = $this->Users->findByRole('1')->count();
+        $pgs = $this->PgDetails->find()->count();
         $rooms = $this->Rooms->find()->count();
         $totalusers = $this->Users->find()->count();
         $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'totalusers'=> $totalusers ,'roles' => $roles, 'user' => $user));
