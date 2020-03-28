@@ -38,8 +38,16 @@ class PgDetailsController extends AppController
         $pgs = $this->PgDetails->find()->count();
         $rooms = $this->Rooms->find()->count();
         $totalusers = $this->Users->find()->count();
-        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'totalusers'=> $totalusers ));
+        //$this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'totalusers'=> $totalusers ));
+        
+        $room = $this->paginate($this->Rooms); 
+        $pgs = $this->PgDetails->find()->count();
+        $rooms = $this->Rooms->find()->count();
+        $totalusers = $this->Users->find()->count();
+        $users= $this->Users->findByRole('1');
+        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'totalusers'=> $totalusers , 'room' => $this -> paginate( $this ->Rooms->findByPgId($id) )));
         $this->set(compact('pg_details'));
+
     }
 
     public function add()

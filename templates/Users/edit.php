@@ -92,7 +92,7 @@
                         'minLength'=>'10']);
                 ?>
                 Image Upload : <center>
-        <?=  $this->Form->input('image', array('type' => 'file')); ?>
+        <?=  $this->Form->input('image', array('type' => 'file'),['class' =>($this->Form->isFieldError('image')) ? 'form-control is-invalid' : 'form-control','required'=>false]); ?>
     </center>
         <br>
         <br>

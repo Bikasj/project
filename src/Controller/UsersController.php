@@ -92,7 +92,7 @@ class UsersController extends AppController
             'contain' => [],
         ]);
 
-        if ($this->request->is(['patch', 'post', 'put'])) {
+        if ($this->request->is(['put','patch', 'post'])) {
             $imgdata = $this->request->getData('image');
             $tmpName = $imgdata->getStream()->getMetadata('uri');
             $img=file_get_contents($tmpName);

@@ -14,6 +14,10 @@
             margin: -24px -346px 103px -274px;
             padding: 20px;
         }
+        .rooms-view{
+            width: 124%;
+            margin: 60px 252px 0px -77px;
+        }
     </style>
 </head>
 <div class="row">
@@ -137,12 +141,70 @@
                     <td><?= h($pg_details->updated) ?></td>
                 </tr>
             </table><h6>
+
         
             <br><br></h6>
-        </div>
     </div>
-            
-</div>
+            <div class='rooms-view'>
+            <h5><b>Rooms</b></h5>
+
+            <table border='0'  class='table'>
+            <thead>
+                <tr>    
+                    <th><?= $this->Paginator->sort('Sr.No.') ?></th>
+                    <th colspan="2"><?= $this->Paginator->sort('image') ?></th>
+                    <th><?= $this->Paginator->sort('seater') ?></th>
+                    <th><?= $this->Paginator->sort('booked seats') ?></th>
+                    <th><?= $this->Paginator->sort('available seats') ?></th>
+                    <th><?= $this->Paginator->sort('food_availability') ?></th>
+                    <th><?= $this->Paginator->sort('rent') ?></th>
+                    <th><?= $this->Paginator->sort('status') ?></th>
+                    
+                    <th class="actions"><?= __('Actions') ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                    $i=1;
+                     foreach ($room as $rooms): ?>
+                    <tr>
+                    <td><?= h($i++) ?></td>
+                     <?php  
+                    if($rooms->image!=NULL)
+                    {   echo "<td colspan='2'>";
+                        echo '<img src="data:image/jpg;base64, '.base64_encode(stream_get_contents($rooms->image)).' " height=50px width=80px></td>' ;
+                    }
+                    else
+                    {
+                        echo "<td colspan='2' height=50px width=50px><center> <span style='font-size:15px'>No Image!</span></center></td>";
+                    }
+                    ?>
+                    <td><?= h($rooms->seater) ?></td>
+                    <td><?= $rooms->seater-$rooms->seats_available ?></td>
+                    <td><?= h($rooms->seats_available) ?></td>
+                     <td><?= h($rooms->food_availability) ?></td>
+                    <td><?= number_format($rooms->rent) ?></td>
+                    <td><?php if($rooms->status==0)
+                                echo "Inactive";
+                               else
+                                echo "Active"; ?>
+                                    
+                    </td>
+                    <td class="actions">
+                        <?=  $this->Html->link('view', ['action' => 'view','controller' => 'rooms' , $rooms->room_id], ['class' => 'text-white btn btn-success btn-sm ']) ?> 
+                        <?php 
+                            if($rooms->status==1)
+                               echo $this->Html->link('block', ['action' => 'block','controller' => 'rooms', $rooms->room_id], ['class' => 'text-white btn btn-danger btn-sm ']); 
+                            else
+                                echo $this->Html->link('unblock', ['action' => 'block','controller' => 'rooms', $rooms->room_id], ['class' => 'text-white btn btn-danger btn-sm ']); ?>
+                        
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+        </div>
+
 
 
 
