@@ -70,7 +70,7 @@
                 <tr>    
                     <th><?= $this->Paginator->sort('Sr.No.') ?></th>
                     <th colspan="2"><?= $this->Paginator->sort('image') ?></th>
-                    <th><?= $this->Paginator->sort('pg_id') ?></th>
+                    <th><?= $this->Paginator->sort('pgId') ?></th>
                     <th><?= $this->Paginator->sort('seater') ?></th>
                     <th><?= $this->Paginator->sort('booked seats') ?></th>
                     <th><?= $this->Paginator->sort('available seats') ?></th>

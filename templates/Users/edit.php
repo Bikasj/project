@@ -91,9 +91,25 @@
                     echo $this->Form->control('phone', ['name' => 'phone' , 'placeholder'=>'Enter your phone number', 'class' =>($this->Form->isFieldError('phone')) ? 'form-control is-invalid' : 'form-control','required'=>false, 
                         'minLength'=>'10']);
                 ?>
-                Image Upload : <center>
-        <?=  $this->Form->input('image', array('type' => 'file'),['class' =>($this->Form->isFieldError('image')) ? 'form-control is-invalid' : 'form-control','required'=>false]); ?>
-    </center>
+
+                <?php  
+                    if($user->image!=NULL)
+                    {   echo "<td colspan='2'>";
+                         echo '<img src="data:image/jpg;base64, '.base64_encode(stream_get_contents($user->image)).' " height=200px width=400px></td>' ;
+                    }
+                    else
+                    {
+                        echo "<td colspan='2' height=200px width=400px><center> <span style='font-size:45px'>No Image available !</span></center></td>";
+                    }
+                ?>
+
+                <?=  $this->Html->link('change upload', ['action' => 'changeupload', $user->user_id], ['class' => 'nav-link text-white btn btn-secondary btn-primary '])."<br>" ?>
+
+
+
+            <!--    Image Upload : <center>
+        <?=  $this->Form->input('image ', array('type' => 'file')); ?>
+                                </center>  -->
         <br>
         <br>
         <?= $this->Form->select('role', $roles, ['empty' => 'Select Role', 'id' => 'user_rolename', 'class' =>($this->Form->isFieldError('phone')) ? 'form-control is-invalid' : 'form-control']); ?>

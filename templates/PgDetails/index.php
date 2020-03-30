@@ -99,13 +99,12 @@
                     <td><?php if($pg->status==0)
                                 echo "Inactive";
                                else
-                                echo "Active"; ?>
-                                    
+                                echo "Active"; ?>    
                     </td>
-                    
-                    
+
                     <td class="actions">
                         <?=  $this->Html->link('view', ['action' => 'view', $pg->pg_id], ['class' => 'text-white btn btn-success btn-sm ']) ?> 
+                        <?=  $this->Html->link('edit', ['action' => 'edit', $pg->pg_id], ['class' => 'text-white btn btn-info btn-sm ']) ?> 
                         <?php 
                             if($pg->status==1)
                                echo $this->Html->link('block', ['action' => 'block', $pg->pg_id], ['class' => 'text-white btn btn-danger btn-sm ']); 

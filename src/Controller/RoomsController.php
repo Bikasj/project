@@ -49,6 +49,7 @@ class RoomsController extends AppController
             $img=file_get_contents($tmpName);
             $data=$this->request->getData();
             $data['image']=$img;
+             // print_r($data);die();
             $room = $this->Rooms->newEntity($data);
             if ($this->Rooms->save($room)) {
                 $this->Flash->success(__('The room has been saved.'));
@@ -59,7 +60,7 @@ class RoomsController extends AppController
         }
          $pg_id = $this->PgDetails->find('list', [ 
             'keyField' => 'pg_id',
-            'valueField' => 'firstname'
+            'valueField' => 'pg_id'
         ]);
         $pgs = $this->PgDetails->find()->count();
         $rooms = $this->Rooms->find()->count();

@@ -69,11 +69,11 @@ class UsersController extends AppController
              // $data['password']=password_hash($data['password'],PASSWORD_DEFAULT);
             $user = $this->Users->newEntity($data);
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
+                $this->Flash->success(__('The user has been added.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            $this->Flash->error(__('The user could not be added. Please, try again.'));
         }
          $roles = $this->Userroles->find('list', [ 
             'keyField' => 'id',
@@ -93,18 +93,25 @@ class UsersController extends AppController
         ]);
 
         if ($this->request->is(['put','patch', 'post'])) {
-            $imgdata = $this->request->getData('image');
-            $tmpName = $imgdata->getStream()->getMetadata('uri');
-            $img=file_get_contents($tmpName);
+
+            
+            // echo "<pre>";
+            //  print_r($data['image_']);die();
+            // if($data['image_']!=null)
+            //     {
+            // $imgdata = $this->request->getData('image');
+            // $tmpName = $imgdata->getStream()->getMetadata('uri');
+            // $img=file_get_contents($tmpName);
             $data=$this->request->getData();
-            $data['image']=$img;
+            // $data['image']=$img;
+              //  }
             $user = $this->Users->patchEntity($user, $data);
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been modified.'));
+                $this->Flash->success(__('The user has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The user could not be modified. Please, try again.'));
+            $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
         $roles = $this->Userroles->find('list', [ 
             'keyField' => 'id',
@@ -115,6 +122,34 @@ class UsersController extends AppController
         $totalusers = $this->Users->find()->count();
         $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'totalusers'=> $totalusers ,'roles' => $roles, 'user' => $user));
         
+    }
+
+    public function changeupload($id=null)
+    {   $this->loadModel('Userroles');
+        $user = $this->Users->get($id, [
+            'contain' => [],
+        ]);
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $imgdata = $this->request->getData('image');
+            $tmpName = $imgdata->getStream()->getMetadata('uri');
+            $img=file_get_contents($tmpName);
+            $data=$this->request->getData();
+            $data['image']=$img;
+            $user = $this->Users->patchEntity($user, $data);
+            if ($this->Users->save($user)) {
+                $this->Flash->success(__('The upload has been saved.'));
+
+                return $this->redirect(['action' => 'edit']);
+            }
+            $this->Flash->error(__('The upload could not be saved. Please, try again.'));
+        }
+        $roles = $this->Userroles->find('list', [ 
+            'keyField' => 'id',
+            'valueField' => 'user_rolename'
+        ]);
+        $this->set('roles', $roles);
+        $this->set(compact('user'));
     }
     public function block($id)
     {

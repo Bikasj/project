@@ -1,7 +1,8 @@
 <section class="login py-5 border-top-1">
     <div class="container">
+        <center><font color="red" size="4px"><?= $this->Flash->render() ?></font></center>
         <div class="row justify-content-center">
-            <?= $this->Flash->render() ?>
+            
             <div class="col-lg-5 col-md-8 align-item-center">
                 <div class="border">
                     <h3 class="bg-gray p-4">Login</h3>

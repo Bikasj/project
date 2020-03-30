@@ -77,7 +77,6 @@
 
 <?php
 
-
 // Create a radio set with our custom wrapping div.
 // echo $this->Form->control(' ac_facility  ', [
 //     'options' => [' yes' ,'class '=>'form-control', ' no '],
@@ -107,12 +106,12 @@
                     'required' => false,
                     'class' => ($this->Form->isFieldError('area')) ? 'form-control is-invalid' : 'form-control'
                 ],
-                'availability' => [
-                    'placeholder' => "Enter availability", 
-                    'required' => false,
-                     'minLength'=>'2',
-                    'class' => ($this->Form->isFieldError('availability')) ? 'form-control is-invalid' : 'form-control'
-                ],
+                // 'availability' => [
+                //     'placeholder' => "Enter availability", 
+                //     'required' => false,
+                //      'minLength'=>'2',
+                //     'class' => ($this->Form->isFieldError('availability')) ? 'form-control is-invalid' : 'form-control'
+                // ],
                 'no_of_room' => [
                     'placeholder' => "Enter no of room", 
                     'required' => false,
@@ -125,16 +124,26 @@
                     'minLength'=>'10',
                     'class' => ($this->Form->isFieldError('phone')) ? 'form-control is-invalid' : 'form-control'
                 ],
+                'availability'=>[
+                'options' => array('Yes'=>'Yes','No'=>'No'),
+                'type' => 'radio',
+                'class' => ''
+            ]
                 
             ]
          
         );
-        ?>
+        
+        // echo "Availability : <br>";
+        // $options=array('Yes'=>'Yes','No'=>'No');
+        // $attributes=['class' => ''];
+        // echo $this->Form->radio('availability',$options,$attributes)."<br>";
+
+    ?>
        <!--  Image Upload : <center>
         <?=  $this->Form->input('image', array('type' => 'file')); ?> -->
     </center>
-        <br>
-        <br>
+     
  		<?= $this->Form->select('owner_id', $owner_id, ['empty' => 'Select Owner ', 'user_id' => 'firstname', 'class' =>($this->Form->isFieldError('owner_id')) ? 'form-control is-invalid' : 'form-control']); ?>
 
  	

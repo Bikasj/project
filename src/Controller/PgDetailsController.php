@@ -77,37 +77,37 @@ class PgDetailsController extends AppController
         $totalusers = $this->Users->find()->count();
         $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'totalusers'=> $totalusers ,'owner_id' => $owner_id,'pg_details' => $pg_details));
     }
-    // public function edit($id = null)
-    // {   $this->loadModel('Userroles');
-    //     $this->loadModel('Rooms');
-    //     $user = $this->Users->get($id, [
-    //         'contain' => [],
-    //     ]);
+    public function edit($id = null)
+    {   $this->loadModel('Users');
+        $this->loadModel('Rooms');
+        $pg_details = $this->PgDetails->get($id, [
+            'contain' => [],
+        ]);
 
-    //     if ($this->request->is(['patch', 'post', 'put'])) {
-    //         $imgdata = $this->request->getData('image');
-    //         $tmpName = $imgdata->getStream()->getMetadata('uri');
-    //         $img=file_get_contents($tmpName);
-    //         $data=$this->request->getData();
-    //         $data['image']=$img;
-    //         $user = $this->Users->patchEntity($user, $data);
-    //         if ($this->Users->save($user)) {
-    //             $this->Flash->success(__('The user has been modified.'));
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $imgdata = $this->request->getData('image');
+            $tmpName = $imgdata->getStream()->getMetadata('uri');
+            $img=file_get_contents($tmpName);
+            $data=$this->request->getData();
+            $data['image']=$img;
+            $pg_details = $this->PgDetails->patchEntity($pg_details, $data);
+            if ($this->Users->save($pg_details)) {
+                $this->Flash->success(__('The user has been modified.'));
 
-    //             return $this->redirect(['action' => 'index']);
-    //         }
-    //         $this->Flash->error(__('The user could not be modified. Please, try again.'));
-    //     }
-    //     $roles = $this->Userroles->find('list', [ 
-    //         'keyField' => 'id',
-    //         'valueField' => 'user_rolename'
-    //     ]);
-    //     $pgs = $this->Users->findByRole('1')->count();
-    //     $rooms = $this->Rooms->find()->count();
-    //     $totalusers = $this->Users->find()->count();
-    //     $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'totalusers'=> $totalusers ,'roles' => $roles, 'user' => $user));
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The user could not be modified. Please, try again.'));
+        }
+         $owner_id = $this->Users->find('list', [ 
+            'keyField' => 'user_id',
+            'valueField' => 'firstname'
+        ]);
+        $pgs = $this->PgDetails->find()->count();
+        $rooms = $this->Rooms->find()->count();
+        $totalusers = $this->Users->find()->count();
+        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'totalusers'=> $totalusers ,'owner_id' => $owner_id,'pg_details'=>$pg_details));
         
-    // }
+    }
     public function block($id)
     {
             $pg_details= $this->PgDetails->get($id);
