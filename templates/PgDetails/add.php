@@ -93,7 +93,6 @@
                     'required' => false,
                     'class' => ($this->Form->isFieldError('area')) ? 'form-control is-invalid' : 'form-control'
                 ],
-
                 'no_of_room' => [
                     'placeholder' => "Enter total number of rooms", 
                     'required' => false,
@@ -104,18 +103,23 @@
                     'required' => false,
                     'minLength'=>'10',
                     'class' => ($this->Form->isFieldError('phone')) ? 'form-control is-invalid' : 'form-control'
-                ],
-                'availability'=>[
-                'options' => array('Yes'=>'Yes','No'=>'No'),
-                'type' => 'radio',
-                'class' => ''
                 ]
+                // 'availability'=>[
+                // 'options' => array('Yes'=>'Yes','No'=>'No'),
+                // 'type' => 'radio',
+                // 'class' => ''
+                // ]
                 
             ]
         );
 
-    ?>
-
+    ?>  
+        <?php
+            echo $this->Form->control('availability',['name'=>'availability',
+                        'type' => 'radio',
+                        'options' => array('Yes'=>'Yes','No'=>'No'),
+                        'class' => '']);
+        ?>
     </center>
  		<?= $this->Form->select('owner_id', $owner_id, ['empty' => 'Select Owner ', 'user_id' => 'firstname', 'class' =>($this->Form->isFieldError('owner_id')) ? 'form-control is-invalid' : 'form-control']); ?>
  	

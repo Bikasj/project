@@ -53,7 +53,8 @@ class PgDetailsController extends AppController
         if ($this->request->is('post')) 
         {
             $data=$this->request->getData();
-            $pg_details = $this->PgDetails->newEntity($data);
+            // print_r($data);die();
+            $pg_details = $this->PgDetails->newEntity($data);// print_r($data);die();
             if ($this->PgDetails->save($pg_details)) 
             { 
                 $this->Flash->success(__('The PG has been saved.'));
@@ -61,7 +62,7 @@ class PgDetailsController extends AppController
             }
             $this->Flash->error(__('The PG could not be saved. Please, try again.'));
         }
-         $owner_id = $this->Users->find('list', [ 
+         $owner_id = $this->Users->findByRole('1')->find('list', [ 
             'keyField' => 'user_id',
             'valueField' => 'firstname'
         ]);
@@ -69,7 +70,8 @@ class PgDetailsController extends AppController
         $rooms = $this->Rooms->find()->count();
         $pgowners = $this->Users->findByRole('1')->count();
         $transients = $this->Users->findByRole('2')->count();
-        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients ,'owner_id' => $owner_id,'pg_details' => $pg_details));
+        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients ,'owner_id' => $owner_id));
+        $this->set(compact('pg_details'));
     }
     public function edit($id = null)
     {   $this->loadModel('Users');

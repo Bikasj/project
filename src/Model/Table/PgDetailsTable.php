@@ -44,12 +44,6 @@ class PgDetailsTable extends Table
             ->allowEmptyString('pg_id', null, 'create');
 
         $validator
-            ->scalar('room')
-            ->maxLength('room', 20)
-            ->requirePresence('room', 'create')
-            ->notEmptyString('room');
-
-        $validator
             ->scalar('location')
             ->maxLength('location', 30)
             ->requirePresence('location', 'create')
@@ -66,12 +60,6 @@ class PgDetailsTable extends Table
             ->maxLength('area', 10)
             ->requirePresence('area', 'create')
             ->notEmptyString('area');
-
-        $validator
-            ->scalar('gender')
-            ->maxLength('gender', 10)
-            ->requirePresence('gender', 'create')
-            ->notEmptyString('gender');
 
         $validator
             ->scalar('availability')
