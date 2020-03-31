@@ -48,21 +48,26 @@
 <div class="row justify-content-center">
 <div class=" vieww">
          <div class="shadow p-3 mb-5 bg-white rounded" style="position: sticky;top:0;" >
-            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+            &emsp;&emsp;&emsp;
             Total PGs :
                 <font color="blue" size="10"><b>
                     <?= $pgs ?>
                 </font> </b>
-            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+            &emsp;&emsp;&emsp;&emsp;
             Total Rooms :   
                 <font color="blue" size="10"><b>  
                     <?= $rooms ?>  
                 </font> </b>   
-            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;        
-            Total Users : 
+            &emsp;&emsp;&emsp;&emsp;      
+            Total PgOwners : 
                 <font color="blue" size="10"><b>  
-                    <?= $totalusers ?>     
-                </font> </b>          
+                    <?= $pgowners ?>     
+                </font> </b>   
+            &emsp;&emsp;&emsp;&emsp;
+            Total Transient Guests :  
+                <font color="blue" size="10"><b>  
+                    <?= $transients ?>     
+                </font> </b>     
         </div>
 <div class="users index content">
    
@@ -76,9 +81,7 @@
             <fieldset>
                 
                 <?php
-                    echo $this->Form->control('room', ['name' => 'room' ,'required' => false, 'placeholder'=>'Enter the no. of room', 'class' =>($this->Form->isFieldError('room')) ? 'form-control is-invalid' : 'form-control']);
-
-                    echo $this->Form->control('location',['name' => 'location' , 'placeholder'=>'Enter the location', 'class' =>($this->Form->isFieldError('location')) ? 'form-control is-invalid' : 'form-control','required'=>false]);
+                       echo $this->Form->control('location',['name' => 'location' , 'placeholder'=>'Enter the location', 'class' =>($this->Form->isFieldError('location')) ? 'form-control is-invalid' : 'form-control','required'=>false]);
                     echo $this->Form->control('address', ['name' => 'address' , 'placeholder'=>'Enter the address', 'class' =>($this->Form->isFieldError('address')) ? 'form-control is-invalid' : 'form-control','required'=>false]);
                     echo $this->Form->control('area', ['name' => 'area' , 'placeholder'=>'Enter the area', 'class' =>($this->Form->isFieldError('area')) ? 'form-control is-invalid' : 'form-control','required'=>false]);
                     echo $this->Form->control('no_of_room', ['name' => 'no_of_room' , 'placeholder'=>'Enter the no of available rooms', 'class' =>($this->Form->isFieldError('no_of_room')) ? 'form-control is-invalid' : 'form-control','required'=>false]);

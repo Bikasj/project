@@ -22,9 +22,10 @@ class RoomsController extends AppController
         'contain' => ['Userroles']]*/); 
     $pgs = $this->PgDetails->find()->count();
     $rooms = $this->Rooms->find()->count();
-    $totalusers = $this->Users->find()->count();
+    $pgowners = $this->Users->findByRole('1')->count();
+    $transients = $this->Users->findByRole('2')->count();
     $users= $this->Users->findByRole('1');
-    $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'totalusers'=> $totalusers , 'room' => $this -> paginate( $this ->Rooms )));
+    $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients , 'room' => $this -> paginate( $this ->Rooms )));
     }   
 
     public function view($id = null)
@@ -35,8 +36,9 @@ class RoomsController extends AppController
         ]);
         $pgs = $this->PgDetails->find()->count();
         $rooms = $this->Rooms->find()->count();
-        $totalusers = $this->Users->find()->count();
-        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'totalusers'=> $totalusers , 'room' => $room));
+        $pgowners = $this->Users->findByRole('1')->count();
+        $transients = $this->Users->findByRole('2')->count();
+        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients , 'room' => $room));
     }
 
     public function add()
@@ -64,8 +66,9 @@ class RoomsController extends AppController
         ]);
         $pgs = $this->PgDetails->find()->count();
         $rooms = $this->Rooms->find()->count();
-        $totalusers = $this->Users->find()->count();
-        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'totalusers'=> $totalusers ,'pg_id' => $pg_id, 'room' => $room));
+        $pgowners = $this->Users->findByRole('1')->count();
+        $transients = $this->Users->findByRole('2')->count();
+        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients ,'pg_id' => $pg_id, 'room' => $room));
     }
     // public function edit($id = null)
     // {   $this->loadModel('Userroles');

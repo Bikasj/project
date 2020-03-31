@@ -37,7 +37,7 @@ class PgDetail extends Entity
      */
     protected $_accessible = [
         'owner_id' => true,
-        'room' => true,
+        // 'room' => true,
         'location' => true,
         'address' => true,
         'area' => true,

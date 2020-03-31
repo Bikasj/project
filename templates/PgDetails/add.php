@@ -48,21 +48,26 @@
 <div class="row justify-content-center">
 <div class=" vieww">
          <div class="shadow p-3 mb-5 bg-white rounded" style="position: sticky;top:0;" >
-            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+            &emsp;&emsp;&emsp;
             Total PGs :
                 <font color="blue" size="10"><b>
                     <?= $pgs ?>
                 </font> </b>
-            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+            &emsp;&emsp;&emsp;&emsp;
             Total Rooms :   
                 <font color="blue" size="10"><b>  
                     <?= $rooms ?>  
                 </font> </b>   
-            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;        
-            Total Users : 
+            &emsp;&emsp;&emsp;&emsp;      
+            Total PgOwners : 
                 <font color="blue" size="10"><b>  
-                    <?= $totalusers ?>     
-                </font> </b>          
+                    <?= $pgowners ?>     
+                </font> </b>   
+            &emsp;&emsp;&emsp;&emsp;
+            Total Transient Guests :  
+                <font color="blue" size="10"><b>  
+                    <?= $transients ?>     
+                </font> </b>           
         </div>
 <div class="users index content">
    
@@ -85,12 +90,6 @@
 // ]);
   echo $this->Form->controls(
                 [
-    
-                 'room' => [
-                            'placeholder' => "Enter total no. of rooms ", 
-                            'required' => false,
-                            'class' => ($this->Form->isFieldError('room')) ? 'form-control is-invalid' : 'form-control'
-                ],
                 'location' => [
                     'placeholder' => "Enter location ", 
                     'required' => false,
@@ -106,14 +105,9 @@
                     'required' => false,
                     'class' => ($this->Form->isFieldError('area')) ? 'form-control is-invalid' : 'form-control'
                 ],
-                // 'availability' => [
-                //     'placeholder' => "Enter availability", 
-                //     'required' => false,
-                //      'minLength'=>'2',
-                //     'class' => ($this->Form->isFieldError('availability')) ? 'form-control is-invalid' : 'form-control'
-                // ],
+
                 'no_of_room' => [
-                    'placeholder' => "Enter no of room", 
+                    'placeholder' => "Enter total no of room", 
                     'required' => false,
                     //'minLength'=>'10',
                     'class' => ($this->Form->isFieldError('no_of_room')) ? 'form-control is-invalid' : 'form-control'

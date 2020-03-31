@@ -44,21 +44,26 @@
 <div class="row justify-content-center">
 <div class=" view">
          <div class="shadow p-3 mb-5 bg-white rounded" style="position: sticky;top:0;" >
-            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+            &emsp;&emsp;&emsp;
             Total PGs :
                 <font color="blue" size="10"><b>
                     <?= $pgs ?>
                 </font> </b>
-            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+            &emsp;&emsp;&emsp;&emsp;
             Total Rooms :   
                 <font color="blue" size="10"><b>  
                     <?= $rooms ?>  
                 </font> </b>   
-            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;        
-            Total Users : 
+            &emsp;&emsp;&emsp;&emsp;      
+            Total PgOwners : 
                 <font color="blue" size="10"><b>  
-                    <?= $totalusers ?>     
-                </font> </b>          
+                    <?= $pgowners ?>     
+                </font> </b>   
+            &emsp;&emsp;&emsp;&emsp;
+            Total Transient Guests :  
+                <font color="blue" size="10"><b>  
+                    <?= $transients ?>     
+                </font> </b>     
         </div>
 <div class="users index content">
     <?= $this->Html->link(__('Add New PG'), ['action' => 'add'], ['class' => 'btn btn-dark button float-right'])  ?> <br>
@@ -72,7 +77,6 @@
                     <th><?= $this->Paginator->sort('PG owner') ?></th>
                     <th><?= $this->Paginator->sort('location') ?></th>
                     <th><?= $this->Paginator->sort('address') ?></th>
-                    <th><?= $this->Paginator->sort('area') ?></th>
                     <th><?= $this->Paginator->sort('phone') ?></th>
                     <th><?= $this->Paginator->sort('availability') ?></th>
                     <th><?= $this->Paginator->sort('Status') ?></th>
@@ -93,7 +97,6 @@
                     </td>
                     <td><?= h($pg->location) ?></td>
                     <td><?= h($pg->address) ?></td>
-                    <td><?= h($pg->area) ?></td>
                     <td><?= h($pg->phone) ?></td>
                     <td><?= h($pg->availability) ?></td>
                     <td><?php if($pg->status==0)

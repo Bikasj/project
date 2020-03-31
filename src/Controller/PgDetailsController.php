@@ -22,9 +22,10 @@ class PgDetailsController extends AppController
         'contain' => ['Users']]); 
     $pgs = $this->PgDetails->find()->count();
     $rooms = $this->Rooms->find()->count();
-    $totalusers = $this->Users->find()->count();
+    $pgowners = $this->Users->findByRole('1')->count();
+    $transients = $this->Users->findByRole('2')->count();
     $users= $this->Users->findByRole('1');
-    $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'totalusers'=> $totalusers  ));
+    $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients  ));
     $this->set(compact('pg_details'));
      
     }   
@@ -43,9 +44,10 @@ class PgDetailsController extends AppController
         $room = $this->paginate($this->Rooms); 
         $pgs = $this->PgDetails->find()->count();
         $rooms = $this->Rooms->find()->count();
-        $totalusers = $this->Users->find()->count();
+        $pgowners = $this->Users->findByRole('1')->count();
+        $transients = $this->Users->findByRole('2')->count();
         $users= $this->Users->findByRole('1');
-        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'totalusers'=> $totalusers , 'room' => $this -> paginate( $this ->Rooms->findByPgId($id) )));
+        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients , 'room' => $this -> paginate( $this ->Rooms->findByPgId($id) )));
         $this->set(compact('pg_details'));
 
     }
@@ -74,8 +76,9 @@ class PgDetailsController extends AppController
         ]);
         $pgs = $this->PgDetails->find()->count();
         $rooms = $this->Rooms->find()->count();
-        $totalusers = $this->Users->find()->count();
-        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'totalusers'=> $totalusers ,'owner_id' => $owner_id,'pg_details' => $pg_details));
+        $pgowners = $this->Users->findByRole('1')->count();
+        $transients = $this->Users->findByRole('2')->count();
+        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients ,'owner_id' => $owner_id,'pg_details' => $pg_details));
     }
     public function edit($id = null)
     {   $this->loadModel('Users');
@@ -104,8 +107,9 @@ class PgDetailsController extends AppController
         ]);
         $pgs = $this->PgDetails->find()->count();
         $rooms = $this->Rooms->find()->count();
-        $totalusers = $this->Users->find()->count();
-        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'totalusers'=> $totalusers ,'owner_id' => $owner_id,'pg_details'=>$pg_details));
+        $pgowners = $this->Users->findByRole('1')->count();
+        $transients = $this->Users->findByRole('2')->count();
+        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients ,'owner_id' => $owner_id,'pg_details'=>$pg_details));
         
     }
     public function block($id)
@@ -139,9 +143,10 @@ class PgDetailsController extends AppController
         'contain' => ['Users']]); 
     $pgs = $this->PgDetails->find()->count();
     $rooms = $this->Rooms->find()->count();
-    $totalusers = $this->Users->find()->count();
+    $pgowners = $this->Users->findByRole('1')->count();
+    $transients = $this->Users->findByRole('2')->count();
     $users= $this->Users->findByRole('1');
-    $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'totalusers'=> $totalusers , 'pg_details' => $this -> paginate( $this ->PgDetails->findByStatus('0') )));
+    $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients , 'pg_details' => $this -> paginate( $this ->PgDetails->findByStatus('0') )));
         $this->set(compact('pg_details'));
      
     } 

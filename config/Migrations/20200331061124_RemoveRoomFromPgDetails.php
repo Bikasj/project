@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 use Migrations\AbstractMigration;
 
-class RemoveGenderFromPgDetails extends AbstractMigration
+class RemoveRoomFromPgDetails extends AbstractMigration
 {
     /**
      * Change Method.
@@ -15,7 +15,8 @@ class RemoveGenderFromPgDetails extends AbstractMigration
     public function change()
     {
         $table = $this->table('pg_details');
-        $table->removeColumn('gender');
+        $table->removeColumn('room');
         $table->update();
-    }
+       
+}
 }

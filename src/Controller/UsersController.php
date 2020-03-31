@@ -23,9 +23,10 @@ class UsersController extends AppController
         'contain' => ['Userroles']]*/); 
     $pgs = $this->PgDetails->find()->count();
     $rooms = $this->Rooms->find()->count();
-    $totalusers = $this->Users->find()->count();
+    $pgowners = $this->Users->findByRole('1')->count();
+    $transients = $this->Users->findByRole('2')->count();
     $users= $this->Users->findByRole('1');
-    $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'totalusers'=> $totalusers , 'users' => $this -> paginate( $this ->Users ->findByRole('1'))));
+    $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients , 'users' => $this -> paginate( $this ->Users ->findByRole('1'))));
     }   
      public function indexfortransients()
     {   
@@ -36,9 +37,10 @@ class UsersController extends AppController
         'contain' => ['Userroles']]*/); 
     $pgs = $this->PgDetails->find()->count();
     $rooms = $this->Rooms->find()->count();
-    $totalusers = $this->Users->find()->count();
+    $pgowners = $this->Users->findByRole('1')->count();
+    $transients = $this->Users->findByRole('2')->count();
     $users= $this->Users->findByRole('1');
-    $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'totalusers'=> $totalusers , 'users' => $this -> paginate( $this ->Users ->findByRole('2'))));
+    $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients , 'users' => $this -> paginate( $this ->Users ->findByRole('2'))));
     }   
 
     public function view($id = null)
@@ -51,8 +53,9 @@ class UsersController extends AppController
         $role= $this->Userroles->findById($user->role)->firstOrFail();
         $pgs = $this->PgDetails->find()->count();
         $rooms = $this->Rooms->find()->count();
-        $totalusers = $this->Users->find()->count();
-        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'totalusers'=> $totalusers ,'role' => $role, 'user' => $user));
+        $pgowners = $this->Users->findByRole('1')->count();
+        $transients = $this->Users->findByRole('2')->count();
+        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients ,'role' => $role, 'user' => $user));
     }
 
     public function add()
@@ -81,8 +84,9 @@ class UsersController extends AppController
         ]);
         $pgs = $this->PgDetails->find()->count();
         $rooms = $this->Rooms->find()->count();
-        $totalusers = $this->Users->find()->count();
-        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'totalusers'=> $totalusers ,'roles' => $roles, 'user' => $user));
+        $pgowners = $this->Users->findByRole('1')->count();
+        $transients = $this->Users->findByRole('2')->count();
+        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients ,'roles' => $roles, 'user' => $user));
     }
     public function edit($id = null)
     {   $this->loadModel('Userroles');
@@ -119,8 +123,9 @@ class UsersController extends AppController
         ]);
         $pgs = $this->PgDetails->find()->count();
         $rooms = $this->Rooms->find()->count();
-        $totalusers = $this->Users->find()->count();
-        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'totalusers'=> $totalusers ,'roles' => $roles, 'user' => $user));
+        $pgowners = $this->Users->findByRole('1')->count();
+        $transients = $this->Users->findByRole('2')->count();
+        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients ,'roles' => $roles, 'user' => $user));
         
     }
 
