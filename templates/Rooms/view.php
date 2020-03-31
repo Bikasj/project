@@ -3,16 +3,17 @@
 ?>
 <head>
     <style>
-        .view {
+        .view 
+        {
         width: 41%;
         margin: -51px 116px -100px;
         padding: 20px;
-        
-    }
-    .vieww {
-            width: 112%;
-            margin: -24px -346px 103px -274px;
-            padding: 20px;
+        }
+        .vieww 
+        {
+        width: 112%;
+        margin: -24px -346px 103px -274px;
+        padding: 20px;
         }
     </style>
 </head>
@@ -35,7 +36,7 @@
             <br><br></h6>
         
         </div>
-</aside>
+    </aside>
 
         <section class="col-lg-10 col-md-8 login py-5 border-top-1 ">
 <div class="container ">
@@ -63,13 +64,14 @@
                     <?= $transients ?>     
                 </font> </b>              
         </div>
-<div class="users index content">
+    <div class="users index content">
    
-  <?php 
-                          if($room->status==1)
-                               echo  $this->Html->link('Block', ['action' => 'block', $room->room_id], ['class' => 'nav-link text-white btn btn-danger btn-primary  float-right'])."<br>";  
-                            else
-                               echo $this->Html->link('Unblock', ['action' => 'block', $room->room_id], ['class' => 'nav-link text-white btn btn-primary       float-right'])."<br>"; ?>
+<?php 
+      if($room->status==1)
+           echo  $this->Html->link('Block', ['action' => 'block', $room->room_id], ['class' => 'nav-link text-white btn btn-danger btn-primary  float-right'])."<br>";  
+        else
+           echo $this->Html->link('Unblock', ['action' => 'block', $room->room_id], ['class' => 'nav-link text-white btn btn-primary       float-right'])."<br>"; 
+?>
 
     <div class="column-responsive column-80 view">
         <div class="users view content " >    <br>
@@ -81,7 +83,7 @@
                     <?php  
                     if($room->image!=NULL)
                     {   echo "<td colspan='2'>";
-                        echo '<img src="data:image/jpg;base64, '.base64_encode(stream_get_contents($room->image)).' " height=200px width=400px></td>' ;
+                        echo '<img src="data:image/jpg;base64, '.base64_encode(stream_get_contents($room->image)).' " height=200px width=500px></td>' ;
                     }
                     else
                     {

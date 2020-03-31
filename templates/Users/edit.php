@@ -9,15 +9,17 @@
 ?>
 <head>
     <style>
-       .view {
+        .view 
+        {
         width: 75%;
         margin: -53px 102px 100px;
         padding: 20px;
-            }
-            .vieww {
-            width: 112%;
-            margin: -24px -346px 103px -274px;
-            padding: 20px;
+        }
+        .vieww 
+        {
+        width: 112%;
+        margin: -24px -346px 103px -274px;
+        padding: 20px;
         }
         
   </style>
@@ -41,7 +43,7 @@
             <br><br></h6>
         
         </div>
-</aside>
+    </aside>
 
         <section class="col-lg-10 col-md-8 login py-5 border-top-1 ">
 <div class="container ">
@@ -71,11 +73,12 @@
         </div>
 <div class="users index content">
    
-  <?php 
-                          if($user->status==1)
-                               echo  $this->Html->link('Block User', ['action' => 'block', $user->user_id], ['class' => 'nav-link text-white btn btn-danger btn-primary  float-right'])."<br>";  
-                            else
-                               echo $this->Html->link('Unblock User', ['action' => 'block', $user->user_id], ['class' => 'nav-link text-white btn btn-primary       float-right'])."<br>"; ?>
+    <?php 
+          if($user->status==1)
+               echo  $this->Html->link('Block User', ['action' => 'block', $user->user_id], ['class' => 'nav-link text-white btn btn-danger btn-primary  float-right'])."<br>";  
+            else
+               echo $this->Html->link('Unblock User', ['action' => 'block', $user->user_id], ['class' => 'nav-link text-white btn btn-primary       float-right'])."<br>"; 
+    ?>
 
     <div class="column-responsive column-80 view">
         <div class="users view content " >    
@@ -110,11 +113,6 @@
 
                 <?=  $this->Html->link('change upload', ['action' => 'changeupload', $user->user_id], ['class' => 'nav-link text-white btn btn-secondary btn-primary '])."<br>" ?>
 
-
-
-            <!--    Image Upload : <center>
-        <?=  $this->Form->input('image ', array('type' => 'file')); ?>
-                                </center>  -->
         <br>
         <br>
         <?= $this->Form->select('role', $roles, ['empty' => 'Select Role', 'id' => 'user_rolename', 'class' =>($this->Form->isFieldError('phone')) ? 'form-control is-invalid' : 'form-control']); ?>
@@ -129,9 +127,6 @@
 </div>
 </div>
 </div>
-
 </div>
 </div>
-
-
 </section>

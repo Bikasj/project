@@ -3,17 +3,18 @@
 ?>
 <head>
     <style type="text/css">
-        .paginator {
+        .paginator 
+        {
         width: 80%;
         margin: 16px 365px;
-        padding: 20px;}
-
-        .view {
-            width: 112%;
-            margin: -24px -346px 103px -274px;
-            padding: 20px;
-                
-    }
+        padding: 20px;
+        }
+        .view 
+        {
+        width: 112%;
+        margin: -24px -346px 103px -274px;
+        padding: 20px;
+        }
     </style>
 </head>
 <div class="row">
@@ -37,7 +38,7 @@
             <br><br></h6>
         
         </div>
-</aside>
+    </aside>
 
         <section class="col-lg-10 col-md-8 login py-5 border-top-1 ">
 <div class="container ">
@@ -110,9 +111,7 @@
                     <td><?php if($rooms->status==0)
                                 echo "Inactive";
                                else
-                                echo "Active"; ?>
-                                    
-                    </td>
+                                echo "Active"; ?></td>
                     <td class="actions">
                         <?=  $this->Html->link('view', ['action' => 'view', $rooms->room_id], ['class' => 'text-white btn btn-success btn-sm ']) ?> 
                         <?=  $this->Html->link('view', ['action' => 'edit', $rooms->room_id], ['class' => 'text-white btn btn-info btn-sm ']) ?> 
@@ -120,8 +119,8 @@
                             if($rooms->status==1)
                                echo $this->Html->link('block', ['action' => 'block', $rooms->room_id], ['class' => 'text-white btn btn-danger btn-sm ']); 
                             else
-                                echo $this->Html->link('unblock', ['action' => 'block', $rooms->room_id], ['class' => 'text-white btn btn-danger btn-sm ']); ?>
-                        
+                                echo $this->Html->link('unblock', ['action' => 'block', $rooms->room_id], ['class' => 'text-white btn btn-danger btn-sm ']); 
+                        ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>

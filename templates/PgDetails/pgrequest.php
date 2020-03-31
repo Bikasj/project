@@ -3,17 +3,18 @@
 ?>
 <head>
     <style type="text/css">
-        .paginator {
+        .paginator 
+        {
         width: 80%;
         margin: 16px 365px;
-        padding: 20px;}
-
-        .view {
-            width: 112%;
-            margin: -24px -346px 103px -274px;
-            padding: 20px;
-                
-    }
+        padding: 20px;
+        }
+        .view 
+        {
+        width: 112%;
+        margin: -24px -346px 103px -274px;
+        padding: 20px;
+        }
     </style>
 </head>
 <div class="row">
@@ -37,7 +38,7 @@
             <br><br></h6>
         
         </div>
-</aside>
+    </aside>
 
         <section class="col-lg-10 col-md-8 login py-5 border-top-1 ">
 <div class="container ">
@@ -101,19 +102,15 @@
                     <td><?php if($pg->status==0)
                                 echo "Inactive";
                                else
-                                echo "Active"; ?>
-                                    
-                    </td>
-                    
-                    
+                                echo "Active"; ?></td>
                     <td class="actions">
                         <?=  $this->Html->link('view', ['action' => 'view', $pg->pg_id], ['class' => 'text-white btn btn-success btn-sm ']) ?> 
-                        <?php 
-                            if($pg->status==1)
-                               echo $this->Html->link('block', ['action' => 'block', $pg->pg_id], ['class' => 'text-white btn btn-danger btn-sm ']); 
-                            else
-                                echo $this->Html->link('unblock', ['action' => 'block', $pg->pg_id], ['class' => 'text-white btn btn-danger btn-sm ']); ?>
-                        
+                    <?php 
+                        if($pg->status==1)
+                           echo $this->Html->link('block', ['action' => 'block', $pg->pg_id], ['class' => 'text-white btn btn-danger btn-sm ']); 
+                        else
+                            echo $this->Html->link('unblock', ['action' => 'block', $pg->pg_id], ['class' => 'text-white btn btn-danger btn-sm ']); 
+                    ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -131,7 +128,9 @@
         <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
     </div>
 </div>
-</div></div></div>
+</div>
+</div>
+</div>
 </div>
 </section>
 

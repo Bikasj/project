@@ -5,7 +5,6 @@
             'error' => '<div class="invalid-feedback">{{content}}</div>',
         ];
         $this->Form->setTemplates($myTemplates);
-        
 ?>
 <head>
     <style>
@@ -13,13 +12,12 @@
         width: 75%;
         margin: -53px 102px 100px;
         padding: 20px;
-            }
-            .vieww {
-            width: 112%;
-            margin: -24px -346px 103px -274px;
-            padding: 20px;
         }
-        
+        .vieww {
+        width: 112%;
+        margin: -24px -346px 103px -274px;
+        padding: 20px;
+        }
   </style>
 </head>
 <div class="row">
@@ -27,7 +25,6 @@
         <div class="side-nav" style="position: absolute;">
             <br>
             <br>
-            
             <br><h6>
             <?= $this->Html->link(__('PG Owners'), ['action' => 'index','controller' => 'users'], ['class' => 'side-nav-item']) ?>
             <br><br>
@@ -41,13 +38,12 @@
             <br><br></h6>
         
         </div>
-</aside>
-
+    </aside>
         <section class="col-lg-10 col-md-8 login py-5 border-top-1 ">
 <div class="container ">
 <div class="row justify-content-center">
 <div class=" vieww">
-         <div class="shadow p-3 mb-5 bg-white rounded" style="position: sticky;top:0;" >
+         <div class="shadow p-3 mb-5 bg-white rounded" style="position: sticky;top:0;">
             &emsp;&emsp;&emsp;
             Total PGs :
                 <font color="blue" size="10"><b>
@@ -70,46 +66,37 @@
                 </font> </b>           
         </div>
 <div class="users index content">
-   
   <br>
     <div class="column-responsive column-80 view">
         <div class="users view content " >    
 
-    <h3 class="bg-gray p-4">Add New PG</h3>
+    <h3 class="bg-gray p-4">Add NewPG</h3>
         
             <?= $this->Form->create($pg_details) ?>
                 
-
 <?php
 
-// Create a radio set with our custom wrapping div.
-// echo $this->Form->control(' ac_facility  ', [
-//     'options' => [' yes' ,'class '=>'form-control', ' no '],
-//     'type' => 'radio',
-//     'class' => ($this->Form->isFieldError('ac_facility')) ? ' is-invalid' : ''
-// ]);
   echo $this->Form->controls(
-                [
+            [
                 'location' => [
-                    'placeholder' => "Enter location ", 
+                    'placeholder' => "Enter the location ", 
                     'required' => false,
                     'class' => ($this->Form->isFieldError('location')) ? 'form-control is-invalid' : 'form-control'
                 ],
                 'address' => [
-                    'placeholder' => "Enter address", 
+                    'placeholder' => "Enter the address", 
                     'required' => false,
                     'class' => ($this->Form->isFieldError('address')) ? 'form-control is-invalid' : 'form-control'
                 ],
                 'area' => [
-                    'placeholder' => "Enter area", 
+                    'placeholder' => "Enter the area", 
                     'required' => false,
                     'class' => ($this->Form->isFieldError('area')) ? 'form-control is-invalid' : 'form-control'
                 ],
 
                 'no_of_room' => [
-                    'placeholder' => "Enter total no of room", 
+                    'placeholder' => "Enter total number of rooms", 
                     'required' => false,
-                    //'minLength'=>'10',
                     'class' => ($this->Form->isFieldError('no_of_room')) ? 'form-control is-invalid' : 'form-control'
                 ],
                 'phone' => [
@@ -122,29 +109,18 @@
                 'options' => array('Yes'=>'Yes','No'=>'No'),
                 'type' => 'radio',
                 'class' => ''
-            ]
+                ]
                 
             ]
-         
         );
-        
-        // echo "Availability : <br>";
-        // $options=array('Yes'=>'Yes','No'=>'No');
-        // $attributes=['class' => ''];
-        // echo $this->Form->radio('availability',$options,$attributes)."<br>";
 
     ?>
-       <!--  Image Upload : <center>
-        <?=  $this->Form->input('image', array('type' => 'file')); ?> -->
-    </center>
-     
- 		<?= $this->Form->select('owner_id', $owner_id, ['empty' => 'Select Owner ', 'user_id' => 'firstname', 'class' =>($this->Form->isFieldError('owner_id')) ? 'form-control is-invalid' : 'form-control']); ?>
 
+    </center>
+ 		<?= $this->Form->select('owner_id', $owner_id, ['empty' => 'Select Owner ', 'user_id' => 'firstname', 'class' =>($this->Form->isFieldError('owner_id')) ? 'form-control is-invalid' : 'form-control']); ?>
  	
 		<?php echo $this->Form->button('Submit' ,['class'=>'d-block py-3 px-4 bg-primary text-white border-0 rounded font-weight-bold']	);
 		?>
-
-
 
 <?= $this->Form->end() ?>
 </div>

@@ -3,20 +3,22 @@
 ?>
 <head>
     <style>
-        .view {
-            width: 84%;
-            margin: -51px 86px -100px;
-            padding: 20px;
-        
-    }
-        .vieww {
-            width: 112%;
-            margin: -24px -346px 103px -274px;
-            padding: 20px;
+        .view 
+        {
+        width: 84%;
+        margin: -51px 86px -100px;
+        padding: 20px;
         }
-        .rooms-view{
-            width: 124%;
-            margin: 60px 252px 0px -77px;
+        .vieww 
+        {
+        width: 112%;
+        margin: -24px -346px 103px -274px;
+        padding: 20px;
+        }
+        .rooms-view
+        {
+        width: 124%;
+        margin: 60px 252px 0px -77px;
         }
     </style>
 </head>
@@ -69,30 +71,18 @@
         </div>
 <div class="users index content">
    
-  <?php 
-                          if($pg_details->status==1)
-                               echo  $this->Html->link('Block', ['action' => 'block', $pg_details->pg_id], ['class' => 'nav-link text-white btn btn-danger btn-primary  float-right'])."<br>";  
-                            else
-                               echo $this->Html->link('Unblock', ['action' => 'block',$pg_details->pg_id], ['class' => 'nav-link text-white btn btn-primary       float-right'])."<br>"; ?>
+    <?php 
+          if($pg_details->status==1)
+               echo  $this->Html->link('Block', ['action' => 'block', $pg_details->pg_id], ['class' => 'nav-link text-white btn btn-danger btn-primary  float-right'])."<br>";  
+            else
+               echo $this->Html->link('Unblock', ['action' => 'block',$pg_details->pg_id], ['class' => 'nav-link text-white btn btn-primary       float-right'])."<br>"; 
+    ?>
 
     <div class="column-responsive column-80 view">
         <div class="users view content " ><br>
             
            PG Details
             <table class="table">
-                <!-- <tr>
-                    
-                    <?php  
-                    if($room->image!=NULL)
-                    {   echo "<td colspan='2'>";
-                        echo '<img src="data:image/jpg;base64, '.base64_encode(stream_get_contents($room->image)).' " height=200px width=400px></td>' ;
-                    }
-                    else
-                    {
-                        echo "<td colspan='2' height=200px width=400px><center> <span style='font-size:45px'>No Image available !</span></center></td>";
-                    }
-                    ?>
-                </tr> -->
                 <tr>
                     <th><?= __('PG ID') ?></th>
                     <td><?= h($pg_details->pg_id) ?></td>

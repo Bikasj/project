@@ -3,17 +3,18 @@
 ?>
 <head>
     <style type="text/css">
-        .paginator {
+        .paginator 
+        {
         width: 80%;
         margin: 16px 365px;
-        padding: 20px;}
-
-        .view {
-            width: 112%;
-            margin: -24px -346px 103px -274px;
-            padding: 20px;
-                
-    }
+        padding: 20px;
+        }
+        .view 
+        {
+        width: 112%;
+        margin: -24px -346px 103px -274px;
+        padding: 20px;      
+        }
     </style>
 </head>
 <div class="row">
@@ -23,7 +24,6 @@
             <br>
             
             <h3 class="heading"><?= __('Menu') ?></h3>
-            
             <br><h6>
             <?= $this->Html->link(__('PG Owners'), ['action' => 'index','controller' => 'users'], ['class' => 'side-nav-item']) ?>
             <br><br>
@@ -37,7 +37,7 @@
             <br><br></h6>
         
         </div>
-</aside>
+    </aside>
 
         <section class="col-lg-10 col-md-8 login py-5 border-top-1 ">
 <div class="container ">
@@ -102,19 +102,10 @@
                     <td><?= h($user->firstname) ?></td>
                     <td><?= h($user->lastname) ?></td>
                     <td><?= h($user->email) ?></td>
-                    
-                   
-                    <!-- <td>
-                        <?php 
-                                //echo $user->userrole->user_rolename;
-                              ?>
-                    </td> -->
                     <td><?php if($user->status==0)
                                 echo "Inactive";
                                else
                                 echo "Active"; ?></td>
-                    
-                    
                     <td class="actions">
                         <?=  $this->Html->link('view', ['action' => 'view', $user->user_id], ['class' => 'text-white btn btn-success btn-sm ']) ?> 
                         <?=  $this->Html->link('edit', ['action' => 'edit', $user->user_id], ['class' => 'text-white btn btn-info btn-sm']) ?> 

@@ -15,19 +15,16 @@ class RoomsController extends AppController
     }
     public function index()
     {   
-    $this->loadModel('Users');
-    $this->loadModel('PgDetails');
-
-    $room = $this->paginate($this->Rooms/*,[
-        'contain' => ['Userroles']]*/); 
-    $pgs = $this->PgDetails->find()->count();
-    $rooms = $this->Rooms->find()->count();
-    $pgowners = $this->Users->findByRole('1')->count();
-    $transients = $this->Users->findByRole('2')->count();
-    $users= $this->Users->findByRole('1');
-    $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients , 'room' => $this -> paginate( $this ->Rooms )));
+        $this->loadModel('Users');
+        $this->loadModel('PgDetails');
+        $room = $this->paginate($this->Rooms); 
+        $pgs = $this->PgDetails->find()->count();
+        $rooms = $this->Rooms->find()->count();
+        $pgowners = $this->Users->findByRole('1')->count();
+        $transients = $this->Users->findByRole('2')->count();
+        $users= $this->Users->findByRole('1');
+        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients , 'room' => $this -> paginate( $this ->Rooms )));
     }   
-
     public function view($id = null)
     {   $this->loadModel('Users');
         $this->loadModel('PgDetails');
@@ -40,23 +37,22 @@ class RoomsController extends AppController
         $transients = $this->Users->findByRole('2')->count();
         $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients , 'room' => $room));
     }
-
     public function add()
-    {    $this->loadModel('PgDetails');
-         $this->loadModel('Users');
+    {   $this->loadModel('PgDetails');
+        $this->loadModel('Users');
         $room = $this->Rooms->newEmptyEntity();
-        if ($this->request->is('post')) {
+        if ($this->request->is('post')) 
+        {
             $imgdata = $this->request->getData('image');
             $tmpName = $imgdata->getStream()->getMetadata('uri');
             $img=file_get_contents($tmpName);
             $data=$this->request->getData();
             $data['image']=$img;
-             // print_r($data);die();
             $room = $this->Rooms->newEntity($data);
-            if ($this->Rooms->save($room)) {
+            if ($this->Rooms->save($room)) 
+            {
                 $this->Flash->success(__('The room has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+                    return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The room could not be saved. Please, try again.'));
         }
@@ -76,15 +72,14 @@ class RoomsController extends AppController
         $room = $this->Rooms->get($id, [
             'contain' => [],
         ]);
-
-        if ($this->request->is(['patch', 'post', 'put'])) {
-        
+        if ($this->request->is(['patch', 'post', 'put'])) 
+        {
             $data=$this->request->getData();
             $room = $this->Rooms->patchEntity($room, $data);
-            if ($this->Rooms->save($rooms)) {
+            if ($this->Rooms->save($rooms)) 
+            {
                 $this->Flash->success(__('The room has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+                    return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The room could not be saved. Please, try again.'));
         }
@@ -97,25 +92,24 @@ class RoomsController extends AppController
         $pgowners = $this->Users->findByRole('1')->count();
         $transients = $this->Users->findByRole('2')->count();
         $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients ,'pg_id' => $pg_id, 'room' => $room));
-        
     }
     public function changeupload($id=null)
     {  
         $room = $this->Rooms->get($id, [
             'contain' => [],
         ]);
-
-        if ($this->request->is(['patch', 'post', 'put'])) {
+        if ($this->request->is(['patch', 'post', 'put'])) 
+        {
             $imgdata = $this->request->getData('image');
             $tmpName = $imgdata->getStream()->getMetadata('uri');
             $img=file_get_contents($tmpName);
             $data=$this->request->getData();
             $data['image']=$img;
             $room = $this->Rooms->patchEntity($room, $data);
-            if ($this->Rooms->save($room)) {
+            if ($this->Rooms->save($room)) 
+            {
                 $this->Flash->success(__('The upload has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+                    return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The upload could not be saved. Please, try again.'));
         }
@@ -135,13 +129,11 @@ class RoomsController extends AppController
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
     }
-
     public function beforeFilter(\Cake\Event\EventInterface $event)
-{
-    parent::beforeFilter($event);
-
-    $this->Authentication->addUnauthenticatedActions(['login', 'add']);
-}
+    {
+        parent::beforeFilter($event);
+        $this->Authentication->addUnauthenticatedActions(['login', 'add']);
+    }
 
      
 

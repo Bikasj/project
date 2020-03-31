@@ -3,17 +3,17 @@
 ?>
 <head>
     <style type="text/css">
-        .paginator {
+        .paginator 
+        {
         width: 80%;
         margin: 16px 365px;
         padding: 20px;}
-
-        .view {
-            width: 112%;
-            margin: -24px -346px 103px -274px;
-            padding: 20px;
-                
-    }
+        .view 
+        {
+        width: 112%;
+        margin: -24px -346px 103px -274px;
+        padding: 20px;     
+        }
     </style>
 </head>
 <div class="row">
@@ -37,7 +37,7 @@
             <br><br></h6>
         
         </div>
-</aside>
+    </aside>
 
         <section class="col-lg-10 col-md-8 login py-5 border-top-1 ">
 <div class="container ">
@@ -68,7 +68,7 @@
 <div class="users index content">
     <?= $this->Html->link(__('Add New PG'), ['action' => 'add'], ['class' => 'btn btn-dark button float-right'])  ?> <br>
     
-    <h3><?= __('PGs') ?></h3>
+    <h3><?= __('All PGs') ?></h3>
     <div class="table-responsive">
         <table border='0' class='table'>
             <thead>
@@ -131,7 +131,9 @@
         <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
     </div>
 </div>
-</div></div></div>
+</div>
+</div>
+</div>
 </div>
 </section>
 

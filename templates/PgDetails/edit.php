@@ -5,7 +5,6 @@
             'error' => '<div class="invalid-feedback">{{content}}</div>',
         ];
         $this->Form->setTemplates($myTemplates);
-        
 ?>
 <head>
     <style>
@@ -14,10 +13,10 @@
         margin: -53px 102px 100px;
         padding: 20px;
             }
-            .vieww {
-            width: 112%;
-            margin: -24px -346px 103px -274px;
-            padding: 20px;
+        .vieww {
+        width: 112%;
+        margin: -24px -346px 103px -274px;
+        padding: 20px;
         }
         
   </style>
@@ -41,7 +40,7 @@
             <br><br></h6>
         
         </div>
-</aside>
+    </aside>
 
         <section class="col-lg-10 col-md-8 login py-5 border-top-1 ">
 <div class="container ">
@@ -93,8 +92,6 @@
                         'class' => '']);
 
                 ?> 
-       <!--  Image Upload : <center>
-        <?=  $this->Form->input('image', array('type' => 'file')); ?> -->
     </center>
      
  		<?= $this->Form->select('owner_id', $owner_id, ['empty' => 'Select Owner ', 'user_id' => 'firstname', 'class' =>($this->Form->isFieldError('owner_id')) ? 'form-control is-invalid' : 'form-control']); ?>
