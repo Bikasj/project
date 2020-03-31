@@ -84,14 +84,14 @@ class PgDetailsController extends AppController
             'contain' => [],
         ]);
 
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $imgdata = $this->request->getData('image');
-            $tmpName = $imgdata->getStream()->getMetadata('uri');
-            $img=file_get_contents($tmpName);
+        if ($this->request->is(['put','patch', 'post'])) {
+            // $imgdata = $this->request->getData('image');
+            // $tmpName = $imgdata->getStream()->getMetadata('uri');
+            // $img=file_get_contents($tmpName);
             $data=$this->request->getData();
-            $data['image']=$img;
+            // $data['image']=$img;
             $pg_details = $this->PgDetails->patchEntity($pg_details, $data);
-            if ($this->Users->save($pg_details)) {
+            if ($this->PgDetails->save($pg_details)) {
                 $this->Flash->success(__('The user has been modified.'));
 
                 return $this->redirect(['action' => 'index']);
