@@ -145,6 +145,7 @@
             </table><h6>
         
             <br><br></h6>
+             <?=  $this->Html->link('View PG', ['action' => 'view','controller'=>'PgDetails', $room->pg_id], ['class' => 'text-white btn btn-success btn-md ']) ?> 
         </div>
     </div>
             
