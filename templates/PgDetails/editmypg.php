@@ -28,15 +28,15 @@
             <br>
             
             <br><h6>
-            <?= $this->Html->link(__('PG Owners'), ['action' => 'index','controller' => 'users'], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link(__('My PG'), ['action' => 'index','controller' => 'users'], ['class' => 'side-nav-item']) ?>
             <br><br>
-            <?= $this->Html->link('Rooms Available/Booked', ['action' => 'index','controller' => 'rooms'], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link('All Transient Guests', ['action' => 'index','controller' => 'rooms'], ['class' => 'side-nav-item']) ?>
             <br><br>
-             <?= $this->Html->link('Transient Guests', ['action' => 'indexfortransients','controller' => 'users'], ['class' => 'side-nav-item']) ?>
+             <?= $this->Html->link('Add New PG', ['action' => 'indexfortransients','controller' => 'users'], ['class' => 'side-nav-item']) ?>
               <br><br>
-              <?= $this->Html->link('All PGs', ['action' => 'index','controller' => 'pgDetails'], ['class' => 'side-nav-item']) ?>
+              <?= $this->Html->link('Add New Room', ['action' => 'index','controller' => 'pgDetails'], ['class' => 'side-nav-item']) ?>
               <br><br>
-            <?= $this->Html->link('PG Request', ['action' => 'pgrequest','controller' => 'pg_details'], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link('Room Available', ['action' => 'pgrequest','controller' => 'pg_details'], ['class' => 'side-nav-item']) ?>
             <br><br></h6>
         
         </div>
@@ -47,26 +47,17 @@
 <div class="row justify-content-center">
 <div class=" vieww">
          <div class="shadow p-3 mb-5 bg-white rounded" style="position: sticky;top:0;" >
-            &emsp;&emsp;&emsp;
-            Total PGs :
-                <font color="blue" size="10"><b>
-                    <?= $pgs ?>
-                </font> </b>
             &emsp;&emsp;&emsp;&emsp;
-            Total Rooms :   
+            Total Transient Guests :
+                <font color="blue" size="10"><b>
+                    <?= $transients ?>
+                </font> </b>
+            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+            Rooms Available :   
                 <font color="blue" size="10"><b>  
                     <?= $rooms ?>  
-                </font> </b>   
-            &emsp;&emsp;&emsp;&emsp;      
-            Total PgOwners : 
-                <font color="blue" size="10"><b>  
-                    <?= $pgowners ?>     
-                </font> </b>   
-            &emsp;&emsp;&emsp;&emsp;
-            Total Transient Guests :  
-                <font color="blue" size="10"><b>  
-                    <?= $transients ?>     
-                </font> </b>     
+                </font> </b>    
         </div>
 <div class="users index content">
    
