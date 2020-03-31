@@ -66,7 +66,7 @@
                 </font> </b>              
         </div>
 <div class="users index content">
-    <?= $this->Html->link(__('Add New User'), ['action' => 'add'], ['class' => 'btn btn-dark button float-right'])  ?> <br>
+    <?= $this->Html->link(__('Add New TransientGuest'), ['action' => 'add'], ['class' => 'btn btn-dark button float-right'])  ?> <br>
     <h3><?= __('Transient Guests') ?></h3>
     <div class="table-responsive">
         <table border='0' class='table'>

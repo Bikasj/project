@@ -93,7 +93,7 @@
                     <td><?= h($user->firstname) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Lastname') ?></th>
+                    <th><?= __('LastName') ?></th>
                     <td><?= h($user->lastname) ?></td>
                 </tr>
                 <tr>

@@ -130,7 +130,7 @@ class UsersController extends AppController
     }
 
     public function changeupload($id=null)
-    {   $this->loadModel('Userroles');
+    {   
         $user = $this->Users->get($id, [
             'contain' => [],
         ]);
@@ -145,16 +145,12 @@ class UsersController extends AppController
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The upload has been saved.'));
 
-                return $this->redirect(['action' => 'edit']);
+                return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The upload could not be saved. Please, try again.'));
         }
-        $roles = $this->Userroles->find('list', [ 
-            'keyField' => 'id',
-            'valueField' => 'user_rolename'
-        ]);
-        $this->set('roles', $roles);
-        $this->set(compact('user'));
+        
+        $this->set('user',$user);
     }
     public function block($id)
     {

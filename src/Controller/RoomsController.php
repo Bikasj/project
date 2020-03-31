@@ -70,37 +70,57 @@ class RoomsController extends AppController
         $transients = $this->Users->findByRole('2')->count();
         $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients ,'pg_id' => $pg_id, 'room' => $room));
     }
-    // public function edit($id = null)
-    // {   $this->loadModel('Userroles');
-    //     $this->loadModel('Rooms');
-    //     $user = $this->Users->get($id, [
-    //         'contain' => [],
-    //     ]);
+    public function edit($id = null)
+    {   $this->loadModel('PgDetails');
+        $this->loadModel('Users');
+        $room = $this->Rooms->get($id, [
+            'contain' => [],
+        ]);
 
-    //     if ($this->request->is(['patch', 'post', 'put'])) {
-    //         $imgdata = $this->request->getData('image');
-    //         $tmpName = $imgdata->getStream()->getMetadata('uri');
-    //         $img=file_get_contents($tmpName);
-    //         $data=$this->request->getData();
-    //         $data['image']=$img;
-    //         $user = $this->Users->patchEntity($user, $data);
-    //         if ($this->Users->save($user)) {
-    //             $this->Flash->success(__('The user has been modified.'));
-
-    //             return $this->redirect(['action' => 'index']);
-    //         }
-    //         $this->Flash->error(__('The user could not be modified. Please, try again.'));
-    //     }
-    //     $roles = $this->Userroles->find('list', [ 
-    //         'keyField' => 'id',
-    //         'valueField' => 'user_rolename'
-    //     ]);
-    //     $pgs = $this->Users->findByRole('1')->count();
-    //     $rooms = $this->Rooms->find()->count();
-    //     $totalusers = $this->Users->find()->count();
-    //     $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'totalusers'=> $totalusers ,'roles' => $roles, 'user' => $user));
+        if ($this->request->is(['patch', 'post', 'put'])) {
         
-    // }
+            $data=$this->request->getData();
+            $room = $this->Rooms->patchEntity($room, $data);
+            if ($this->Rooms->save($rooms)) {
+                $this->Flash->success(__('The room has been saved.'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The room could not be saved. Please, try again.'));
+        }
+         $pg_id = $this->PgDetails->find('list', [ 
+            'keyField' => 'pg_id',
+            'valueField' => 'pg_id'
+        ]);
+        $pgs = $this->PgDetails->find()->count();
+        $rooms = $this->Rooms->find()->count();
+        $pgowners = $this->Users->findByRole('1')->count();
+        $transients = $this->Users->findByRole('2')->count();
+        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients ,'pg_id' => $pg_id, 'room' => $room));
+        
+    }
+    public function changeupload($id=null)
+    {  
+        $room = $this->Rooms->get($id, [
+            'contain' => [],
+        ]);
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $imgdata = $this->request->getData('image');
+            $tmpName = $imgdata->getStream()->getMetadata('uri');
+            $img=file_get_contents($tmpName);
+            $data=$this->request->getData();
+            $data['image']=$img;
+            $room = $this->Rooms->patchEntity($room, $data);
+            if ($this->Rooms->save($room)) {
+                $this->Flash->success(__('The upload has been saved.'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The upload could not be saved. Please, try again.'));
+        }
+        $this->set(compact('room'));
+    }
     public function block($id)
     {
             $room= $this->Rooms->get($id);

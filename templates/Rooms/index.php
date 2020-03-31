@@ -115,6 +115,7 @@
                     </td>
                     <td class="actions">
                         <?=  $this->Html->link('view', ['action' => 'view', $rooms->room_id], ['class' => 'text-white btn btn-success btn-sm ']) ?> 
+                        <?=  $this->Html->link('view', ['action' => 'edit', $rooms->room_id], ['class' => 'text-white btn btn-info btn-sm ']) ?> 
                         <?php 
                             if($rooms->status==1)
                                echo $this->Html->link('block', ['action' => 'block', $rooms->room_id], ['class' => 'text-white btn btn-danger btn-sm ']); 
