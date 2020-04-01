@@ -29,11 +29,11 @@
             <br>
             
             <br><h6>
-            <?= $this->Html->link(__('My PG'), ['action' => 'index','controller' => 'users'], ['class' => 'side-nav-item']) ?>
+           <?= $this->Html->link(__('My PG'), ['action' => 'index','controller' => 'users'], ['class' => 'side-nav-item']) ?>
             <br><br>
             <?= $this->Html->link('All Transient Guests', ['action' => 'index','controller' => 'rooms'], ['class' => 'side-nav-item']) ?>
             <br><br>
-             <?= $this->Html->link('Add New PG', ['action' => 'indexfortransients','controller' => 'users'], ['class' => 'side-nav-item']) ?>
+             <?= $this->Html->link('Add New PG', ['action' => 'addbypg','controller' => 'pgDetails'], ['class' => 'side-nav-item']) ?>
               <br><br>
               <?= $this->Html->link('Add New Room', ['action' => 'index','controller' => 'pgDetails'], ['class' => 'side-nav-item']) ?>
               <br><br>
@@ -48,14 +48,14 @@
 <div class="row justify-content-center">
 <div class=" vieww">
          <div class="shadow p-3 mb-5 bg-white rounded" style="position: sticky;top:0;" >
-            &emsp;&emsp;&emsp;&emsp;
-            Total Transient Guests :
+            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+            Total PG :
                 <font color="blue" size="10"><b>
-                    <?= $transients ?>
+                    <?= $pgs ?>
                 </font> </b>
             &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
             &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-            Rooms Available :   
+            Total Rooms :   
                 <font color="blue" size="10"><b>  
                     <?= $rooms ?>  
                 </font> </b>    
@@ -128,7 +128,7 @@
             <br><br></h6>
     </div>
             <div class='rooms-view'>
-            <h5><b>Rooms</b></h5>
+            <h5><b>Rooms in PG</b></h5>
 
             <table border='0'  class='table'>
             <thead>

@@ -137,7 +137,7 @@
             <br><br></h6>
     </div>
             <div class='rooms-view'>
-            <h5><b>Rooms</b></h5>
+            <h5><b>Rooms in PG</b></h5>
 
             <table border='0'  class='table'>
             <thead>

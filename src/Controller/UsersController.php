@@ -130,7 +130,7 @@ class UsersController extends AppController
             $user = $this->Users->patchEntity($user, $data);
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The upload has been saved.'));
-                    return $this->redirect(['action' => 'index']);
+                    return $this->redirect(['action' => 'index',$id]);
             }
             $this->Flash->error(__('The upload could not be saved. Please, try again.'));
         }
@@ -147,7 +147,7 @@ class UsersController extends AppController
                 $this->Flash->success(__('The user has been blocked.'));
             else
                 $this->Flash->success(__('The user has been unblocked.'));
-            return $this->redirect(['action' => 'index']);
+            return $this->redirect($this->referer());
         }
         $this->Flash->error(__('The user could not be saved. Please, try again.'));
     }

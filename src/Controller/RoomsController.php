@@ -92,6 +92,7 @@ class RoomsController extends AppController
         $pgowners = $this->Users->findByRole('1')->count();
         $transients = $this->Users->findByRole('2')->count();
         $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients ,'pg_id' => $pg_id, 'room' => $room));
+        $this->set(compact('rooms'));
     }
     public function changeupload($id=null)
     {  
@@ -109,7 +110,7 @@ class RoomsController extends AppController
             if ($this->Rooms->save($room)) 
             {
                 $this->Flash->success(__('The upload has been saved.'));
-                    return $this->redirect(['action' => 'index']);
+                    return $this->redirect(['action' => 'edit',$id]);
             }
             $this->Flash->error(__('The upload could not be saved. Please, try again.'));
         }
@@ -125,7 +126,7 @@ class RoomsController extends AppController
                     $this->Flash->success(__('The user has been blocked.'));
                 else
                     $this->Flash->success(__('The user has been unblocked.'));
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect($this->referer());
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
     }
@@ -133,6 +134,39 @@ class RoomsController extends AppController
     {
         parent::beforeFilter($event);
         $this->Authentication->addUnauthenticatedActions(['login', 'add']);
+    }
+    public function addbypg()
+    {   $this->loadModel('PgDetails');
+        $rooms = $this->Rooms->newEmptyEntity();
+        if ($this->request->is('post')) 
+        {
+            $imgdata = $this->request->getData('image');
+            $tmpName = $imgdata->getStream()->getMetadata('uri');
+            $img=file_get_contents($tmpName);
+            $data=$this->request->getData();
+            $data['image']=$img;
+            $rooms = $this->Rooms->newEntity($data);
+            if ($this->Rooms->save($rooms)) 
+            {
+                $this->Flash->success(__('The room has been saved.'));
+                    return $this->redirect(['action' => 'mypg']);
+            }
+            $this->Flash->error(__('The room could not be saved. Please, try again.'));
+        }
+         $pg_id = $this->PgDetails->find('list', [ 
+            'keyField' => 'pg_id',
+            'valueField' => 'pg_id'
+        ])->where(['owner_id' => 19]);
+        $pgs = $this->PgDetails->findByOwnerId('19')->count();
+        $allTitles = $this->PgDetails->find('list')->where(['owner_id' => 19]);
+        $roomm=0;$room=0;
+        foreach ($allTitles as $title) 
+        {
+            $roomm=$title;
+            $room=$room+ $this->Rooms->findByPgId($roomm)->count();
+        }
+        $this->set(array('pgs'=> $pgs , 'room'=> $room,'pg_id'=> $pg_id ,'rooms'=>$rooms));
+        $this->set(compact('rooms'));
     }
 
      

@@ -75,9 +75,9 @@
 						  //          }
 						        ?>
 							</li>&nbsp;
-							<li class="nav-item">
+							<!-- <li class="nav-item">
 								<a class="nav-link text-white add-button" href="/users/add" >Register Now</a>
-							</li>
+							</li> -->
 						</ul>
 					</div>
 				</nav>
