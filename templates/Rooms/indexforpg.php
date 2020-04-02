@@ -11,8 +11,8 @@
         }
         .view 
         {
-        width: 118%;
-        margin: -24px -346px 103px -230px;
+        width: 112%;
+        margin: -24px -346px 103px -274px;
         padding: 20px;
         }
     </style>
@@ -26,7 +26,7 @@
             <h3 class="heading"><?= __('Menu') ?></h3>
             
            <br><h6>
-            <?= $this->Html->link(__('My PG'), ['action' => 'mypg','controller' => 'pgDetails'], ['class' => 'side-nav-item']) ?>
+             <?= $this->Html->link(__('My PG'), ['action' => 'mypg','controller' => 'pgDetails'], ['class' => 'side-nav-item']) ?>
             <br><br>
             <?= $this->Html->link('All Transient Guests', ['action' => 'index','controller' => 'rooms'], ['class' => 'side-nav-item']) ?>
             <br><br>
@@ -36,6 +36,7 @@
               <br><br>
             <?= $this->Html->link('Room Available/Booked', ['action' => 'indexforpg','controller' => 'Rooms'], ['class' => 'side-nav-item']) ?>
             <br><br></h6>
+        
         </div>
     </aside>
 
@@ -53,56 +54,64 @@
             &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
             Total Rooms :   
                 <font color="blue" size="10"><b>  
-                    <?= $rooms ?>  
-                </font> </b>    
+                    <?= $room ?>  
+                </font> </b>  
         </div>
 <div class="users index content">
-
-    <h3><?= __('My PG') ?></h3>
+    <?= $this->Html->link(__('Add New Room'), ['action' => 'add'], ['class' => 'btn btn-dark button float-right'])  ?> <br>
+    
+    <h3><?= __('Rooms Available/Booked') ?></h3>
     <div class="table-responsive">
         <table border='0' class='table'>
             <thead>
                 <tr>    
                     <th><?= $this->Paginator->sort('Sr.No.') ?></th>
-                    <th><?= $this->Paginator->sort('Location') ?></th>
-                    <th><?= $this->Paginator->sort('Address') ?></th>
-                    <th><?= $this->Paginator->sort('Phone') ?></th>
-                    <th><?= $this->Paginator->sort('Availability') ?></th>
-                    <th><?= $this->Paginator->sort('No. of Rooms') ?></th>
+                    <th colspan="2"><?= $this->Paginator->sort('image') ?></th>
+                    <th><?= $this->Paginator->sort('pgId') ?></th>
+                    <th><?= $this->Paginator->sort('seater') ?></th>
+                    <th><?= $this->Paginator->sort('booked seats') ?></th>
+                    <th><?= $this->Paginator->sort('available seats') ?></th>
+                    <th><?= $this->Paginator->sort('rent') ?></th>
                     <th><?= $this->Paginator->sort('status') ?></th>
                     
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
             <tbody>
-                <?php                   
+                <?php
                     $i=1;
-                     foreach ($pg_details as $pg): ?>
+                     foreach ($rooms as $room): ?>
                     <tr>
                     <td><?= h($i++) ?></td>
-                    <!-- <td>
-                        
-                         <?=  $this->Html->link($pg->user->firstname." ".$pg->user->lastname, ['action' => 'view','controller' => 'users', $pg->user->user_id]) 
-                         ?> 
-                    </td> -->
-                    <td><?= h($pg->location) ?></td>
-                    <td><?= h($pg->address) ?></td>
-                    <td><?= h($pg->phone) ?></td>
-                    <td><?= h($pg->availability) ?></td>
-                    <td><?= h($pg->no_of_room) ?></td>
-                    <td><?php if($pg->status==0)
+                     <?php  
+                    if($room->image!=NULL)
+                    {   echo "<td colspan='2'>";
+                        echo '<img src="data:image/jpg;base64, '.base64_encode(stream_get_contents($room->image)).' " height=50px width=80px></td>' ;
+                    }
+                    else
+                    {
+                        echo "<td colspan='2' height=50px width=50px><center> <span style='font-size:15px'>No Image!</span></center></td>";
+                    }
+                    ?>
+                    <td> <?=  $this->Html->link($room->pg_id, ['action' => 'view','controller' => 'PgDetails', $room->pg_id]) 
+                         ?> </td>
+                    <td><?= h($room->seater) ?></td>
+                    <td><?= $room->seater-$room->seats_available ?></td>
+                    <td><?= h($room->seats_available) ?></td>
+                    <td><?= number_format($room->rent) ?></td>
+                    <td><?php if($room->status==0)
                                 echo "Inactive";
                                else
                                 echo "Active"; ?></td>
                     <td class="actions">
-                        <?=  $this->Html->link('view', ['action' => 'viewmypg', $pg->pg_id], ['class' => 'text-white btn btn-success btn-sm ']) ?> 
-                         <?=  $this->Html->link('edit', ['action' => 'editmypg', $pg->pg_id], ['class' => 'text-white btn btn-info btn-sm ']) ?>
-                    <?php 
-                        if($pg->status==1)
-                           echo $this->Html->link('block', ['action' => 'block', $pg->pg_id], ['class' => 'text-white btn btn-danger btn-sm ']); 
-                        else
-                            echo $this->Html->link('unblock', ['action' => 'block', $pg->pg_id], ['class' => 'text-white btn btn-danger btn-sm ']); 
-                    ?>
+                        <?=  $this->Html->link('view', ['action' => 'viewbypg', $room->room_id], ['class' => 'text-white btn btn-success btn-sm ']) ?> 
+                        <?=  $this->Html->link('edit', ['action' => 'editbypg', $room->room_id], ['class' => 'text-white btn btn-info btn-sm ']) ?> 
+                        <?php 
+                            if($room->status==1)
+                               echo $this->Html->link('block', ['action' => 'block', $room->room_id], ['class' => 'text-white btn btn-danger btn-sm ']); 
+                            else
+                                echo $this->Html->link('unblock', ['action' => 'block', $room->room_id], ['class' => 'text-white btn btn-danger btn-sm ']); 
+                        ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -120,12 +129,8 @@
         <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
     </div>
 </div>
-</div>
-</div>
-</div>
+</div></div></div>
 </div>
 </section>
-
-
 
 

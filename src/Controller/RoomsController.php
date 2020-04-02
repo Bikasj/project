@@ -153,10 +153,10 @@ class RoomsController extends AppController
             }
             $this->Flash->error(__('The room could not be saved. Please, try again.'));
         }
-         $pg_id = $this->PgDetails->find('list', [ 
+        $pg_id = $this->PgDetails->find('list', [ 
             'keyField' => 'pg_id',
             'valueField' => 'pg_id'
-        ])->where(['owner_id' => 19]);
+                ])->where(['owner_id' => 19]);
         $pgs = $this->PgDetails->findByOwnerId('19')->count();
         $allTitles = $this->PgDetails->find('list')->where(['owner_id' => 19]);
         $roomm=0;$room=0;
@@ -168,7 +168,71 @@ class RoomsController extends AppController
         $this->set(array('pgs'=> $pgs , 'room'=> $room,'pg_id'=> $pg_id ,'rooms'=>$rooms));
         $this->set(compact('rooms'));
     }
-
-     
+    public function indexforpg()
+    {   
+        $this->loadModel('PgDetails');
+        $pgs = $this->PgDetails->findByOwnerId('19')->count();
+        $allTitles = $this->PgDetails->find('list')->where(['owner_id' => 19]);
+        $roomm=0;$room=0;$j=0;
+        foreach ($allTitles as $title) 
+        {   $pgid[$j++]=$title;
+            $roomm=$title;
+            $room=$room+ $this->Rooms->findByPgId($roomm)->count();
+        }        
+        $rooms =$this->paginate($this->Rooms->find('all', [
+                                                    'conditions' => [
+                                                    'pg_id IN' => [ $pgid[0] , $pgid[1] 
+                                                     ] ]]));
+        $this->set(array('pgs'=> $pgs , 'room'=> $room ,'rooms'=>$rooms));
+        $this->set(compact('rooms'));
+    }   
+    public function editbypg($id = null)
+    {   $this->loadModel('PgDetails');
+        $rooms = $this->Rooms->get($id, [
+            'contain' => [],
+        ]);
+        if ($this->request->is(['patch', 'post', 'put'])) 
+        {
+            $data=$this->request->getData();
+            $rooms = $this->Rooms->patchEntity($rooms, $data);
+            if ($this->Rooms->save($rooms)) 
+            {
+                $this->Flash->success(__('The room has been saved.'));
+                    return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The room could not be saved. Please, try again.'));
+        }
+        $pg_id = $this->PgDetails->find('list', [ 
+            'keyField' => 'pg_id',
+            'valueField' => 'pg_id'
+                ])->where(['owner_id' => 19]);
+        $pgs = $this->PgDetails->findByOwnerId('19')->count();
+        $allTitles = $this->PgDetails->find('list')->where(['owner_id' => 19]);
+        $roomm=0;$room=0;
+        foreach ($allTitles as $title) 
+        {
+            $roomm=$title;
+            $room=$room+ $this->Rooms->findByPgId($roomm)->count();
+        }
+        $this->set(array('pgs'=> $pgs , 'room'=> $room,'pg_id'=> $pg_id ,'rooms'=>$rooms));
+        $this->set(compact('rooms'));
+    }
+    public function viewbypg($id = null)
+    {   
+        $this->loadModel('PgDetails');
+        $rooms = $this->Rooms->get($id, [
+            'contain' => [],
+        ]);
+        $pgs = $this->PgDetails->findByOwnerId('19')->count();
+        $allTitles = $this->PgDetails->find('list')->where(['owner_id' => 19]);
+        $roomm=0;$room=0;
+        foreach ($allTitles as $title) 
+        {
+            $roomm=$title;
+            $room=$room+ $this->Rooms->findByPgId($roomm)->count();
+        }
+        $this->set(array('pgs'=> $pgs , 'room'=> $room,'rooms'=>$rooms));
+        $this->set(compact('rooms'));
+    }
 
 }
