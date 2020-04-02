@@ -105,15 +105,15 @@ class UsersController extends AppController
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
-        $roles = $this->Userroles->find('list', [ 
-            'keyField' => 'id',
-            'valueField' => 'user_rolename'
-        ]);
+        // $roles = $this->Userroles->find('list', [ 
+        //     'keyField' => 'id',
+        //     'valueField' => 'user_rolename'
+        // ]);
         $pgs = $this->PgDetails->find()->count();
         $rooms = $this->Rooms->find()->count();
         $pgowners = $this->Users->findByRole('1')->count();
         $transients = $this->Users->findByRole('2')->count();
-        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients ,'roles' => $roles, 'user' => $user));
+        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients , 'user' => $user));
     }
     public function changeupload($id=null)
     {   

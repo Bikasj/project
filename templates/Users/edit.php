@@ -103,7 +103,7 @@
                 <?php  
                     if($user->image!=NULL)
                     {   echo "<td colspan='2'>";
-                         echo '<img src="data:image/jpg;base64, '.base64_encode(stream_get_contents($user->image)).' " height=200px width=400px></td>' ;
+                         echo '<img src="data:image/jpg;base64, '.base64_encode(stream_get_contents($user->image)).' " height=200px width=300px></td>' ;
                     }
                     else
                     {
@@ -113,9 +113,6 @@
 
                 <?=  $this->Html->link('change upload', ['action' => 'changeupload', $user->user_id], ['class' => 'nav-link text-white btn btn-secondary btn-primary '])."<br>" ?>
 
-        <br>
-        <br>
-        <?= $this->Form->select('role', $roles, ['empty' => 'Select Role', 'id' => 'user_rolename', 'class' =>($this->Form->isFieldError('phone')) ? 'form-control is-invalid' : 'form-control']); ?>
         <br>
         <br>
 

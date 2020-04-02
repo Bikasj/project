@@ -47,7 +47,8 @@ class UsersTable extends Table
             ]);
         $validator->notEmpty('adharcard');
         $validator->notEmpty('phone');
-        
+        $validator->notEmpty('image');
+        $validator->notEmpty('role');
         return $validator;
     }
 

@@ -95,7 +95,6 @@
                     'minLength'=>'10',
                     'class' => ($this->Form->isFieldError('phone')) ? 'form-control is-invalid' : 'form-control'
                 ]
-                
             ]
         );
 

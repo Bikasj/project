@@ -69,7 +69,7 @@
 
     <h3 class="bg-gray p-4">Add New Room</h3>
         
-            <?= $this->Form->create($rooms,['type'=>'file']) ?>     
+            <?= $this->Form->create($rooms ,['type'=>'file']) ?>     
 
     <?php
 

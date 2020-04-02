@@ -100,13 +100,15 @@
                     'class' => ($this->Form->isFieldError('email')) ? 'form-control is-invalid' : 'form-control'
                 ],
                 'password' => [
+                    'type' => 'password',
+                    'name' => 'password',
                     'placeholder' => "Password", 
                     'required' => false,
                     'class' => ($this->Form->isFieldError('password')) ? 'form-control is-invalid' : 'form-control'
                 ],
                 'confirmpassword' => [
                     'type' => 'password',
-                    'name' => 'password', 
+                    'name' => 'confirmpassword', 
                     'placeholder' => "Confirm Password", 
                     'required' => false,
                     'label' => 'Confirm Password',
@@ -130,7 +132,8 @@
         );
         ?>
         Image Upload : <center>
-        <?=  $this->Form->input('image', array('type' => 'file')); ?>
+        <?=  $this->Form->control('image',array('data-val'=>'true', 'data-val-required'=>'File is required' ),['class' => ($this->Form->isFieldError('image')) ? 'form-control is-invalid' : 'form-control'
+                ]); ?>
     </center>
         <br>
         <br>
