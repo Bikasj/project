@@ -106,10 +106,9 @@
                     <td class="actions">
                         <?=  $this->Html->link('view', ['action' => 'view', $pg->pg_id], ['class' => 'text-white btn btn-success btn-sm ']) ?> 
                     <?php 
-                        if($pg->status==1)
-                           echo $this->Html->link('block', ['action' => 'block', $pg->pg_id], ['class' => 'text-white btn btn-danger btn-sm ']); 
-                        else
-                            echo $this->Html->link('unblock', ['action' => 'block', $pg->pg_id], ['class' => 'text-white btn btn-danger btn-sm ']); 
+                           echo $this->Html->link('approve', ['action' => 'approve', $pg->pg_id], ['class' => 'text-white btn btn-danger btn-sm ']); 
+                        
+                            // echo $this->Html->link('reject', ['action' => 'block', $pg->pg_id], ['class' => 'text-white btn btn-danger btn-sm ']); 
                     ?>
                     </td>
                 </tr>

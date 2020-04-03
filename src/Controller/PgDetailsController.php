@@ -17,9 +17,10 @@ class PgDetailsController extends AppController
     {   
         $this->loadModel('Users');
         $this->loadModel('Rooms');
-        $pg_details = $this->paginate($this->PgDetails,[
+        $pg_detail=$this->PgDetails->find('all')->where(['PgDetails.status IN' => ['0','1']]);
+        $pg_details = $this->paginate($pg_detail,[
             'contain' => ['Users']]); 
-        $pgs = $this->PgDetails->find()->count();
+        $pgs = $this->PgDetails->find()->where(['PgDetails.status IN' => ['0','1']])->count();
         $rooms = $this->Rooms->find()->count();
         $pgowners = $this->Users->findByRole('1')->count();
         $transients = $this->Users->findByRole('2')->count();
@@ -34,11 +35,11 @@ class PgDetailsController extends AppController
         $pg_details = $this->PgDetails->get($id, [
             'contain' => ['Users']
         ]);
-        $pgs = $this->PgDetails->find()->count();
+        $pgs = $this->PgDetails->find()->where(['PgDetails.status IN' => ['0','1']])->count();
         $rooms = $this->Rooms->find()->count();
         $totalusers = $this->Users->find()->count();
         $room = $this->paginate($this->Rooms); 
-        $pgs = $this->PgDetails->find()->count();
+        $pgs = $this->PgDetails->find()->where(['PgDetails.status IN' => ['0','1']])->count();
         $rooms = $this->Rooms->find()->count();
         $pgowners = $this->Users->findByRole('1')->count();
         $transients = $this->Users->findByRole('2')->count();
@@ -53,6 +54,7 @@ class PgDetailsController extends AppController
         if ($this->request->is('post')) 
         {
             $data=$this->request->getData();
+            $data['status']=1;
             $pg_details = $this->PgDetails->newEntity($data);
             if ($this->PgDetails->save($pg_details)) 
             { 
@@ -65,7 +67,7 @@ class PgDetailsController extends AppController
             'keyField' => 'user_id',
             'valueField' => 'firstname'
         ]);
-        $pgs = $this->PgDetails->find()->count();
+        $pgs = $this->PgDetails->find()->where(['PgDetails.status IN' => ['0','1']])->count();
         $rooms = $this->Rooms->find()->count();
         $pgowners = $this->Users->findByRole('1')->count();
         $transients = $this->Users->findByRole('2')->count();
@@ -92,7 +94,7 @@ class PgDetailsController extends AppController
             'valueField' => 'firstname'
         ]);
         $room = $this->paginate($this->Rooms);
-        $pgs = $this->PgDetails->find()->count();
+        $pgs = $this->PgDetails->find()->where(['PgDetails.status IN' => ['0','1']])->count();
         $rooms = $this->Rooms->find()->count();
         $pgowners = $this->Users->findByRole('1')->count();
         $transients = $this->Users->findByRole('2')->count();
@@ -100,7 +102,7 @@ class PgDetailsController extends AppController
         
     }
     public function block($id)
-    {
+    {   
         $pg_details= $this->PgDetails->get($id);
         $status=$pg_details->status;
         $pg_details->status=1-$status;
@@ -112,6 +114,17 @@ class PgDetailsController extends AppController
             return $this->redirect($this->referer());
         }
         $this->Flash->error(__('The PG could not be saved. Please, try again.'));
+    }
+    public function approve($id)
+    {   
+        $pg_details= $this->PgDetails->get($id);
+        $pg_details->status=1;
+        if ($this->PgDetails->save($pg_details)) {
+            if($pg_details->status==1)
+                $this->Flash->success(__('The PG has been approved.'));
+            return $this->redirect($this->referer());
+        }
+        $this->Flash->error(__('The PG could not be approved. Please, try again.'));
     }
 
     public function beforeFilter(\Cake\Event\EventInterface $event)
@@ -125,14 +138,14 @@ class PgDetailsController extends AppController
     {
         $this->loadModel('Users');
         $this->loadModel('Rooms');
-        $pg_details = $this->paginate($this->PgDetails->findByStatus('0'),[
+        $pg_details = $this->paginate($this->PgDetails->findByStatus('2'),[
             'contain' => ['Users']]); 
-        $pgs = $this->PgDetails->find()->count();
+        $pgs = $this->PgDetails->find()->where(['PgDetails.status IN' => ['0','1']])->count();
         $rooms = $this->Rooms->find()->count();
         $pgowners = $this->Users->findByRole('1')->count();
         $transients = $this->Users->findByRole('2')->count();
         $users= $this->Users->findByRole('1');
-        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients , 'pg_details' => $this -> paginate( $this ->PgDetails->findByStatus('0') )));
+        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients , 'pg_details' => $this -> paginate( $this ->PgDetails->findByStatus('2') )));
             $this->set(compact('pg_details'));
     } 
     public function mypg()
@@ -140,13 +153,13 @@ class PgDetailsController extends AppController
         $this->loadModel('Rooms');
         $pg_details = $this->paginate($this->PgDetails->findByOwnerId('19'),[
             'contain' => ['Users']]); 
-        $pgs = $this->PgDetails->findByOwnerId('19')->count();
+        $pgs = $this->PgDetails->findByOwnerId('19')->where(['PgDetails.status IN' => ['0','1']])->count();
 
-        $allTitles = $this->PgDetails->find('list')->where(['owner_id' => 19]);
+        $lists = $this->PgDetails->find('list')->where(['owner_id' => 19]);
         $room=0;$rooms=0;
-        foreach ($allTitles as $title) 
+        foreach ($lists as $list) 
         {
-            $room=$title;
+            $room=$list;
             $rooms=$rooms+ $this->Rooms->findByPgId($room)->count();
         }
         $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms ,  'pg_details' => $this -> paginate( $this ->PgDetails->findByOwnerId('19') )));
@@ -159,12 +172,12 @@ class PgDetailsController extends AppController
             'contain' => ['Users']
         ]);
         $room = $this->paginate($this->Rooms->findByPgId($id)); 
-        $pgs = $this->PgDetails->findByOwnerId('19')->count();
-        $allTitles = $this->PgDetails->find('list')->where(['owner_id' => 19]);
+        $pgs = $this->PgDetails->findByOwnerId('19')->where(['PgDetails.status IN' => ['0','1']])->count();
+        $lists = $this->PgDetails->find('list')->where(['owner_id' => 19]);
         $roomm=0;$rooms=0;
-        foreach ($allTitles as $title) 
+        foreach ($lists as $list) 
         {
-            $roomm=$title;
+            $roomm=$list;
             $rooms=$rooms+ $this->Rooms->findByPgId($roomm)->count();
         }
         $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms ,'room' => $room , 'pg_details' => $this -> paginate( $this ->PgDetails->findByOwnerId('19') )));
@@ -186,12 +199,12 @@ class PgDetailsController extends AppController
             $this->Flash->error(__('The user could not be modified. Please, try again.'));
         }
         $room = $this->paginate($this->Rooms->findByPgId($id));
-        $pgs = $this->PgDetails->findByOwnerId('19')->count();
-        $allTitles = $this->PgDetails->find('list')->where(['owner_id' => 19]);
+        $pgs = $this->PgDetails->findByOwnerId('19')->where(['PgDetails.status IN' => ['0','1']])->count();
+        $lists = $this->PgDetails->find('list')->where(['owner_id' => 19]);
         $roomm=0;$rooms=0;
-        foreach ($allTitles as $title) 
+        foreach ($lists as $list) 
         {
-            $roomm=$title;
+            $roomm=$list;
             $rooms=$rooms+ $this->Rooms->findByPgId($roomm)->count();
         }
         $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms ,'room' => $room,  'pg_details' => $this -> paginate( $this ->PgDetails->findByOwnerId('19') )));
@@ -213,12 +226,12 @@ class PgDetailsController extends AppController
             }
             $this->Flash->error(__('The PG could not be saved. Please, try again.'));
         }
-        $pgs = $this->PgDetails->findByOwnerId('19')->count();
-        $allTitles = $this->PgDetails->find('list')->where(['owner_id' => 19]);
+        $pgs = $this->PgDetails->findByOwnerId('19')->where(['PgDetails.status IN' => ['0','1']])->count();
+        $lists = $this->PgDetails->find('list')->where(['owner_id' => 19]);
         $roomm=0;$rooms=0;
-        foreach ($allTitles as $title) 
+        foreach ($lists as $list) 
         {
-            $roomm=$title;
+            $roomm=$list;
             $rooms=$rooms+ $this->Rooms->findByPgId($roomm)->count();
         }
         $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms ));

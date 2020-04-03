@@ -92,16 +92,21 @@
                     <td><?= h($pg->no_of_room) ?></td>
                     <td><?php if($pg->status==0)
                                 echo "Inactive";
-                               else
-                                echo "Active"; ?></td>
+                            elseif($pg->status==1)
+                                echo "Active"; 
+                            else 
+                                echo "Pending";
+                                ?>
+                                </td>
                     <td class="actions">
                         <?=  $this->Html->link('view', ['action' => 'viewmypg', $pg->pg_id], ['class' => 'text-white btn btn-success btn-sm ']) ?> 
                          <?=  $this->Html->link('edit', ['action' => 'editmypg', $pg->pg_id], ['class' => 'text-white btn btn-info btn-sm ']) ?>
                     <?php 
                         if($pg->status==1)
                            echo $this->Html->link('block', ['action' => 'block', $pg->pg_id], ['class' => 'text-white btn btn-danger btn-sm ']); 
-                        else
+                        elseif($pg->status==0)
                             echo $this->Html->link('unblock', ['action' => 'block', $pg->pg_id], ['class' => 'text-white btn btn-danger btn-sm ']); 
+                        
                     ?>
                     </td>
                 </tr>

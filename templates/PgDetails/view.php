@@ -72,10 +72,12 @@
 <div class="users index content">
    
     <?php 
-          if($pg_details->status==1)
+            if($pg_details->status==1)
                echo  $this->Html->link('Block', ['action' => 'block', $pg_details->pg_id], ['class' => 'nav-link text-white btn btn-danger btn-primary  float-right'])."<br>";  
-            else
+            else if($pg_details->status==0)
                echo $this->Html->link('Unblock', ['action' => 'block',$pg_details->pg_id], ['class' => 'nav-link text-white btn btn-primary       float-right'])."<br>"; 
+            else 
+                echo $this->Html->link('Approve', ['action' => 'approve',$pg_details->pg_id], ['class' => 'nav-link text-white btn btn-success       float-right'])."<br>"; 
     ?>
 
     <div class="column-responsive column-80 view">

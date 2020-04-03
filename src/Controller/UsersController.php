@@ -20,7 +20,7 @@ class UsersController extends AppController
         $this->loadModel('Rooms');
         $this->loadModel('PgDetails');
         $users = $this->paginate($this->Users); 
-        $pgs = $this->PgDetails->find()->count();
+        $pgs = $this->PgDetails->find()->where(['PgDetails.status IN' => ['0','1']])->count();
         $rooms = $this->Rooms->find()->count();
         $pgowners = $this->Users->findByRole('1')->count();
         $transients = $this->Users->findByRole('2')->count();
@@ -33,7 +33,7 @@ class UsersController extends AppController
         $this->loadModel('Rooms');
         $this->loadModel('PgDetails');
         $users = $this->paginate($this->Users); 
-        $pgs = $this->PgDetails->find()->count();
+        $pgs = $this->PgDetails->find()->where(['PgDetails.status IN' => ['0','1']])->count();
         $rooms = $this->Rooms->find()->count();
         $pgowners = $this->Users->findByRole('1')->count();
         $transients = $this->Users->findByRole('2')->count();
@@ -48,7 +48,7 @@ class UsersController extends AppController
             'contain' => [],
         ]);
         $role= $this->Userroles->findById($user->role)->firstOrFail();
-        $pgs = $this->PgDetails->find()->count();
+        $pgs = $this->PgDetails->find()->where(['PgDetails.status IN' => ['0','1']])->count();
         $rooms = $this->Rooms->find()->count();
         $pgowners = $this->Users->findByRole('1')->count();
         $transients = $this->Users->findByRole('2')->count();
@@ -81,7 +81,7 @@ class UsersController extends AppController
             'keyField' => 'id',
             'valueField' => 'user_rolename'
         ]);
-        $pgs = $this->PgDetails->find()->count();
+        $pgs = $this->PgDetails->find()->where(['PgDetails.status IN' => ['0','1']])->count();
         $rooms = $this->Rooms->find()->count();
         $pgowners = $this->Users->findByRole('1')->count();
         $transients = $this->Users->findByRole('2')->count();
@@ -109,7 +109,7 @@ class UsersController extends AppController
         //     'keyField' => 'id',
         //     'valueField' => 'user_rolename'
         // ]);
-        $pgs = $this->PgDetails->find()->count();
+        $pgs = $this->PgDetails->find()->where(['PgDetails.status IN' => ['0','1']])->count();
         $rooms = $this->Rooms->find()->count();
         $pgowners = $this->Users->findByRole('1')->count();
         $transients = $this->Users->findByRole('2')->count();
