@@ -24,7 +24,7 @@
             <br>
             
             <br><h6>
-            <?= $this->Html->link(__('My PG'), ['action' => 'mypg','controller' => 'pgDetails'], ['class' => 'side-nav-item']) ?>
+             <?= $this->Html->link(__('My PG'), ['action' => 'mypg','controller' => 'pgDetails'], ['class' => 'side-nav-item']) ?>
             <br><br>
             <?= $this->Html->link('All Transient Guests', ['action' => 'index','controller' => 'rooms'], ['class' => 'side-nav-item']) ?>
             <br><br>
@@ -138,7 +138,7 @@
             </table><h6>
         
             <br><br></h6>
-             <?=  $this->Html->link('View PG', ['action' => 'viewbypg','controller'=>'PgDetails', $rooms->pg_id], ['class' => 'text-white btn btn-success btn-md ']) ?> 
+             <?=  $this->Html->link('View PG', ['action' => 'viewmypg','controller'=>'PgDetails', $rooms->pg_id], ['class' => 'text-white btn btn-success btn-md ']) ?> 
         </div>
     </div>
             

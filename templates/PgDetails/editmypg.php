@@ -33,15 +33,15 @@
             <br>
             
             <br><h6>
-            <?= $this->Html->link(__('My PG'), ['action' => 'mypg','controller' => 'pgDetails'], ['class' => 'side-nav-item']) ?>
+             <?= $this->Html->link(__('My PG'), ['action' => 'mypg','controller' => 'pgDetails'], ['class' => 'side-nav-item']) ?>
             <br><br>
             <?= $this->Html->link('All Transient Guests', ['action' => 'index','controller' => 'rooms'], ['class' => 'side-nav-item']) ?>
             <br><br>
              <?= $this->Html->link('Add New PG', ['action' => 'addbypg','controller' => 'pgDetails'], ['class' => 'side-nav-item']) ?>
               <br><br>
-              <?= $this->Html->link('Add New Room', ['action' => 'index','controller' => 'pgDetails'], ['class' => 'side-nav-item']) ?>
+              <?= $this->Html->link('Add New Room', ['action' => 'addbypg','controller' => 'Rooms'], ['class' => 'side-nav-item']) ?>
               <br><br>
-            <?= $this->Html->link('Room Available', ['action' => 'pgrequest','controller' => 'pg_details'], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link('Room Available/Booked', ['action' => 'indexforpg','controller' => 'Rooms'], ['class' => 'side-nav-item']) ?>
             <br><br></h6>
         
         </div>
