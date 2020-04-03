@@ -55,6 +55,8 @@ class PgDetailsController extends AppController
         {
             $data=$this->request->getData();
             $data['status']=1;
+            $data['created']=date("Y-m-d h:i:s");
+            $data['updated']=date("Y-m-d h:i:s");
             $pg_details = $this->PgDetails->newEntity($data);
             if ($this->PgDetails->save($pg_details)) 
             { 
@@ -82,6 +84,7 @@ class PgDetailsController extends AppController
         ]);
         if ($this->request->is(['put','patch', 'post'])) {
             $data=$this->request->getData();
+            $data['updated']=date("Y-m-d h:i:s");
             $pg_details = $this->PgDetails->patchEntity($pg_details, $data);
             if ($this->PgDetails->save($pg_details)) {
                 $this->Flash->success(__('The user has been modified.'));
@@ -191,6 +194,7 @@ class PgDetailsController extends AppController
         ]);
         if ($this->request->is(['put','patch', 'post'])) {
             $data=$this->request->getData();
+            $data['updated']=date("Y-m-d h:i:s");
             $pg_details = $this->PgDetails->patchEntity($pg_details, $data);
             if ($this->PgDetails->save($pg_details)) {
                 $this->Flash->success(__('The user has been modified.'));
@@ -218,6 +222,8 @@ class PgDetailsController extends AppController
         {
             $data=$this->request->getData();
             $data['owner_id']=19;
+            $data['created']=date("Y-m-d h:i:s");
+            $data['updated']=date("Y-m-d h:i:s");
             $pg_details = $this->PgDetails->newEntity($data);
             if ($this->PgDetails->save($pg_details)) 
             { 

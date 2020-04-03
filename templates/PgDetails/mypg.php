@@ -3,6 +3,10 @@
 ?>
 <head>
     <style type="text/css">
+        .table-responsive 
+        {
+            width:102%;
+        }
         .paginator 
         {
         width: 80%;

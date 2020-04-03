@@ -48,6 +48,8 @@ class RoomsController extends AppController
             $img=file_get_contents($tmpName);
             $data=$this->request->getData();
             $data['image']=$img;
+            $data['created']=date("Y-m-d h:i:s");
+            $data['updated']=date("Y-m-d h:i:s");
             $room = $this->Rooms->newEntity($data);
             if ($this->Rooms->save($room)) 
             {
@@ -75,6 +77,7 @@ class RoomsController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) 
         {
             $data=$this->request->getData();
+            $data['updated']=date("Y-m-d h:i:s");
             $room = $this->Rooms->patchEntity($room, $data);
             if ($this->Rooms->save($rooms)) 
             {
@@ -145,6 +148,8 @@ class RoomsController extends AppController
             $img=file_get_contents($tmpName);
             $data=$this->request->getData();
             $data['image']=$img;
+            $data['created']=date("Y-m-d h:i:s");
+            $data['updated']=date("Y-m-d h:i:s");
             $rooms = $this->Rooms->newEntity($data);
             if ($this->Rooms->save($rooms)) 
             {
@@ -156,7 +161,7 @@ class RoomsController extends AppController
         $pg_id = $this->PgDetails->find('list', [ 
             'keyField' => 'pg_id',
             'valueField' => 'pg_id'
-                ])->where(['owner_id' => 19],['status IN' => ['0','1']]);
+                ])->where(['owner_id' => 19,'status IN' => ['0','1']]);
         $pgs = $this->PgDetails->findByOwnerId('19')->where(['PgDetails.status IN' => ['0','1']])->count();
         $lists = $this->PgDetails->find('list')->where(['owner_id' => 19]);
         $roomm=0;$room=0;
@@ -197,6 +202,7 @@ class RoomsController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) 
         {
             $data=$this->request->getData();
+            $data['updated']=date("Y-m-d h:i:s");
             $rooms = $this->Rooms->patchEntity($rooms, $data);
             if ($this->Rooms->save($rooms)) 
             {

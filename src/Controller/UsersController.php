@@ -67,6 +67,8 @@ class UsersController extends AppController
             $img=file_get_contents($tmpName);
             $data=$this->request->getData();
             $data['image']=$img;
+            $data['created']=date("Y-m-d h:i:s");
+            $data['updated']=date("Y-m-d h:i:s");
              // $data['password']=password_hash($data['password'],PASSWORD_DEFAULT);
             $user = $this->Users->newEntity($data);
             if ($this->Users->save($user)) 
@@ -97,6 +99,7 @@ class UsersController extends AppController
         if ($this->request->is(['put','patch', 'post'])) 
         {
             $data=$this->request->getData();
+            $data['updated']=date("Y-m-d h:i:s");
             $user = $this->Users->patchEntity($user, $data);
             if ($this->Users->save($user)) 
             {

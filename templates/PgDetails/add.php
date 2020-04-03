@@ -25,7 +25,10 @@
         <div class="side-nav" style="position: absolute;">
             <br>
             <br>
-            <br><h6>
+            
+            <h3 class="heading"><?= __('Menu') ?></h3>
+            
+           <br><h6>
             <?= $this->Html->link(__('PG Owners'), ['action' => 'index','controller' => 'users'], ['class' => 'side-nav-item']) ?>
             <br><br>
             <?= $this->Html->link('Rooms Available/Booked', ['action' => 'index','controller' => 'rooms'], ['class' => 'side-nav-item']) ?>
