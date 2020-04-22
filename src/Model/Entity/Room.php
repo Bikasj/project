@@ -49,5 +49,6 @@ class Room extends Entity
         'created' => true,
         'updated' => true,
         'pg_detail' => true,
+        'images' =>true,
     ];
 }

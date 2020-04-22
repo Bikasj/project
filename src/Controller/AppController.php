@@ -17,7 +17,6 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Cake\Controller\Controller;
-
 /**
  * Application Controller
  *
@@ -37,18 +36,29 @@ class AppController extends Controller
      *
      * @return void
      */
+    public $info;
     public function initialize(): void
     {
         parent::initialize();
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
+        $this->loadComponent('Auth', [
+        'authenticate' => [
+            'Form' => [
+                'fields' => ['username' => 'email', 'password' => 'password']
+            ]
+        ]
+    ]);
+        $this->Auth->allow(['login','guest','viewguest','register','forgotpassword','resetpassword']);
+        $info=$this->Auth->user('email');
+        $this->set('myinfo',$info);
 
         /*
          * Enable the following component for recommended CakePHP form protection settings.
          * see https://book.cakephp.org/4/en/controllers/components/form-protection.html
          */
         //$this->loadComponent('FormProtection');
-        $this->loadComponent('Authentication.Authentication');
+        //$this->loadComponent('Authentication.Authentication');
     }
 }

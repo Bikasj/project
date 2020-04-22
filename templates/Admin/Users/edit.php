@@ -9,7 +9,7 @@
 ?>
 <head>
     <style>
-       .view 
+        .view 
         {
         width: 75%;
         margin: -53px 102px 100px;
@@ -21,9 +21,11 @@
         margin: -24px -346px 103px -274px;
         padding: 20px;
         }
+        
   </style>
 </head>
 <div class="row">
+    <!-- <div class="container"> -->
     <aside class="column col-lg-2 shadow" style="position:relative;background-color: #2d282838;margin-left: -64px;margin-bottom: 0px;">
         <div class="side-nav" style="position: absolute;">
             <br>
@@ -70,68 +72,54 @@
             Total Transient Guests :  
                 <font color="blue" size="10"><b>  
                     <?= $transients ?>     
-                </font> </b>     
+                </font> </b>        
         </div>
 <div class="users index content">
-   
-  <br>
+
     <div class="column-responsive column-80 view">
         <div class="users view content " >    
-    <h3 class="bg-gray p-4">Edit Room</h3>
 
-<?= $this->Form->create($room) ?>
+    <h3 class="bg-gray p-4">Edit </h3>
+        
+            <?= $this->Form->create($user,['type'=>'file']) ?>
             <fieldset>
-        <?php
-            echo "AC-Facility : <br>";
-                $options=array('Yes'=>'Yes','No'=>'No');
-            echo $this->Form->radio('ac_facility',$options)."<br>";
-            echo "Seater : <br>";
-            echo $this->Form->select(
-                'seater',
-                [1=>1, 2=>2, 3=>3, 4=>4],
-                ['empty' => 'Select Seater','class' =>($this->Form->isFieldError('seater')) ? 'form-control is-invalid' : 'form-control'])."<br>";
-             echo "Food-Facility : <br>";
-                $options=array('Yes'=>'Yes','No'=>'No');
-            echo $this->Form->radio('food_availability',$options)."<br>";
-            echo "Rent : <br>";
-            echo $this->Form->input('rent', array('type' => 'text', 'placeholder' => 'Enter the Rent','class' => ($this->Form->isFieldError('rent')) ? 'form-control is-invalid' : 'form-control'))."<br>";
-            echo "Security : <br>";
-            echo $this->Form->input('security_charge', array('type' => 'text', 'placeholder' => "Enter the security charge",'class' => ($this->Form->isFieldError('security_charge')) ? 'form-control is-invalid' : 'form-control'))."<br>";
-            echo "Notice Period : <br>";
-            echo $this->Form->input('notice_period', array('type' => 'text', 'placeholder' => "Enter the notice period(in months)",'class' => ($this->Form->isFieldError('notice_period')) ? 'form-control is-invalid' : 'form-control'))."<br>";
-            echo "Seats Available :- <br>";
-            echo $this->Form->select(
-                'seats_available',
-                [0=>0, 1=>1, 2=>2, 3=>3, 4=>4],
-                ['empty' => 'Select Seats Available', 'class' =>($this->Form->isFieldError('seats_available')) ? 'form-control is-invalid' : 'form-control']) 
-        ?>
-    <br>
-        <?php  
-            if($room->image!=NULL)
-            {   echo "<td colspan='2'>";
-                 echo '<img src="data:image/jpg;base64, '.base64_encode(stream_get_contents($room->image)).' " height=200px width=400px></td>' ;
-            }
-            else
-            {
-                echo "<td colspan='2' height=200px width=400px><center> <span style='font-size:45px'>No Image available !</span></center></td>";
-            }
-        ?>
-        <?=  $this->Html->link('change upload', ['action' => 'changeupload', $room->room_id], ['class' => 'nav-link text-white btn btn-secondary btn-primary '])."<br>" 
-        ?>
-    </center>
-     
- 		<?= $this->Form->select('pg_id', $pg_id, ['empty' => 'Select PG ID', 'pg_id' => 'pg_id', 'class' =>($this->Form->isFieldError('pg_id')) ? 'form-control is-invalid' : 'form-control']); ?>
-		<?= $this->Form->button('Submit' ,['class'=>'d-block py-3 px-4 bg-primary text-white border-0 rounded font-weight-bold']	);
-		?>
+                
+                <?php
+                    echo $this->Form->control('firstname', ['name' => 'firstname' ,'required' => false, 'placeholder'=>'Enter your name', 'class' =>($this->Form->isFieldError('firstname')) ? 'form-control is-invalid' : 'form-control']);
 
-<?= $this->Form->end() ?>
+                    echo $this->Form->control('lastname',['name' => 'lastname' , 'placeholder'=>'Enter your Username', 'class' =>($this->Form->isFieldError('lastname')) ? 'form-control is-invalid' : 'form-control','required'=>false]);
+                    echo $this->Form->control('email', ['name' => 'email' , 'placeholder'=>'Enter your email', 'class' =>($this->Form->isFieldError('email')) ? 'form-control is-invalid' : 'form-control','required'=>false]);
+                    echo $this->Form->control('password', ['name' => 'password' , 'placeholder'=>'Enter your password', 'class' =>($this->Form->isFieldError('password')) ? 'form-control is-invalid' : 'form-control','required'=>false]);
+                    echo $this->Form->control('adharcard', ['name' => 'adharcard' , 'placeholder'=>'Enter you adhar card number', 'class' =>($this->Form->isFieldError('adharcard')) ? 'form-control is-invalid' : 'form-control','required'=>false, 
+                        'minLength'=>'12']);
+                    echo $this->Form->control('phone', ['name' => 'phone' , 'placeholder'=>'Enter your phone number', 'class' =>($this->Form->isFieldError('phone')) ? 'form-control is-invalid' : 'form-control','required'=>false, 
+                        'minLength'=>'10']);
+                ?>
+
+                <?php  
+                    if($user->image!=NULL)
+                    {   echo "<td colspan='2'>";
+                         echo '<img src="data:image/jpg;base64, '.base64_encode(stream_get_contents($user->image)).' " height=200px width=300px></td>' ;
+                    }
+                    else
+                    {
+                        echo "<td colspan='2' height=200px width=400px><center> <span style='font-size:45px'>No Image available !</span></center></td>";
+                    }
+                ?>
+
+                <?=  $this->Html->link('change upload', ['action' => 'changeupload', $user->user_id], ['class' => 'nav-link text-white btn btn-secondary btn-primary '])."<br>" ?>
+
+        <br>
+        <br>
+
+            <?= $this->Form->button('Submit' ,['class'=>'d-block py-3 px-4 bg-primary text-white border-0 rounded font-weight-bold']) ?>
+            </fieldset>
+            <?= $this->Form->end() ?>
+        </div>
 </div>
 </div>
 </div>
 </div>
 </div>
 </div>
-</div>
-</div></div>
 </section>
-

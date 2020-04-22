@@ -24,6 +24,7 @@
   </style>
 </head>
 <div class="row">
+    <!-- <div class="container"> -->
     <aside class="column col-lg-2 shadow" style="position:relative;background-color: #2d282838;margin-left: -64px;margin-bottom: 0px;">
         <div class="side-nav" style="position: absolute;">
             <br>
@@ -79,9 +80,9 @@
             echo "Seater : <br>";
             echo $this->Form->select(
                 'seater',
-                [1=>1, 2=>2, 3=>3, 4=>4],
+                ['Single'=>'Single', 'Double'=>'Double' ,'Triple'=>'Triple', 'Four'=>'Four'],
                 ['empty' => 'Select Seater','class' =>($this->Form->isFieldError('seater')) ? 'form-control is-invalid' : 'form-control'])."<br>";
-             echo "Food-Facility : <br>";
+             echo "<br>Food-Facility : <br>";
                 $options=array('Yes'=>'Yes','No'=>'No');
             echo $this->Form->radio('food_availability',$options)."<br>";
             echo "Rent : <br>";
@@ -96,7 +97,7 @@
                 [0=>0, 1=>1, 2=>2, 3=>3, 4=>4],
                 ['empty' => 'Select Seats Available', 'class' =>($this->Form->isFieldError('seats_available')) ? 'form-control is-invalid' : 'form-control']) 
         ?>
-    <br>
+    <br><br>
         <?php  
             if($rooms->image!=NULL)
             {   echo "<td colspan='2'>";
@@ -110,8 +111,10 @@
         <?=  $this->Html->link('change upload', ['action' => 'changeupload', $rooms->room_id], ['class' => 'nav-link text-white btn btn-secondary btn-primary '])."<br>" 
         ?>
     </center>
-     
+        PG ID: <br>
  		<?= $this->Form->select('pg_id', $pg_id, ['empty' => 'Select PG ID', 'pg_id' => 'pg_id', 'class' =>($this->Form->isFieldError('pg_id')) ? 'form-control is-invalid' : 'form-control']); ?>
+        <br>
+        <br>
 		<?= $this->Form->button('Submit' ,['class'=>'d-block py-3 px-4 bg-primary text-white border-0 rounded font-weight-bold']	);
 		?>
 

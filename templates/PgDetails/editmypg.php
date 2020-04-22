@@ -27,6 +27,7 @@
     </style>
 </head>
 <div class="row">
+    <!-- <div class="container"> -->
     <aside class="column col-lg-2 shadow" style="position:relative;background-color: #2d282838;margin-left: -64px;margin-bottom: 0px;">
         <div class="side-nav" style="position: absolute;">
             <br>
@@ -78,7 +79,7 @@
             <fieldset>
                 
                 <?php
-                       echo $this->Form->control('location',['name' => 'location' , 'placeholder'=>'Enter the location', 'class' =>($this->Form->isFieldError('location')) ? 'form-control is-invalid' : 'form-control','required'=>false]);
+                    echo $this->Form->control('location',['name' => 'location' , 'placeholder'=>'Enter the location', 'class' =>($this->Form->isFieldError('location')) ? 'form-control is-invalid' : 'form-control','required'=>false]);
                     echo $this->Form->control('address', ['name' => 'address' , 'placeholder'=>'Enter the address', 'class' =>($this->Form->isFieldError('address')) ? 'form-control is-invalid' : 'form-control','required'=>false]);
                     echo $this->Form->control('area', ['name' => 'area' , 'placeholder'=>'Enter the area', 'class' =>($this->Form->isFieldError('area')) ? 'form-control is-invalid' : 'form-control','required'=>false]);
                     echo $this->Form->control('no_of_room', ['name' => 'no_of_room' , 'placeholder'=>'Enter the no of available rooms', 'class' =>($this->Form->isFieldError('no_of_room')) ? 'form-control is-invalid' : 'form-control','required'=>false]);
@@ -90,7 +91,12 @@
                         'options' => array('Yes'=>'Yes','No'=>'No'),
                         'class' => '']);
 
-                ?> 
+
+                    echo $this->Form->control('gender',['name'=>'gender',
+                        'type' => 'radio',
+                        'options' => array('males'=>'male','females'=>'female','male & female'=>'both'),
+                        'class' => '']);
+        ?>
     </center>
 
  	

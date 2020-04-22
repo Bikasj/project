@@ -25,6 +25,7 @@
   </style>
 </head>
 <div class="row">
+    <!-- <div class="container"> -->
     <aside class="column col-lg-2 shadow" style="position:relative;background-color: #2d282838;margin-left: -64px;margin-bottom: 0px;">
         <div class="side-nav" style="position: absolute;">
             <br>
@@ -139,14 +140,14 @@
     </center>
         <br>
         <br>
- 		<?= $this->Form->select('role', $roles, ['empty' => 'Select Role', 'id' => 'user_rolename', 'class' =>($this->Form->isFieldError('phone')) ? 'form-control is-invalid' : 'form-control']); ?>
+        <?= $this->Form->select('role', $roles, ['empty' => 'Select Role', 'id' => 'user_rolename', 'class' =>($this->Form->isFieldError('phone')) ? 'form-control is-invalid' : 'form-control']); ?>
 
- 	<div class="loggedin-forgot d-inline-flex my-3">
-		<input type="checkbox" id="registering" class="mt-1">
-		<label for="registering" class="px-2">By registering, you accept our <a class="text-primary font-weight-bold" href="terms-condition.html">Terms & Conditions</a></label>
-	</div>
-		<?php echo $this->Form->button('Submit' ,['class'=>'d-block py-3 px-4 bg-primary text-white border-0 rounded font-weight-bold']	);
-		?>
+    <div class="loggedin-forgot d-inline-flex my-3">
+        <input type="checkbox" id="registering" class="mt-1">
+        <label for="registering" class="px-2">By registering, you accept our <a class="text-primary font-weight-bold" href="terms-condition.html">Terms & Conditions</a></label>
+    </div>
+        <?php echo $this->Form->button('Submit' ,['class'=>'d-block py-3 px-4 bg-primary text-white border-0 rounded font-weight-bold'] );
+        ?>
 </fieldset>
 
 

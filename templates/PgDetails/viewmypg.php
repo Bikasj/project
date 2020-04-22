@@ -23,6 +23,7 @@
     </style>
 </head>
 <div class="row">
+    <!-- <div class="container"> -->
     <aside class="column col-lg-2 shadow" style="position:relative;background-color: #2d282838;margin-left: -64px;margin-bottom: 0px;">
         <div class="side-nav" style="position: absolute;">
             <br>
@@ -82,7 +83,7 @@
                 </tr>
                 <tr>
                     <th><?= __('Owner Name') ?></th>
-                    <td> <?=  $this->Html->link($pg_details->user->firstname." ".$pg_details->user->lastname, ['action' => 'view','controller' => 'users', $pg_details->user->user_id]) 
+                    <td> <?=  $this->Html->link($pg_details->user->firstname." ".$pg_details->user->lastname, ['action' => 'profile','controller' => 'users', $pg_details->user->user_id]) 
                          ?> </td>
                 </tr>
                 <tr>
@@ -164,7 +165,25 @@
                     }
                     ?>
                     <td><?= h($rooms->seater) ?></td>
-                    <td><?= $rooms->seater-$rooms->seats_available ?></td>
+                    <td><?php 
+                        switch ($rooms->seater) {
+                            case "Single":
+                                {$seater=1;
+                                echo $seater-$rooms->seats_available;}
+                                break;
+                            case "Two":
+                                {$seater=2;
+                                echo $seater-$rooms->seats_available;}
+                                break;
+                            case "Three":
+                                {$seater=3;
+                                echo $seater-$rooms->seats_available;}
+                                break;
+                            default:
+                                {$seater=4;
+                                echo $seater-$rooms->seats_available;}
+                                break;
+                    }  ?></td>
                     <td><?= h($rooms->seats_available) ?></td>
                      <td><?= h($rooms->food_availability) ?></td>
                     <td><?= number_format($rooms->rent) ?></td>

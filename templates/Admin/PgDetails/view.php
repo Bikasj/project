@@ -1,32 +1,29 @@
 <?php
-        $myTemplates = [
-            'inputContainer' => '<div class="form-group">{{content}}</div>',
-            'inputContainerError' => '<div class="form-group {{required}} error">{{content}}{{error}}</div>',
-            'error' => '<div class="invalid-feedback">{{content}}</div>',
-        ];
-        $this->Form->setTemplates($myTemplates);
+
 ?>
 <head>
     <style>
-       .view {
-        width: 75%;
-        margin: -53px 102px 100px;
-        padding: 20px;
-            }
-        .view2 {
-        width: 105%;
-        margin: -181px -133px 100px -22px;
+        .view 
+        {
+        width: 84%;
+        margin: -51px 86px -100px;
         padding: 20px;
         }
-        .vieww {
+        .vieww 
+        {
         width: 112%;
         margin: -24px -346px 103px -274px;
         padding: 20px;
         }
-        
+        .rooms-view
+        {
+        width: 124%;
+        margin: 60px 252px 0px -77px;
+        }
     </style>
 </head>
 <div class="row">
+   <!-- <div class="container"> -->
     <aside class="column col-lg-2 shadow" style="position:relative;background-color: #2d282838;margin-left: -64px;margin-bottom: 0px;">
         <div class="side-nav" style="position: absolute;">
             <br>
@@ -47,7 +44,7 @@
             <br><br></h6>
         
         </div>
-    </aside>
+</aside>
 
         <section class="col-lg-10 col-md-8 login py-5 border-top-1 ">
 <div class="container ">
@@ -73,46 +70,78 @@
             Total Transient Guests :  
                 <font color="blue" size="10"><b>  
                     <?= $transients ?>     
-                </font> </b>     
+                </font> </b>      
         </div>
 <div class="users index content">
    
-  <br>
+    <?php 
+            if($pg_details->status==1)
+               echo  $this->Html->link('Block', ['action' => 'block', $pg_details->pg_id], ['class' => 'nav-link text-white btn btn-danger btn-primary  float-right'])."<br>";  
+            else if($pg_details->status==0)
+               echo $this->Html->link('Unblock', ['action' => 'block',$pg_details->pg_id], ['class' => 'nav-link text-white btn btn-primary       float-right'])."<br>"; 
+            else 
+                echo $this->Html->link('Approve', ['action' => 'approve',$pg_details->pg_id], ['class' => 'nav-link text-white btn btn-success       float-right'])."<br>"; 
+    ?>
+
     <div class="column-responsive column-80 view">
-        <div class="users view content " >    
+        <div class="users view content " ><br>
+            
+           PG Details
+            <table class="table">
+                <tr>
+                    <th><?= __('PG ID') ?></th>
+                    <td><?= h($pg_details->pg_id) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Owner Name') ?></th>
+                    <td> <?=  $this->Html->link($pg_details->user->firstname." ".$pg_details->user->lastname, ['action' => 'view','controller' => 'users', $pg_details->user->user_id]) 
+                         ?> </td>
+                </tr>
+                <tr>
+                    <th><?= __('Status') ?></th>
+                    <td><?php if($pg_details->status==1)
+                                    echo "Active";
+                                else
+                                    echo "Inactive"; ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Location') ?></th>
+                    <td><?= h($pg_details->location) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Address') ?></th>
+                    <td><?= $pg_details->address ?></td>
+                </tr>
+                 <tr>
+                    <th><?= __('Area') ?></th>
+                    <td><?= h($pg_details->area) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Availability') ?></th>
+                    <td><?= h($pg_details->availability) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('No. of Rooms') ?></th>
+                    <td><?= h($pg_details->no_of_room) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Contact No.') ?></th>
+                    <td><?= h($pg_details->phone) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Created') ?></th>
+                    <td><?= h($pg_details->created) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Updated') ?></th>
+                    <td><?= h($pg_details->updated) ?></td>
+                </tr>
+            </table><h6>
 
-    <h3 class="bg-gray p-4">Edit PG</h3>
-
-<?= $this->Form->create($pg_details) ?>
-            <fieldset>
-                
-                <?php
-                       echo $this->Form->control('location',['name' => 'location' , 'placeholder'=>'Enter the location', 'class' =>($this->Form->isFieldError('location')) ? 'form-control is-invalid' : 'form-control','required'=>false]);
-                    echo $this->Form->control('address', ['name' => 'address' , 'placeholder'=>'Enter the address', 'class' =>($this->Form->isFieldError('address')) ? 'form-control is-invalid' : 'form-control','required'=>false]);
-                    echo $this->Form->control('area', ['name' => 'area' , 'placeholder'=>'Enter the area', 'class' =>($this->Form->isFieldError('area')) ? 'form-control is-invalid' : 'form-control','required'=>false]);
-                    echo $this->Form->control('no_of_room', ['name' => 'no_of_room' , 'placeholder'=>'Enter the no of available rooms', 'class' =>($this->Form->isFieldError('no_of_room')) ? 'form-control is-invalid' : 'form-control','required'=>false]);
-                    echo $this->Form->control('phone', ['name' => 'phone' , 'placeholder'=>'Enter the phone number', 'class' =>($this->Form->isFieldError('phone')) ? 'form-control is-invalid' : 'form-control','required'=>false,'minLength'=>'10']);
-                
-                    echo $this->Form->control('availability',['name'=>'availability',
-                        'type' => 'radio',
-                        'options' => array('Yes'=>'Yes','No'=>'No'),
-                        'class' => '']);
-
-                ?> 
-    </center>
-     
- 		<?= $this->Form->select('owner_id', $owner_id, ['empty' => 'Select Owner ', 'user_id' => 'firstname', 'class' =>($this->Form->isFieldError('owner_id')) ? 'form-control is-invalid' : 'form-control']); ?>
-
- 	
-		<?php echo $this->Form->button('Submit' ,['class'=>'d-block py-3 px-4 bg-primary text-white border-0 rounded font-weight-bold']	);
-		?>
-
-
-
-<?= $this->Form->end() ?>
-</div>
-</div>
-            <div class='rooms view2'>
+        
+            <br><br></h6>
+    </div>
+            <div class='rooms-view'>
             <h5><b>Rooms in PG</b></h5>
 
             <table border='0'  class='table'>
@@ -159,7 +188,6 @@
                     </td>
                     <td class="actions">
                         <?=  $this->Html->link('view', ['action' => 'view','controller' => 'rooms' , $rooms->room_id], ['class' => 'text-white btn btn-success btn-sm ']) ?> 
-                        <?=  $this->Html->link('edit', ['action' => 'edit','controller' => 'rooms' , $rooms->room_id], ['class' => 'text-white btn btn-info btn-sm ']) ?> 
                         <?php 
                             if($rooms->status==1)
                                echo $this->Html->link('block', ['action' => 'block','controller' => 'rooms', $rooms->room_id], ['class' => 'text-white btn btn-danger btn-sm ']); 
@@ -174,12 +202,7 @@
         </div>
 
 
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div></div>
-</section>
 
+
+
+    

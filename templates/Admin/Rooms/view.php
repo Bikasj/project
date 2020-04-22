@@ -18,6 +18,7 @@
     </style>
 </head>
 <div class="row">
+    <!-- <div class="container"> -->
     <aside class="column col-lg-2 shadow" style="position:relative;background-color: #2d282838;margin-left: -64px;margin-bottom: 0px;">
         <div class="side-nav" style="position: absolute;">
             <br>
@@ -119,7 +120,25 @@
                 </tr>
                 <tr>
                     <th><?= __('Booked Seats') ?></th>
-                    <td><?= $room->seater-$room->seats_available ?></td>
+                    <td><?php 
+                        switch ($room->seater) {
+                            case "Single":
+                                {$seater=1;
+                                echo $seater-$room->seats_available;}
+                                break;
+                            case "Double":
+                                {$seater=2;
+                                echo $seater-$room->seats_available;}
+                                break;
+                            case "Triple":
+                                {$seater=3;
+                                echo $seater-$room->seats_available;}
+                                break;
+                            default:
+                                {$seater=4;
+                                echo $seater-$room->seats_available;}
+                                break;
+                    }  ?></td>
                 </tr>
                  <tr>
                     <th><?= __('Available Seats') ?></th>

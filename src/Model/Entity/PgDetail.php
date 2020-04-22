@@ -48,5 +48,6 @@ class PgDetail extends Entity
         'updated' => true,
         'phone' => true,
         'user' => true,
+        'gender' => true,
     ];
 }

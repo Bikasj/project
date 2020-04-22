@@ -14,14 +14,14 @@
         <div class="block">
           <h4>Popular Areas</h4>
           <ul>
-            <li><a href="#">Sector-37 chandigarh</a></li>
-            <li><a href="#">Sahibzada Ajit singh Nagar</a></li>
-            <li><a href="#">Daddu Majra colony</a></li>
-            <li><a href="#">Shivalik Enclave</a></li>
-            <li><a href="#">Manimajra</a></li>
-            <li><a href="#">Sector-63 Mohali</a></li>
-            <li><a href="#">Sector-22 Chandigarh</a></li>
-            <li><a href="#">Sector-13 chandigarh</a></li>
+            <li><a href="/rooms/homepageresultsnav1/Sector-37 Chandigarh">Sector-37 chandigarh</a></li>
+            <li><a href="/rooms/homepageresultsnav1/Sahibzada Ajit singh Nagar">Sahibzada Ajit singh Nagar</a></li>
+            <li><a href="/rooms/homepageresultsnav1/Daddu Majra colony">Daddu Majra colony</a></li>
+            <li><a href="/rooms/homepageresultsnav1/Shivalik Enclave">Shivalik Enclave</a></li>
+            <li><a href="/rooms/homepageresultsnav1/Manimajra">Manimajra</a></li>
+            <li><a href="/rooms/homepageresultsnav1/Sector-63 Mohali">Sector-63 Mohali</a></li>
+            <li><a href="/rooms/homepageresultsnav1/Sector-22 Chandigarh">Sector-22 Chandigarh</a></li>
+            <li><a href="/rooms/homepageresultsnav1/Sector-13 chandigarh">Sector-13 chandigarh</a></li>
           </ul>
         </div>
       </div>
@@ -31,7 +31,7 @@
           <h4>About us</h4>
           <ul>
             <li><a href="#">About PG</a></li>
-            <li><a href="#">Contact us</a></li>
+            <li><a href="/contactus/contact">Contact us</a></li>
           </ul>
         </div>
       </div>
@@ -40,12 +40,12 @@
         <div class="block">
           <h4>Connect with us</h4>
           <ul>
-            <li><a href="single.html"class="facebook">facebook <i class="fa fa-facebook"></i></a></li>
-            <li><a href="single.html"class="twitter">twitter <i class="fa fa-twitter"></i></a></li>
-            <li><a href="store.html"class="google">google <i class="fa fa-google"></i></a></li>
-            <li><a href="single-blog.html"class="linkedin">linkedin <i class="fa fa-linkedin"></i></a>
+            <li><a href="facebook.com"class="facebook">facebook <i class="fa fa-facebook"></i></a></li>
+            <li><a href="twitter.com"class="twitter">twitter <i class="fa fa-twitter"></i></a></li>
+            <li><a href="google.com"class="google">google <i class="fa fa-google"></i></a></li>
+            <li><a href="linkedin.com"class="linkedin">linkedin <i class="fa fa-linkedin"></i></a>
             </li>
-            <li><a href="blog.html"class="youtube">youtube <i class="fa fa-youtube"></i></a></li>
+            <li><a href="youtube.com"class="youtube">youtube <i class="fa fa-youtube"></i></a></li>
 
           </ul>
         </div>

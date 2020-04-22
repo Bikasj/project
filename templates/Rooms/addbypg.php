@@ -24,6 +24,7 @@
   </style>
 </head>
 <div class="row">
+    <!-- <div class="container"> -->
     <aside class="column col-lg-2 shadow" style="position:relative;background-color: #2d282838;margin-left: -64px;margin-bottom: 0px;">
         <div class="side-nav" style="position: absolute;">
             <br>
@@ -71,7 +72,7 @@
 
     <h3 class="bg-gray p-4">Add New Room</h3>
         
-            <?= $this->Form->create($rooms ,['type'=>'file']) ?>     
+            <?= $this->Form->create($rooms ,['type'=>'file','enctype'=>'multipart/form-data']) ?>     
 
     <?php
 
@@ -82,8 +83,8 @@
         echo "Seater : <br>";
         echo $this->Form->select(
             'seater',
-            [1=>1, 2=>2, 3=>3, 4=>4],
-            ['empty' => 'Select Seater','class' =>($this->Form->isFieldError('seater')) ? 'form-control is-invalid' : 'form-control'])."<br>";
+            ['Single'=>'Single', 'Double'=>'Double' ,'Triple'=>'Triple', 'Four'=>'Four'],
+            ['empty' => 'Select Seater','class' =>($this->Form->isFieldError('seater')) ? 'form-control is-invalid' : 'form-control'])."<br><br>";
          echo "Food-Facility : <br>";
             $options=array('Yes'=>'Yes','No'=>'No');
         echo $this->Form->radio('food_availability',$options,$attributes)."<br>";
@@ -99,10 +100,16 @@
             [0=>0, 1=>1, 2=>2, 3=>3, 4=>4],
             ['empty' => 'Select Seats Available', 'class' =>($this->Form->isFieldError('seats_available')) ? 'form-control is-invalid' : 'form-control']) ?>
     <br>
+    <br>
         Image Upload : <center>
         <?=  $this->Form->input('image', array('type' => 'file')); ?>
     </center>
         <br>
+         <br>
+        Images Upload : <center>
+        <?=  $this->Form->input('images', array('name'=>'images[]','type' => 'file','multiple')); ?>
+    </center>
+        <br> 
         <br>
  		<?= $this->Form->select('pg_id', $pg_id, ['empty' => 'Select PG ID', 'pg_id' => 'pg_id', 'class' =>($this->Form->isFieldError('pg_id')) ? 'form-control is-invalid' : 'form-control']); ?>
 		<?php 

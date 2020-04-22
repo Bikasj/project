@@ -18,6 +18,7 @@
     </style>
 </head>
 <div class="row">
+    <!-- <div class="container"> -->
     <aside class="column col-lg-2 shadow" style="position:relative;background-color: #2d282838;margin-left: -64px;margin-bottom: 0px;">
         <div class="side-nav" style="position: absolute;">
             <br>
@@ -67,6 +68,7 @@
                 </font> </b>              
         </div>
 <div class="users index content">
+    <center><font color="green" size="4px"><?= $this->Flash->render() ?></font></center>
     <?= $this->Html->link(__('Add New TransientGuest'), ['action' => 'add'], ['class' => 'btn btn-dark button float-right'])  ?> <br>
     <h3><?= __('Transient Guests') ?></h3>
     <div class="table-responsive">

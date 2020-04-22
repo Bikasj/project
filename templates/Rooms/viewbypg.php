@@ -18,6 +18,7 @@
     </style>
 </head>
 <div class="row">
+    <!-- <div class="container"> -->
     <aside class="column col-lg-2 shadow" style="position:relative;background-color: #2d282838;margin-left: -64px;margin-bottom: 0px;">
         <div class="side-nav" style="position: absolute;">
             <br>
@@ -90,7 +91,7 @@
                 </tr>
                 <tr>
                     <th><?= __('PG ID') ?></th>
-                    <td><?=  $this->Html->link($rooms->pg_id, ['action' => 'view','controller' => 'PgDetails', $rooms->pg_id]) 
+                    <td><?=  $this->Html->link($rooms->pg_id, ['action' => 'viewmypg','controller' => 'PgDetails', $rooms->pg_id]) 
                          ?></td>
                 </tr>
                 <tr>
@@ -110,7 +111,25 @@
                 </tr>
                 <tr>
                     <th><?= __('Booked Seats') ?></th>
-                    <td><?= $rooms->seater-$rooms->seats_available ?></td>
+                    <td><?php 
+                        switch ($rooms->seater) {
+                            case "Single":
+                                {$seater=1;
+                                echo $seater-$rooms->seats_available;}
+                                break;
+                            case "Two":
+                                {$seater=2;
+                                echo $seater-$rooms->seats_available;}
+                                break;
+                            case "Three":
+                                {$seater=3;
+                                echo $seater-$rooms->seats_available;}
+                                break;
+                            default:
+                                {$seater=4;
+                                echo $seater-$rooms->seats_available;}
+                                break;
+                    }  ?></td>
                 </tr>
                  <tr>
                     <th><?= __('Available Seats') ?></th>

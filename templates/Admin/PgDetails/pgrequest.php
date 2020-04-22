@@ -13,18 +13,20 @@
         {
         width: 112%;
         margin: -24px -346px 103px -274px;
-        padding: 20px;      
+        padding: 20px;
         }
     </style>
 </head>
 <div class="row">
+    <!-- <div class="container"> -->
     <aside class="column col-lg-2 shadow" style="position:relative;background-color: #2d282838;margin-left: -64px;margin-bottom: 0px;">
         <div class="side-nav" style="position: absolute;">
             <br>
             <br>
             
             <h3 class="heading"><?= __('Menu') ?></h3>
-            <br><h6>
+            
+           <br><h6>
             <?= $this->Html->link(__('PG Owners'), ['action' => 'index','controller' => 'users'], ['class' => 'side-nav-item']) ?>
             <br><br>
             <?= $this->Html->link('Rooms Available/Booked', ['action' => 'index','controller' => 'rooms'], ['class' => 'side-nav-item']) ?>
@@ -63,58 +65,52 @@
             Total Transient Guests :  
                 <font color="blue" size="10"><b>  
                     <?= $transients ?>     
-                </font> </b>          
+                </font> </b>      
         </div>
 <div class="users index content">
-    <?= $this->Html->link(__('Add New PGOwner'), ['action' => 'add'], ['class' => 'btn btn-dark button float-right'])  ?> <br>
-    
-    <h3><?= __('PG Owners') ?></h3>
+
+    <h3><?= __('PG Request') ?></h3>
     <div class="table-responsive">
         <table border='0' class='table'>
             <thead>
                 <tr>    
                     <th><?= $this->Paginator->sort('Sr.No.') ?></th>
-                    <th colspan="2"><?= $this->Paginator->sort('image') ?></th>
-                    <th><?= $this->Paginator->sort('firstname') ?></th>
-                    <th><?= $this->Paginator->sort('lastname') ?></th>
-                    <th><?= $this->Paginator->sort('email') ?></th>
+                    <th><?= $this->Paginator->sort('PG Owner') ?></th>
+                    <th><?= $this->Paginator->sort('Location') ?></th>
+                    <th><?= $this->Paginator->sort('Address') ?></th>
+                    <th><?= $this->Paginator->sort('Phone') ?></th>
+                    <th><?= $this->Paginator->sort('Availability') ?></th>
                     <th><?= $this->Paginator->sort('status') ?></th>
                     
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
             <tbody>
-                <?php
+                <?php                   
                     $i=1;
-                     foreach ($users as $user): ?>
+                     foreach ($pg_details as $pg): ?>
                     <tr>
                     <td><?= h($i++) ?></td>
-                     <?php  
-                    if($user->image!=NULL)
-                    {   echo "<td colspan='2'>";
-                         echo '<img style="border-radius: 50%;" src="data:image/jpg;base64, '.base64_encode(stream_get_contents($user->image)).' " height=50px width=50px></td>' ;
-                    }
-                    else
-                    {
-                        echo "<td colspan='2' height=50px width=50px><center> <span style='font-size:15px'>No Image!</span></center></td>";
-                    }
-                    ?>
-                    <td><?= h($user->firstname) ?></td>
-                    <td><?= h($user->lastname) ?></td>
-                    <td><?= h($user->email) ?></td>
-                    <td><?php if($user->status==0)
+                    <td>
+                        
+                         <?=  $this->Html->link($pg->user->firstname." ".$pg->user->lastname, ['action' => 'view','controller' => 'users', $pg->user->user_id]) 
+                         ?> 
+                    </td>
+                    <td><?= h($pg->location) ?></td>
+                    <td><?= h($pg->address) ?></td>
+                    <td><?= h($pg->phone) ?></td>
+                    <td><?= h($pg->availability) ?></td>
+                    <td><?php if($pg->status==0)
                                 echo "Inactive";
                                else
                                 echo "Active"; ?></td>
                     <td class="actions">
-                        <?=  $this->Html->link('view', ['action' => 'view', $user->user_id], ['class' => 'text-white btn btn-success btn-sm ']) ?> 
-                        <?=  $this->Html->link('edit', ['action' => 'edit', $user->user_id], ['class' => 'text-white btn btn-info btn-sm']) ?> 
-                        <?php 
-                            if($user->status==1)
-                               echo $this->Html->link('block', ['action' => 'block', $user->user_id], ['class' => 'text-white btn btn-danger btn-sm ']); 
-                            else
-                                echo $this->Html->link('unblock', ['action' => 'block', $user->user_id], ['class' => 'text-white btn btn-danger btn-sm ']); ?>
+                        <?=  $this->Html->link('view', ['action' => 'view', $pg->pg_id], ['class' => 'text-white btn btn-success btn-sm ']) ?> 
+                    <?php 
+                           echo $this->Html->link('approve', ['action' => 'approve', $pg->pg_id], ['class' => 'text-white btn btn-danger btn-sm ']); 
                         
+                            // echo $this->Html->link('reject', ['action' => 'block', $pg->pg_id], ['class' => 'text-white btn btn-danger btn-sm ']); 
+                    ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -132,7 +128,9 @@
         <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
     </div>
 </div>
-</div></div></div>
+</div>
+</div>
+</div>
 </div>
 </section>
 

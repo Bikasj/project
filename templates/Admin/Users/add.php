@@ -5,22 +5,27 @@
             'error' => '<div class="invalid-feedback">{{content}}</div>',
         ];
         $this->Form->setTemplates($myTemplates);
+        
 ?>
 <head>
     <style>
-       .view {
+        .view 
+        {
         width: 75%;
         margin: -53px 102px 100px;
         padding: 20px;
         }
-        .vieww {
+        .vieww 
+        {
         width: 112%;
         margin: -24px -346px 103px -274px;
         padding: 20px;
         }
+        
   </style>
 </head>
 <div class="row">
+    <!-- <div class="container"> -->
     <aside class="column col-lg-2 shadow" style="position:relative;background-color: #2d282838;margin-left: -64px;margin-bottom: 0px;">
         <div class="side-nav" style="position: absolute;">
             <br>
@@ -42,11 +47,12 @@
         
         </div>
     </aside>
+
         <section class="col-lg-10 col-md-8 login py-5 border-top-1 ">
 <div class="container ">
 <div class="row justify-content-center">
 <div class=" vieww">
-         <div class="shadow p-3 mb-5 bg-white rounded" style="position: sticky;top:0;">
+         <div class="shadow p-3 mb-5 bg-white rounded" style="position: sticky;top:0;" >
             &emsp;&emsp;&emsp;
             Total PGs :
                 <font color="blue" size="10"><b>
@@ -66,68 +72,84 @@
             Total Transient Guests :  
                 <font color="blue" size="10"><b>  
                     <?= $transients ?>     
-                </font> </b>           
+                </font> </b>         
         </div>
 <div class="users index content">
+   
   <br>
     <div class="column-responsive column-80 view">
         <div class="users view content " >    
 
-    <h3 class="bg-gray p-4">Add NewPG</h3>
+    <h3 class="bg-gray p-4">Add </h3>
         
-            <?= $this->Form->create($pg_details) ?>
-                
-<?php
+            <?= $this->Form->create($user,['type'=>'file']) ?>
+            <fieldset>
 
-  echo $this->Form->controls(
+<?= $this->Form->controls(
             [
-                'location' => [
-                    'placeholder' => "Enter the location ", 
+                'firstname' => [
+                    'placeholder' => "First Name", 
                     'required' => false,
-                    'class' => ($this->Form->isFieldError('location')) ? 'form-control is-invalid' : 'form-control'
+                    'class' => ($this->Form->isFieldError('firstname')) ? 'form-control is-invalid' : 'form-control'
                 ],
-                'address' => [
-                    'placeholder' => "Enter the address", 
+                'lastname' => [
+                    'placeholder' => "Last Name", 
                     'required' => false,
-                    'class' => ($this->Form->isFieldError('address')) ? 'form-control is-invalid' : 'form-control'
+                    'class' => ($this->Form->isFieldError('lastname')) ? 'form-control is-invalid' : 'form-control'
                 ],
-                'area' => [
-                    'placeholder' => "Enter the area", 
+                'email' => [
+                    'placeholder' => "Email Address", 
                     'required' => false,
-                    'class' => ($this->Form->isFieldError('area')) ? 'form-control is-invalid' : 'form-control'
+                    'class' => ($this->Form->isFieldError('email')) ? 'form-control is-invalid' : 'form-control'
                 ],
-                'no_of_room' => [
-                    'placeholder' => "Enter total number of rooms", 
+                'password' => [
+                    'type' => 'password',
+                    'name' => 'password',
+                    'placeholder' => "Password", 
                     'required' => false,
-                    'class' => ($this->Form->isFieldError('no_of_room')) ? 'form-control is-invalid' : 'form-control'
+                    'class' => ($this->Form->isFieldError('password')) ? 'form-control is-invalid' : 'form-control'
+                ],
+                'confirmpassword' => [
+                    'type' => 'password',
+                    'name' => 'confirmpassword', 
+                    'placeholder' => "Confirm Password", 
+                    'required' => false,
+                    'label' => 'Confirm Password',
+                    'class' => ($this->Form->isFieldError('confirmpassword')) ? 'form-control is-invalid' : 'form-control'
+                ],
+                'adharcard' => [
+                    'placeholder' => "Adhar Card", 
+                    'required' => false,
+                     'minLength'=>'12',
+                    'class' => ($this->Form->isFieldError('adharcard')) ? 'form-control is-invalid' : 'form-control'
                 ],
                 'phone' => [
-                    'placeholder' => "Enter phone", 
+                    'placeholder' => "Phone Number", 
                     'required' => false,
                     'minLength'=>'10',
                     'class' => ($this->Form->isFieldError('phone')) ? 'form-control is-invalid' : 'form-control'
-                ]
-                // 'availability'=>[
-                // 'options' => array('Yes'=>'Yes','No'=>'No'),
-                // 'type' => 'radio',
-                // 'class' => ''
-                // ]
+                ],
                 
             ]
+         
         );
-
-    ?>  
-        <?php
-            echo $this->Form->control('availability',['name'=>'availability',
-                        'type' => 'radio',
-                        'options' => array('Yes'=>'Yes','No'=>'No'),
-                        'class' => '']);
         ?>
+        Image Upload : <center>
+        <?=  $this->Form->control('image',array('data-val'=>'true', 'data-val-required'=>'File is required' ),['class' => ($this->Form->isFieldError('image')) ? 'form-control is-invalid' : 'form-control'
+                ]); ?>
     </center>
- 		<?= $this->Form->select('owner_id', $owner_id, ['empty' => 'Select Owner ', 'user_id' => 'firstname', 'class' =>($this->Form->isFieldError('owner_id')) ? 'form-control is-invalid' : 'form-control']); ?>
- 	
-		<?php echo $this->Form->button('Submit' ,['class'=>'d-block py-3 px-4 bg-primary text-white border-0 rounded font-weight-bold']	);
-		?>
+        <br>
+        <br>
+        <?= $this->Form->select('role', $roles, ['empty' => 'Select Role', 'id' => 'user_rolename', 'class' =>($this->Form->isFieldError('phone')) ? 'form-control is-invalid' : 'form-control']); ?>
+
+    <div class="loggedin-forgot d-inline-flex my-3">
+        <input type="checkbox" id="registering" class="mt-1">
+        <label for="registering" class="px-2">By registering, you accept our <a class="text-primary font-weight-bold" href="terms-condition.html">Terms & Conditions</a></label>
+    </div>
+        <?php echo $this->Form->button('Submit' ,['class'=>'d-block py-3 px-4 bg-primary text-white border-0 rounded font-weight-bold'] );
+        ?>
+</fieldset>
+
 
 <?= $this->Form->end() ?>
 </div>
@@ -137,6 +159,5 @@
 </div>
 </div>
 </div>
-</div></div>
+</div>
 </section>
-

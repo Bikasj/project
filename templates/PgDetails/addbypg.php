@@ -21,6 +21,7 @@
   </style>
 </head>
 <div class="row">
+    <!-- <div class="container"> -->
     <aside class="column col-lg-2 shadow" style="position:relative;background-color: #2d282838;margin-left: -64px;margin-bottom: 0px;">
         <div class="side-nav" style="position: absolute;">
             <br>
@@ -106,6 +107,11 @@
             echo $this->Form->control('availability',['name'=>'availability',
                         'type' => 'radio',
                         'options' => array('Yes'=>'Yes','No'=>'No'),
+                        'class' => '']);
+        
+            echo $this->Form->control('gender',['name'=>'gender',
+                        'type' => 'radio',
+                        'options' => array('males'=>'male','females'=>'female','male & female'=>'both'),
                         'class' => '']);
         ?>
     </center>

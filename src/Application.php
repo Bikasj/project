@@ -36,7 +36,8 @@ use Psr\Http\Message\ServerRequestInterface;
  * This defines the bootstrapping logic and middleware layers you
  * want to use in your application.
  */
-class Application extends BaseApplication implements AuthenticationServiceProviderInterface
+class Application extends BaseApplication 
+implements AuthenticationServiceProviderInterface
 {
     /**
      * Load all the application configuration and bootstrap logic.
@@ -99,7 +100,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
     public function getAuthenticationService(ServerRequestInterface $request): AuthenticationServiceInterface
 {
     $authenticationService = new AuthenticationService([
-        'unauthenticatedRedirect' => '/users/login',
+        'unauthenticatedRedirect' => '/admin/users/login',
         'queryParam' => 'redirect',
     ]);
 
@@ -119,7 +120,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
             'username' => 'email',
             'password' => 'password',
         ],
-        'loginUrl' => '/users/login',
+        'loginUrl' => '/admin/users/login',
     ]);
 
     return $authenticationService;

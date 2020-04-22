@@ -40,20 +40,8 @@
   <?= $this->Html->css('plugins/jquery-nice-select/css/nice-select.css') ?>
 
 
-  <?= $this->Html->script('plugins/jQuery/jquery.min.js') ?>
-  <?= $this->Html->script('plugins/bootstrap/js/popper.min.js') ?>
-  <?= $this->Html->script('plugins/bootstrap/js/bootstrap.min.js') ?>
-  <?= $this->Html->script('plugins/bootstrap/js/bootstrap-slider.js') ?>
-
-  <?= $this->Html->script('plugins/tether/js/tether.min.js') ?>
-  <?= $this->Html->script('plugins/raty/jquery.raty-fa.js') ?>
-  <?= $this->Html->script('plugins/slick-carousel/slick/slick.min.js') ?>
-  <?= $this->Html->script('plugins/jquery-nice-select/js/jquery.nice-select.min.js') ?>
-  <?= $this->Html->script('plugins/fancybox/jquery.fancybox.pack.js') ?>
-  <?= $this->Html->script('plugins/smoothscroll/SmoothScroll.min.js') ?>
 
  
-  <?= $this->Html->script('script.js') ?>
 
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.css">
@@ -84,4 +72,19 @@
     </main>
    <?= $this->element('footer') ?>
 </body>
+  <!-- <?=$this->Html->script('https://kit.fontawesome.com/a076d05399.js') ?> -->
+ <?= $this->Html->script('plugins/jQuery/jquery.min.js') ?>
+  <?= $this->Html->script('plugins/bootstrap/js/popper.min.js') ?>
+  <?= $this->Html->script('plugins/bootstrap/js/bootstrap.min.js') ?>
+  <?= $this->Html->script('plugins/bootstrap/js/bootstrap-slider.js') ?>
+
+  <?= $this->Html->script('plugins/tether/js/tether.min.js') ?>
+  <?= $this->Html->script('plugins/raty/jquery.raty-fa.js') ?>
+  <?= $this->Html->script('plugins/slick-carousel/slick/slick.min.js') ?>
+  <?= $this->Html->script('plugins/jquery-nice-select/js/jquery.nice-select.min.js') ?>
+  <?= $this->Html->script('plugins/fancybox/jquery.fancybox.pack.js') ?>
+  <?= $this->Html->script('plugins/smoothscroll/SmoothScroll.min.js') ?>
+
+ 
+  <?= $this->Html->script('script.js') ?>
 </html>

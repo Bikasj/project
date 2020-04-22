@@ -110,6 +110,11 @@ class RoomsTable extends Table
             ->scalar('status')
             ->maxLength('status', 255)
             ->notEmptyString('status');
+        $validator
+            ->scalar('images')
+            ->maxLength('images', 255)
+            ->notEmptyString('images');
+
         $validator->notEmpty('pg_id');
         $validator->notEmpty('image');
 

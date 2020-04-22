@@ -18,6 +18,7 @@
     </style>
 </head>
 <div class="row">
+    <!-- <div class="container"> -->
     <aside class="column col-lg-2 shadow" style="position:relative;background-color: #2d282838;margin-left: -64px;margin-bottom: 0px;">
         <div class="side-nav" style="position: absolute;">
             <br>
@@ -58,6 +59,7 @@
                 </font> </b>  
         </div>
 <div class="users index content">
+    <center><font color="green" size="4px"><?= $this->Flash->render() ?></font></center>
     <?= $this->Html->link(__('Add New Room'), ['action' => 'add'], ['class' => 'btn btn-dark button float-right'])  ?> <br>
     
     <h3><?= __('Rooms Available/Booked') ?></h3>
@@ -96,7 +98,25 @@
                     <td> <?=  $this->Html->link($room->pg_id, ['action' => 'view','controller' => 'PgDetails', $room->pg_id]) 
                          ?> </td>
                     <td><?= h($room->seater) ?></td>
-                    <td><?= $room->seater-$room->seats_available ?></td>
+                    <td><?php 
+                        switch ($room->seater) {
+                            case "Single":
+                                {$seater=1;
+                                echo $seater-$room->seats_available;}
+                                break;
+                            case "Two":
+                                {$seater=2;
+                                echo $seater-$room->seats_available;}
+                                break;
+                            case "Three":
+                                {$seater=3;
+                                echo $seater-$room->seats_available;}
+                                break;
+                            default:
+                                {$seater=4;
+                                echo $seater-$room->seats_available;}
+                                break;
+                    }  ?></td>
                     <td><?= h($room->seats_available) ?></td>
                     <td><?= number_format($room->rent) ?></td>
                     <td><?php if($room->status==0)

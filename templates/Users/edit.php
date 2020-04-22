@@ -25,6 +25,7 @@
   </style>
 </head>
 <div class="row">
+    <!-- <div class="container"> -->
     <aside class="column col-lg-2 shadow" style="position:relative;background-color: #2d282838;margin-left: -64px;margin-bottom: 0px;">
         <div class="side-nav" style="position: absolute;">
             <br>
@@ -74,13 +75,6 @@
                 </font> </b>        
         </div>
 <div class="users index content">
-   
-    <?php 
-          if($user->status==1)
-               echo  $this->Html->link('Block User', ['action' => 'block', $user->user_id], ['class' => 'nav-link text-white btn btn-danger btn-primary  float-right'])."<br>";  
-            else
-               echo $this->Html->link('Unblock User', ['action' => 'block', $user->user_id], ['class' => 'nav-link text-white btn btn-primary       float-right'])."<br>"; 
-    ?>
 
     <div class="column-responsive column-80 view">
         <div class="users view content " >    
