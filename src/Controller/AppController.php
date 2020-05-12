@@ -52,7 +52,9 @@ class AppController extends Controller
     ]);
         $this->Auth->allow(['login','guest','viewguest','register','forgotpassword','resetpassword']);
         $info=$this->Auth->user('email');
-        $this->set('myinfo',$info);
+        $userrole=$this->Auth->user('role');
+
+        $this->set(array('myinfo'=>$info,'userrole'=>$userrole));
 
         /*
          * Enable the following component for recommended CakePHP form protection settings.

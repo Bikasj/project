@@ -17,23 +17,6 @@
 					<h1>Book & Rent Near You </h1>
 					<p>Join the hundreds who book and rent their PG to each other <br> to help the ones who are in need</p>
 					<div class="short-popular-category-list text-center">
-						<!-- <h2>Popular Category</h2>
-						<ul class="list-inline">
-							<li class="list-inline-item">
-								<a href="category.html"><i class="fa fa-bed"></i> Hotel</a></li>
-							<li class="list-inline-item">
-								<a href="category.html"><i class="fa fa-grav"></i> Fitness</a>
-							</li>
-							<li class="list-inline-item">
-								<a href="category.html"><i class="fa fa-car"></i> Cars</a>
-							</li>
-							<li class="list-inline-item">
-								<a href="category.html"><i class="fa fa-cutlery"></i> Restaurants</a>
-							</li>
-							<li class="list-inline-item">
-								<a href="category.html"><i class="fa fa-coffee"></i> Cafe</a>
-							</li>
-						</ul> -->
 					</div>
 					
 				</div>
@@ -45,23 +28,18 @@
 										<form action='viewguest' method='get'>
 											<div class="form-row">
 												<div class="form-group col-md-4">
-													<!-- <input type="text" class="form-control my-2 my-lg-1" id="inputtext4" placeholder="Enter your Area"> -->
+													
 													<?= $this->Form->input('area', array('type' => 'text', 'placeholder' => 'Enter Your Area','class' => 'form-control my-2 my-lg-1'))?>
 												</div>
 												<div class="form-group col-md-3">
 													<?= $this->Form->input('location', array('type' => 'text', 'placeholder' => 'Enter Your Location','class' => 'form-control my-2 my-lg-1'))?>
 												</div>
 												<div class="form-group col-md-3">
-													<!-- <select class="w-100 form-control mt-lg-1 mt-md-2">
-														<option>Category</option>
-														<option value="1">Male</option>
-														<option value="2">Female</option>
-														<option value="4">Both</option>
-													</select> -->
+													
 													<?= $this->Form->select(
-            'gender',
-            ['males'=>'male', 'females'=>'female','both'=>'both'],
-            ['empty' => 'Select category', 'class' =>'w-100 form-control mt-lg-1 mt-md-2']) ?>
+								            'gender',
+								            ['males'=>'male', 'females'=>'female','both'=>'both'],
+								            ['empty' => 'Select category', 'class' =>'w-100 form-control mt-lg-1 mt-md-2']) ?>
 												</div>
 												<?= $this->Form->end();?>
 												<div class="form-group col-md-2 align-self-center">
@@ -105,6 +83,7 @@
 				<div class="trending-ads-slide">
 					<?php $i=0; foreach($room as $rooms): ?>
 						<div class="col-sm-12 col-lg-4 col-md-6">
+							<div class="package-content">
 							<!-- product card -->
 							
 <div class="product-item bg-light">
@@ -181,7 +160,7 @@
 
 						
 						</div>
-					
+					</div>
 						<?php endforeach; ?>
 					
 				</div>

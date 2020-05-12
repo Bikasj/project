@@ -25,6 +25,5 @@ class ContactusController extends AppController
         }
         $this->set('contact', $contact);
 	}
-
 }
 ?>

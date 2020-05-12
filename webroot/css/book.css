@@ -1,0 +1,73 @@
+.paymentCont {
+    width: 400px;
+    margin: 0 auto;
+}
+.thankyou {
+    width: 400px;
+    margin: 0 auto;
+}
+
+		.paymentWrap {
+	padding: 50px;
+	margin-left: -65px;
+}
+
+.paymentWrap .paymentBtnGroup {
+	max-width: 800px;
+	margin: auto;
+}
+
+.paymentWrap .paymentBtnGroup .paymentMethod {
+	padding: 40px;
+	box-shadow: none;
+	position: relative;
+}
+
+.paymentWrap .paymentBtnGroup .paymentMethod.active {
+	outline: none !important;
+}
+
+.paymentWrap .paymentBtnGroup .paymentMethod.active .method {
+	border-color: #4cd264;
+	outline: none !important;
+	box-shadow: 0px 3px 22px 0px #7b7b7b;
+}
+
+.paymentWrap .paymentBtnGroup .paymentMethod .method {
+	position: absolute;
+	right: 3px;
+	top: 3px;
+	bottom: 3px;
+	left: 3px;
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	border: 2px solid transparent;
+	transition: all 0.5s;
+}
+
+.paymentWrap .paymentBtnGroup .paymentMethod .method.visa {
+	background-image: url("https://image.opencart.com/cache/5c484ec03c443-resize-710x380.jpg");
+}
+
+.paymentWrap .paymentBtnGroup .paymentMethod .method.master-card {
+	background-image: url("https://paymentweek.com/wp-content/uploads/2017/08/paytm-logo-630x336.jpg");
+}
+
+.paymentWrap .paymentBtnGroup .paymentMethod .method.amex {
+	background-image: url("data:image/png;base64,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");
+}
+
+.paymentWrap .paymentBtnGroup .paymentMethod .method.vishwa {
+	background-image: url("https://www.business.com/images/content/5ca/3cac05a215e8a458b488c/0-800-");
+}
+
+.paymentWrap .paymentBtnGroup .paymentMethod .method.ez-cash {
+	background-image: url("https://logodix.com/logo/992823.jpg");
+}
+
+
+.paymentWrap .paymentBtnGroup .paymentMethod .method:hover {
+	border-color: #4cd264;
+	outline: none !important;
+}

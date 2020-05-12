@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 namespace App\Controller;
-// use Cake\Mailer\Email;
 use Cake\Mailer\Email;
 use Cake\Mailer\Mailer;
 use Cake\Mailer\Mail;
@@ -15,8 +14,12 @@ class UsersController extends AppController
 {
     public $paginate = [
         'maxLimit' => 5
-        
     ];
+    public function initialize(): void
+    {
+        parent::initialize();
+        $this->loadComponent('Paginator');
+    }
     public function forgotpassword()
     {
         if($this->request->is('post'))
@@ -51,14 +54,10 @@ class UsersController extends AppController
             $user['password']=$mypass;
             if($userTable->save($user))
             {
+                $this->Flash->success('Your have successfully changed your password! ');
                 return $this->redirect(['action'=>'login']);
             }
         }
-    }
-    public function initialize(): void
-    {
-        parent::initialize();
-        $this->loadComponent('Paginator');
     }
     public function profile()
     {
@@ -85,7 +84,54 @@ class UsersController extends AppController
         $pgowners = $this->Users->findByRole('1')->count();
         $transients = $this->Users->findByRole('2')->count();
         $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients , 'user' => $user));
-        
+    }
+    public function transients()
+    {
+        $this->loadModel('Userroles');
+        $this->loadModel('Rooms');
+        $this->loadModel('PgDetails');
+        $this->loadModel('Payments');
+
+        $bookingrequest=$this->Rooms->find()->where(['booking_request_by IN'=>[ $this->Users->find()->where(['role' => 2])->select('user_id') ]])->count();
+        $pgs = $this->PgDetails->findByOwnerId($this->Auth->user('user_id'))->where(['PgDetails.status IN' => ['0','1']])->count();
+        $users=$this->Users->findByUserId($this->Auth->user('user_id'))->firstOrFail();
+        $lists = $this->PgDetails->find('list')->where(['owner_id' => $this->Auth->user('user_id')]);
+        $room=0;$rooms=0;
+        foreach ($lists as $list) 
+        {
+            $room=$list;
+            $rooms=$rooms+ $this->Rooms->findByPgId($room)->count();
+        }
+        $transient_id=$this->Payments->find()->where(['pgowner_id'=>$this->Auth->user('user_id')])->select('transientuser_id');
+        $transient_users= $this -> paginate( $this->Users->find()->where(['user_id IN'=>$transient_id]));
+        $transient_count=count($transient_users);
+        $this->set(array('pgs'=> $pgs ,'bookingrequest'=>$bookingrequest,'transient_count'=>$transient_count, 'rooms'=> $rooms , 'users'=>$users,'transient_users' => $transient_users));
+    }
+    public function viewtransients($id=null)
+    {   
+        $this->loadModel('Userroles');
+        $this->loadModel('PgDetails');
+        $this->loadModel('Rooms');
+        $this->loadModel('Payments');
+        $user = $this->Users->get($id, [
+            'contain' => [],
+        ]);
+        $room_id=$this->Payments->findByTransientuserId($id)->select('room_id')->firstOrFail(); 
+        $bookingrequest=$this->Rooms->find()->where(['booking_request_by IN'=>[ $this->Users->find()->where(['role' => 2])->select('user_id') ]])->count();
+        $pgs = $this->PgDetails->findByOwnerId($this->Auth->user('user_id'))->where(['PgDetails.status IN' => ['0','1']])->count();
+        $users=$this->Users->findByUserId($this->Auth->user('user_id'))->firstOrFail();
+        $lists = $this->PgDetails->find('list')->where(['owner_id' => $this->Auth->user('user_id')]);
+        $role= $this->Userroles->findById($user->role)->firstOrFail();
+        $room=0;$rooms=0;
+        foreach ($lists as $list) 
+        {
+            $room=$list;
+            $rooms=$rooms+ $this->Rooms->findByPgId($room)->count();
+        }
+        $transient_id=$this->Payments->find()->where(['pgowner_id'=>$this->Auth->user('user_id')])->select('transientuser_id');
+        $transient_users= $this -> paginate( $this->Users->find()->where(['user_id IN'=>$transient_id]));
+        $transient_count=count($transient_users);
+        $this->set(array('pgs'=> $pgs ,'bookingrequest'=>$bookingrequest,'transient_count'=>$transient_count, 'rooms'=> $rooms , 'users'=>$users,'transient_users' => $transient_users,'user'=>$user,'role'=>$role,'room_id'=>$room_id));
     }
     public function changeuploaduser($id=null)
     {   
@@ -109,9 +155,10 @@ class UsersController extends AppController
         $this->set('user',$user);
     }
     public function register()
-    {    $this->loadModel('Userroles');
-         $this->loadModel('Rooms');
-         $this->loadModel('PgDetails');
+    {   
+        $this->loadModel('Userroles');
+        $this->loadModel('Rooms');
+        $this->loadModel('PgDetails');
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) 
         {
@@ -122,7 +169,6 @@ class UsersController extends AppController
             $data['image']=$img;
             $data['created']=date("Y-m-d h:i:s");
             $data['updated']=date("Y-m-d h:i:s");
-             // $data['password']=password_hash($data['password'],PASSWORD_DEFAULT);
             $user = $this->Users->newEntity($data);
             if ($this->Users->save($user)) 
             {
@@ -175,18 +221,10 @@ class UsersController extends AppController
         }
         $this->Flash->error(__('The user could not be saved. Please, try again.'));
     }
-    // public function beforeFilter(\Cake\Event\EventInterface $event)
-    // {
-    //     parent::beforeFilter($event);
-    //     $this->Authentication->addUnauthenticatedActions(['login', 'register','guest']);
-    // }
-
     public function login() 
     { 
         if($this->request->is('post')){
             $myinfo = $this->Auth->identify();
-            // debug($user);
-            // exit;
             if($myinfo){
                 $this->Auth->setUser($myinfo);
                 
@@ -197,7 +235,7 @@ class UsersController extends AppController
                 }
                 if($myinfo['role']==1)
                 {
-                    return $this->redirect(['controller'=>'PgDetails','action'=>'mypg']);
+                    return $this->redirect(['controller'=>'PgDetails','action'=>'pg']);
                 }
                 else
                     if($myinfo['role']==2)
@@ -209,37 +247,9 @@ class UsersController extends AppController
                 $this->Flash->error("Incorrect username or password !");
             }
         }
-        // $this->request->allowMethod([ 'get','post']);
-        // $result = $this->Authentication->getResult();
-        // if ($result->isValid()) 
-        // {
-        //     $user=$this->Auth->identify();
-        //     if($user)
-        //     {
-        //         $debug($user);
-        //         $this->Auth->setUser($user);
-        //     }
-        //     $redirect = $this->request->getQuery('redirect', [
-        //         'controller' => 'Users',
-        //         'action' => 'index'
-        //     ]);
-        //      $GLOBALS['val'] = 0;
-        //     return $this->redirect($redirect);
-        // }
-        // if ($this->request->is('post') && !$result->isValid()) 
-        // {
-        //     $this->Flash->error(__('Invalid username or password'));
-        // }
     }
     public function logout()
     {   
-        // $result = $this->Authentication->getResult();
-        // if ($result->isValid()) 
-        // {
-        //     $this->Authentication->logout();
-        //     return $this->redirect(['controller' => 'Users', 'action' => 'login']);
-        //     $GLOBALS['val'] = 1;
-        // }
         return $this->redirect($this->Auth->logout());
     }
 

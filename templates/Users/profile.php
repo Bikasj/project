@@ -34,15 +34,7 @@
 						<!-- User Name -->
 						<h5 class="text-center"><?= $user->firstname." ".$user->lastname?></h5>
 					</div>
-					<!-- Dashboard Links -->
-					<!-- <div class="widget dashboard-links">
-						<ul>
-							<li><a class="my-1 d-inline-block" href="">Savings Dashboard</a></li>
-							<li><a class="my-1 d-inline-block" href="">Saved Offer <span>(5)</span></a></li>
-							<li><a class="my-1 d-inline-block" href="">Favourite Stores <span>(3)</span></a></li>
-							<li><a class="my-1 d-inline-block" href="">Recommended</a></li>
-						</ul>
-					</div> -->
+					
 				</div>
 			</div>
 			<div class="col-md-10 offset-md-1 col-lg-9 offset-lg-0">
@@ -89,14 +81,6 @@
 								<div class="form-group">
 									<?= $this->Form->control('email', ['name' => 'email' , 'placeholder'=>'Enter your email','label'=>'Email Address', 'class' =>($this->Form->isFieldError('email')) ? 'form-control is-invalid' : 'form-control','required'=>false])?>
 								</div>
-
-
-
-
-						
-							<!-- Current Password -->
-							
-							<!-- New Password -->
 							
 				</div>
 			</div>

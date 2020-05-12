@@ -32,23 +32,26 @@ class UsersTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         
-        $validator->notEmpty('firstname');
-        $validator->notEmpty('lastname');
-        $validator->notEmpty('email')
+        $validator->notEmptyString('firstname');
+        $validator->notEmptyString('lastname');
+        $validator->notEmptyString('email')
             ->add('email', 'valid', [
                 'rule' => 'email',
                 'message' => 'Please enter valid email',
             ]);
-        $validator->notEmpty('password');
-        $validator->notEmpty('confirmpassword')
+        $validator->notEmptyString('password');
+        $validator->notEmptyString('confirmpassword')
             ->add('confirmpassword', 'no-misspelling', [
                 'rule' => ['compareWith', 'password'],
                 'message' => 'Passwords are not equal',
             ]);
-        $validator->notEmpty('adharcard');
-        $validator->notEmpty('phone');
-        $validator->notEmpty('image');
-        $validator->notEmpty('role');
+        $validator->notEmptyString('adharcard');
+        $validator->notEmptyString('phone');
+        $validator->notEmptyFile('image');
+        $validator->notEmptyString('role')
+                  ->scalar('role')
+                  ->maxLength('role', 10)
+                  ->requirePresence('role', 'create');
         return $validator;
     }
 

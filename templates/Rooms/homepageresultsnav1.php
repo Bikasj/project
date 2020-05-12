@@ -36,14 +36,6 @@
 <section class="section-sm">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <div class="search-result bg-gray">
-                    <h2>All PGs</h2>
-                    <p></p>
-                </div>
-            </div>
-        </div>
-        <div class="row">
             <div class="col-md-3">
                 <div class="category-sidebar">
 
@@ -134,42 +126,14 @@
 </div>
 </form>
 
-<!-- <div class="widget filter">
-    <h4 class="widget-header">Show Produts</h4>
-    <select>
-        <option>Popularity</option>
-        <option value="1">Top rated</option>
-        <option value="2">Lowest Price</option>
-        <option value="4">Highest Price</option>
-    </select>
-</div> -->
-
-<div class="widget price-range w-100">
-    <h4 class="widget-header">Price Range</h4>
-    <div class="block">
-                        <input class="range-track w-100" type="text" data-slider-min="0" data-slider-max="5000" data-slider-step="5"
-                        data-slider-value="[0,5000]">
-                <div class="d-flex justify-content-between mt-2">
-                        <span class="value">Rs4,000 - Rs30,000</span>
-                </div>
-    </div>
-</div>
-
-
                 </div>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-9 mainbody">
                 <div class="category-search-filter">
                     <div class="row">
                         <div class="col-md-6">
-                            <strong>Short</strong>
-							<select>
-								<option>Most Recent</option>
-								<option value="1">Most Popular</option>
-								<option value="2">Lowest Price</option>
-								<option value="4">Highest Price</option>
-							</select>
-						</div>
+                            <strong><h5>Your Searched Results :</h5></strong>
+                        </div>
 						<div class="col-md-6">
 							<div class="view">
 								<strong>Views</strong>
@@ -190,7 +154,7 @@
 						<?php foreach($room as $rooms): ?>
 						<div class="col-sm-12 col-lg-4 col-md-6">
 							<!-- product card -->
-							
+							<div class="package-content">
 <div class="product-item bg-light">
 	<div class="card">
 		<div class="thumb-content">
@@ -262,32 +226,25 @@
 </div>
 
 						</div>
-					
-						<?php endforeach; ?>
 					</div>
+						<?php endforeach; ?>
+					
 				</div>
 				
-				<div class="pagination justify-content-center">
-					<nav aria-label="Page navigation example">
-						<ul class="pagination">
-							<li class="page-item">
-								<a class="page-link" href="#" aria-label="Previous">
-									<span aria-hidden="true">&laquo;</span>
-									<span class="sr-only">Previous</span>
-								</a>
-							</li>
-							<li class="page-item"><a class="page-link" href="#">1</a></li>
-							<li class="page-item active"><a class="page-link" href="#">2</a></li>
-							<li class="page-item"><a class="page-link" href="#">3</a></li>
-							<li class="page-item">
-								<a class="page-link" href="#" aria-label="Next">
-									<span aria-hidden="true">&raquo;</span>
-									<span class="sr-only">Next</span>
-								</a>
-							</li>
-						</ul>
-					</nav>
-				</div>
+				 <div class="pagination justify-content-center">
+                    <nav aria-label="Page navigation example">
+                         <div class="paginator paginator" >
+         <ul class="pagination" >
+            <?= $this->Paginator->first('<< ' . __('first')) ?>
+            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->numbers() ?>
+            <?= $this->Paginator->next(__('next') . ' >') ?>
+            <?= $this->Paginator->last(__('last') . ' >>') ?>
+        </ul>                           
+        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
+    </div></div>
+                    </nav>
+                </div>
 			</div>
 		</div>
 	</div>
@@ -296,6 +253,7 @@
 </html>
 <script>
     $('document').ready(function(){
+        var grid=1;
         $("select.area").change(function(){
         var area = $(this).children("option:selected").val();
         console.log(area);
@@ -333,65 +291,68 @@
                         // console.log(array);
                         var seater="none";
                         var area="none";
-                        search( seater , area  , gender);
+                        search( seater , area  , gender , grid);
             }); 
 
         if($('input[name=seater]').is(':checked') && $('input[name=area]').is(':checked')) { 
             var seater=$('input[name=seater]:checked', '#myForm').val(); 
             var area=$('input[name=area]:checked', '#myForm2').val(); 
-            search(seater , area , gender);}
+            search(seater , area , gender , grid);}
         else if($('input[name=seater]').is(':checked')) 
         {   var seater=$('input[name=seater]:checked', '#myForm').val(); 
-            searchbyseater(seater , gender);
+            searchbyseater(seater , gender , grid);
             }
         else if($('input[name=area]').is(':checked')) 
         {   var area=$('input[name=area]:checked', '#myForm2').val(); 
-            searchbyarea(area , gender);
+            searchbyarea(area , gender , grid);
             }
         });
 
-        function searchbyseater( seater , gender ){
+        function searchbyseater( seater , gender , grid ){
         var data = seater;
         var data2 = gender;
+        var data3= grid;
 
         $.ajax({
                     method: 'get',
                     url : "<?php echo $this->Url->build( [ 'controller' => 'Rooms', 'action' => 'homepageresults2' ] ); ?>",
-                    data: {seater:data,gender:data2},
+                    data: {seater:data,gender:data2,grid:data3},
 
                     success: function( response )
                     {       
-                       $( '.product-grid-list' ).html(response);
+                       $( '.mainbody' ).html(response);
                     }
                 });
         };
 
-        function searchbyarea( area , gender ){
+        function searchbyarea( area , gender , grid ){
         var data = area;
         var data2 = gender;
+        var data3= grid;
         $.ajax({
                     method: 'get',
                     url : "<?php echo $this->Url->build( [ 'controller' => 'Rooms', 'action' => 'homepageresults3' ] ); ?>",
-                    data: {area:data,gender:data2},
+                    data: {area:data,gender:data2,grid:data3},
 
                     success: function( response )
                     {       
-                       $( '.product-grid-list' ).html(response);
+                       $( '.mainbody' ).html(response);
                     }
                 });
         };
-        function search( seater , area  , gender){
+        function search( seater , area  , gender , grid){
         var data2 = seater;
         var data = area;
         var data3=gender;
+        var data4= grid;
         $.ajax({
                     method: 'get',
                     url : "<?php echo $this->Url->build( [ 'controller' => 'Rooms', 'action' => 'homepageresults4' ] ); ?>",
-                    data: {area:data,seater:data2,gender:data3},
+                    data: {area:data,seater:data2,gender:data3,grid:data4},
 
                     success: function( response )
                     {       
-                       $( '.product-grid-list' ).html(response);
+                       $( '.mainbody' ).html(response);
                     }
                 });
         };

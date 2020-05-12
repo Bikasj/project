@@ -1,0 +1,343 @@
+<head>
+
+  <style>
+  <?php echo $this->Html->css('viewrooms.css',['block'=>true]); ?>
+</style>
+  
+
+</head>
+<body class="body-wrapper">
+
+
+<!--==================================
+=            User Profile            =
+===================================-->
+<section class="dashboard section">
+  <?php foreach($users as $users):?>
+  <!-- Container Start -->
+  <div class="container">
+    <!-- Row Start -->
+    <div class="row">
+      <div class="col-md-10 offset-md-1 col-lg-4 offset-lg-0">
+        <div class="sidebar">
+          <!-- User Widget -->
+          <div class="widget user-dashboard-profile">
+            <!-- User Image -->
+            <div class="profile-thumb">
+              <?='<img class="rounded-circle" src="data:image/jpg;base64, '.base64_encode(stream_get_contents($users->image)).' " ></td>'?>
+            
+            </div>
+            <!-- User Name -->
+            
+            <h5 class="text-center"><?=$users['firstname']." ".$users['lastname']?></h5>
+            <p>You are Admin</p>
+            <a href="user-profile.html" class="btn btn-main-sm">View Profile</a>
+          </div>
+          <!-- Dashboard Links -->
+          <div class="widget user-dashboard-menu">
+            <ul>
+              <li><a href="/admin/users/pgowners"><i class="fa fa-user"></i> PG Owners<span><?=$pgowners?></span></a></li>
+              <li class="active"><a href="/admin/rooms/roomstatus"><i class="fa fa-bed"></i> Rooms Available / Booked <span><?=$rooms?></span></a></li>
+              <li><a href="/admin/users/transients"><i class="fa fa-user"></i>Transient Guests <span><?=$transients?></span></a></li>
+              <li><a href="/admin/PgDetails/allpgs"><i class="fa fa-home"></i>All PGs <span><?=$pgs?></span></a></li>
+              <li><a href="/admin/PgDetails/pending"><i class="fa fa-bolt"></i> Pending Approval<span><?=$pending?></span></a></li>
+              <!-- <li><a href="/users/logout"><i class="fa fa-cog"></i> Logout</a></li> -->
+              <li><a href="" data-toggle="modal" data-target="#logout"><i class="fa fa-power-off"></i>Logout</a></li>
+            </ul>
+          </div>
+
+          <!-- delete-account modal -->
+                                  <!-- delete account popup modal start-->
+                <!-- Modal -->
+                <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+                  aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header border-bottom-0">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body text-center">
+                        <img src="images/account/Account1.png" class="img-fluid mb-2" alt="">
+                        <h6 class="py-2">Are you sure you want to logout?</h6>
+                          <img src="/images/logout.png" alt="" height="100px" width="100px" class="rounded-circle"> 
+                      </div>
+                      <div class="modal-footer border-top-0 mb-3 mx-5 justify-content-lg-between justify-content-center">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                        <?=  $this->Html->link('Logout', ['action' => 'logout', ], ['class' => 'text-white btn btn-primary btn-sm ']) ?> 
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- delete account popup modal end-->
+          <!-- delete-account modal -->
+
+        </div>
+      </div>
+      <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-0">
+        <!-- Recently Favorited -->
+        <div class="widget dashboard-container my-adslist"><h3 style="text-shadow: 2px 2px 5px grey;"><i class="fa fa-bed" ></i> Rooms</h3>
+    <?php $imgsrc=base64_encode(stream_get_contents($room->image)); ?>
+<?php 
+
+              echo '<a data-toggle="tooltip" data-placement="top" class="nav-link text-white btn btn-sm btn-success  float-right" title="Edit" href="editrooms/'.$room->room_id.'">
+                          <i class="fa fa-pencil"></i>
+                        </a>';
+                  if($room->room_id==1)
+                              
+                        echo '<a data-toggle="tooltip" data-placement="top" class="nav-link text-white btn btn-sm btn-danger  float-right" title="Block" href="block/'.$room->room_id.'">
+                          <i class="fa fa-ban"></i>
+                        </a></li>'; 
+                else
+                    
+                        echo '<a data-toggle="tooltip" data-placement="top" class="nav-link text-white btn btn-sm btn-primary  float-right" title="Unlock" href="block/'.$room->room_id.'">
+                          <i class="fa fa-ban"></i>
+                        </a></li>';
+    ?>
+    <div class="column-responsive column-80 view">
+        <div class="users view content " >    <br>
+            Room Details
+           
+            <table class="table">
+                <tr><td colspan="2">
+                  <div>
+            <?php
+      $arr2=explode(",",$room->images);
+      if($room->images==null)
+        $totalimgs=1;
+      else
+        $totalimgs=count($arr2)+1;
+            $j=0;$i=0;
+        
+        ?>
+
+<div class="container">
+  <div class="mySlides"> 
+       <?php echo '<div class="numbertext btn-dark"><div class="price">'.++$i.'/'.$totalimgs;echo "</div></div>";
+      echo '<img  data-toggle="tooltip" title="Click to preview" id="imgs'.$i.'" src="data:image/jpg;base64, '.$imgsrc.'" style="width:100%" height=300px width=380px>';?>
+  </div> 
+
+   <?php
+            if($room->images!=null)
+    {
+          
+        $arr2=explode(",",$room->images);
+          if(count($arr2)>1)
+          {
+
+               while(count($arr2)>$j)
+               { echo '<div class="mySlides">';
+    echo '<div class="numbertext btn-dark"><div class="price">'.++$i.'/'.$totalimgs;echo "</div></div>";
+    echo "<img  data-toggle='tooltip' title='Click to preview' id='imgs".$i."' src='/images/rooms/".$arr2[$j++]."' height=300px width=380px style='width:100%'>";
+    echo '</div>';
+}
+}
+else 
+            
+        {
+    echo '<div class="mySlides">';
+    echo '<div class="numbertext btn-dark"><div class="price">'.++$i.'/'.$totalimgs;echo "</div></div>";
+    echo "<img data-toggle='tooltip' title='Click to preview' id='imgs".$i."' src='/images/rooms/".$arr2[$j]."' height=300px width=380px style='width:100%'>";
+    echo '</div>';
+        }
+      }
+      ?>
+    
+  <a class="prev" onclick="plusSlides(-1)">❮</a>
+  <a class="next" onclick="plusSlides(1)">❯</a>
+
+  <div class="caption-container">
+    <?php
+            $j=0;$i=0;
+        
+    echo '<div class="column">';
+    echo "<img class='demo cursor' src='data:image/jpg;base64, ".$imgsrc."' height=70px width=140px onclick='currentSlide(".++$i.")'  style='width:100%'>";
+    echo '</div>';
+
+?>
+
+<?php 
+if($room->images!=null)
+    {
+          
+        $arr2=explode(",",$room->images);
+          if(count($arr2)>1)
+          {
+
+               while(count($arr2)>$j)
+               { echo '<div class="column">';
+    
+    echo "<img class='demo cursor' src='/images/rooms/".$arr2[$j++]."' height=70px width=140px  onclick='currentSlide(".++$i.")'  style='width:100%'>";
+    echo '</div>';
+}
+}
+else 
+            
+        {
+    echo '<div class="column">';
+          
+    echo "<img class='demo cursor' src='/images/rooms/".$arr2[$j]."' height=70px width=140px  onclick='currentSlide(".++$i.")' style='width:100%'>";
+    echo '</div>';
+        }
+      }
+      ?>
+  </div>
+
+  <div class="row" style="position:relative;">
+        <div id="myModal" class="modall">
+          <span class="close">&times;</span>
+          <img class="modall-content" id="img01">
+          <div id="caption"></div>
+        </div>
+  <div style="position: absolute;
+    left: 20%;
+    top: 50%;
+    ">
+    </div>
+  </div>  
+</div>      
+           </div>            
+                    </td>
+                </tr>
+                <tr>
+                    <th><?= __('Room ID') ?></th>
+                    <td><?= h($room->room_id) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('PG ID') ?></th>
+                    <td><?=  $this->Html->link($room->pg_id, ['action' => 'viewpg','controller' => 'PgDetails', $room->pg_id]) 
+                         ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('AC facility') ?></th>
+                    <td><?= h($room->ac_facility) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Status') ?></th>
+                    <td><?php if($room->status==1)
+                                    echo "Active";
+                                else
+                                    echo "Inactive"; ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Seater') ?></th>
+                    <td><?= h($room->seater) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Booked Seats') ?></th>
+                    <td><?php 
+                        switch ($room->seater) {
+                            case "Single":
+                                {$seater=1;
+                                echo $seater-$room->seats_available;}
+                                break;
+                            case "Double":
+                                {$seater=2;
+                                echo $seater-$room->seats_available;}
+                                break;
+                            case "Triple":
+                                {$seater=3;
+                                echo $seater-$room->seats_available;}
+                                break;
+                            default:
+                                {$seater=4;
+                                echo $seater-$room->seats_available;}
+                                break;
+                    }  ?></td>
+                </tr>
+                 <tr>
+                    <th><?= __('Available Seats') ?></th>
+                    <td><?= h($room->seats_available) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Food Availability') ?></th>
+                    <td><?= h($room->food_availability) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Security Charge') ?></th>
+                    <td><?= h($room->security_charge) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Notice Period (in months)') ?></th>
+                    <td><?= h($room->notice_period) ?></td>
+                </tr>
+               
+                <tr>
+                    <th><?= __('Created') ?></th>
+                    <td><?= h($room->created) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Updated') ?></th>
+                    <td><?= h($room->updated) ?></td>
+                </tr>
+            </table><h6>
+        
+            <br><br></h6>
+             <?=  $this->Html->link('View PG', ['action' => 'viewpg','controller'=>'PgDetails', $room->pg_id], ['class' => 'text-white btn btn-success btn-md ']) ?> 
+        </div>
+    </div>
+</div>
+</div>
+    </div>
+    <!-- Row End -->
+  </div>
+  <!-- Container End -->
+</section>
+<?php endforeach; ?>
+<script>
+
+var modal = document.getElementById("myModal");
+var count="<?php echo $totalimgs;?>";
+console.log(count);
+for (i = 1; i <= count; i++) {
+  
+var img = document.getElementById("imgs"+[i]);
+var modalImg = document.getElementById("img01");
+var captionText = document.getElementById("caption");
+img.onclick = function(){
+  modal.style.display = "block";
+  modalImg.src = this.src;
+  captionText.innerHTML = this.alt;
+}
+
+var span = document.getElementsByClassName("close")[i-1];
+
+      span.onclick = function() { 
+        modal.style.display = "none";
+      }
+      }
+
+      var slideIndex = 1;
+      showSlides(slideIndex);
+
+      function plusSlides(n) {
+        showSlides(slideIndex += n);
+      }
+
+      function currentSlide(n) {
+        showSlides(slideIndex = n);
+      }
+
+      function showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("demo");
+        var captionText = document.getElementById("caption");
+        if (n > slides.length) {slideIndex = 1}
+        if (n < 1) {slideIndex = slides.length}
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex-1].style.display = "block";
+        dots[slideIndex-1].className += " active";
+        captionText.innerHTML = dots[slideIndex-1].alt;
+}
+</script>
+
+
+
+

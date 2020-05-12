@@ -5,6 +5,7 @@
 =            User Profile            =
 ===================================-->
 <section class="dashboard section">
+  <?php foreach($users as $users):?>
   <!-- Container Start -->
   <div class="container">
     <!-- Row Start -->
@@ -15,21 +16,23 @@
           <div class="widget user-dashboard-profile">
             <!-- User Image -->
             <div class="profile-thumb">
-              <img src="/images/user/user-thumb.jpg" alt="" class="rounded-circle">
+              <?='<img class="rounded-circle" src="data:image/jpg;base64, '.base64_encode(stream_get_contents($users->image)).' " ></td>'?>
+            
             </div>
             <!-- User Name -->
-            <h5 class="text-center">Samanta Doe</h5>
+            
+            <h5 class="text-center"><?=$users['firstname']." ".$users['lastname']?></h5>
             <p>You are Admin</p>
-            <a href="user-profile.html" class="btn btn-main-sm">Edit Profile</a>
+            <a href="user-profile.html" class="btn btn-main-sm">View Profile</a>
           </div>
           <!-- Dashboard Links -->
           <div class="widget user-dashboard-menu">
             <ul>
-              <li class="active"><a href="dashboard-my-ads.html"><i class="fa fa-user"></i> PG Owners</a></li>
-              <li><a href="dashboard-favourite-ads.html"><i class="fa fa-bookmark-o"></i> Rooms Available / Booked <span>5</span></a></li>
-              <li><a href="dashboard-archived-ads.html"><i class="fa fa-user"></i>Transient Guests <span>12</span></a></li>
-              <li><a href="dashboard-archived-ads.html"><i class="fa fa-file-archive-o"></i>All PGs <span>12</span></a></li>
-              <li><a href="dashboard-pending-ads.html"><i class="fa fa-bolt"></i> Pending Approval<span>23</span></a></li>
+              <li class="active"><a href="/admin/users/pgowners"><i class="fa fa-user"></i> PG Owners<span><?=$pgowners?></span></a></li>
+              <li><a href="/admin/rooms/roomstatus"><i class="fa fa-bed"></i> Rooms Available / Booked <span><?=$rooms?></span></a></li>
+              <li><a href="/admin/users/transients"><i class="fa fa-user"></i>Transient Guests <span><?=$transients?></span></a></li>
+              <li><a href="/admin/PgDetails/allpgs"><i class="fa fa-home"></i>All PGs <span><?=$pgs?></span></a></li>
+              <li><a href="/admin/PgDetails/pending"><i class="fa fa-bolt"></i> Pending Approval<span><?=$pending?></span></a></li>
               <!-- <li><a href="/users/logout"><i class="fa fa-cog"></i> Logout</a></li> -->
               <li><a href="" data-toggle="modal" data-target="#logout"><i class="fa fa-power-off"></i>Logout</a></li>
             </ul>
@@ -67,186 +70,74 @@
       <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-0">
         <!-- Recently Favorited -->
         <div class="widget dashboard-container my-adslist">
-          <h3 class="widget-header">My Ads</h3>
+          <h3 style="text-shadow: 2px 2px 5px grey;"><i class="fa fa-user" ></i> PG Owners</h3>
+          <?php 
+               echo '<a data-toggle="tooltip" data-placement="top" class="nav-link text-white btn btn-sm btn-dark  float-right" title="Add New" href="adduser/">
+                          <i class="fa fa-user-plus"></i>
+                        </a>';
+                        ?>
           <table class="table table-responsive product-dashboard-table">
             <thead>
               <tr>
                 <th>Image</th>
-                <th>Product Title</th>
-                <th class="text-center">Category</th>
+                <th>Full Name</th>
+                <th class="text-center">Status</th>
                 <th class="text-center">Action</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-
+              
+                <?php    
+                // echo "<pre>";print_r($pgowner);echo "</pre>";die();
+                    $i=1;
+                     foreach ($pgowner as $user): ?>
+                <tr>
                 <td class="product-thumb">
-                  <img width="80px" height="auto" src="images/products/products-1.jpg" alt="image description"></td>
+                <?='<img style="border-radius: 50%;" src="data:image/jpg;base64, '.base64_encode(stream_get_contents($user->image)).' " height=70px width=70px>'?></td></td>
                 <td class="product-details">
-                  <h3 class="title">Macbook Pro 15inch</h3>
-                  <span class="add-id"><strong>Ad ID:</strong> ng3D5hAMHPajQrM</span>
-                  <span><strong>Posted on: </strong><time>Jun 27, 2017</time> </span>
-                  <span class="status active"><strong>Status</strong>Active</span>
-                  <span class="location"><strong>Location</strong>Dhaka,Bangladesh</span>
+                  <h3 class="title"><?=$user['firstname']." ".$user['lastname']?></h3>
+                  <span class="add-id"><strong>Email ID:</strong> <?=$user['email']?></span>
+                  <span class="location"><strong>Phone</strong><?=$user['phone']?></span>
+                  <span><strong>Added on: </strong><time><?= date("M,Y",strtotime($user['created']))?></time> </span>
                 </td>
-                <td class="product-category"><span class="categories">Laptops</span></td>
+                <td class="product-category"><span class="status active"><?php if($user->status==0)
+                                echo "<font color='red'>Inactive</font>";
+                               else
+                                echo "<font color=#32CD32>Active</font>"; ?></td></span></td>
                 <td class="action" data-title="Action">
                   <div class="">
                     <ul class="list-inline justify-content-center">
                       <li class="list-inline-item">
-                        <a data-toggle="tooltip" data-placement="top" title="view" class="view" href="category.html">
+                        <a  id="<?=$user->user_id?>" data-toggle="tooltip" data-placement="top" title="view" class="view" href="/admin/users/viewpgowners/<?php echo $user->user_id?>" >
                           <i class="fa fa-eye"></i>
                         </a>
                       </li>
                       <li class="list-inline-item">
-                        <a class="edit" data-toggle="tooltip" data-placement="top" title="Edit" href="">
+                        <a class="edit" id="<?=$user->user_id?>" data-toggle="tooltip" data-placement="top" title="Edit" href="/admin/users/editpgowners/<?php echo $user->user_id?>">
                           <i class="fa fa-pencil"></i>
                         </a>
                       </li>
-                      <li class="list-inline-item">
+                      <!-- <li class="list-inline-item">
                         <a class="delete" data-toggle="tooltip" data-placement="top" title="Delete" href="">
-                          <i class="fa fa-trash"></i>
-                        </a>
-                      </li>
+                          <i class="fa fa-ban"></i>
+                        </a></li> -->
+                        <?php 
+                            if($user->status==1)
+                               echo '<li class="list-inline-item">
+                        <a class="delete" data-toggle="tooltip" data-placement="top" title="Block" href="/admin/users/block/'.$user->user_id.'">
+                          <i class="fa fa-ban"></i>
+                        </a></li>'; 
+                            else
+                                echo '<li class="list-inline-item">
+                        <a class="delete" data-toggle="tooltip" data-placement="top" title="Unblock" href="/admin/users/block/'.$user->user_id.'">
+                          <i class="fa fa-ban"></i>
+                        </a></li>';  ?>
+                      
                     </ul>
                   </div>
                 </td>
               </tr>
-              <tr>
-
-                <td class="product-thumb">
-                  <img width="80px" height="auto" src="images/products/products-2.jpg" alt="image description"></td>
-                <td class="product-details">
-                  <h3 class="title">Study Table Combo</h3>
-                  <span class="add-id"><strong>Ad ID:</strong> ng3D5hAMHPajQrM</span>
-                  <span><strong>Posted on: </strong><time>Feb 12, 2017</time> </span>
-                  <span class="status active"><strong>Status</strong>Active</span>
-                  <span class="location"><strong>Location</strong>USA</span>
-                </td>
-                <td class="product-category"><span class="categories">Laptops</span></td>
-                <td class="action" data-title="Action">
-                  <div class="">
-                    <ul class="list-inline justify-content-center">
-                      <li class="list-inline-item">
-                        <a data-toggle="tooltip" data-placement="top" title="View" class="view" href="category.html">
-                          <i class="fa fa-eye"></i>
-                        </a>
-                      </li>
-                      <li class="list-inline-item">
-                        <a class="edit" data-toggle="tooltip" data-placement="top" title="Edit" href="">
-                          <i class="fa fa-pencil"></i>
-                        </a>
-                      </li>
-                      <li class="list-inline-item">
-                        <a class="delete" data-toggle="tooltip" data-placement="top" title="Delete" href="">
-                          <i class="fa fa-trash"></i>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td class="product-thumb">
-                  <img width="80px" height="auto" src="images/products/products-3.jpg" alt="image description"></td>
-                <td class="product-details">
-                  <h3 class="title">Macbook Pro 15inch</h3>
-                  <span class="add-id"><strong>Ad ID:</strong> ng3D5hAMHPajQrM</span>
-                  <span><strong>Posted on: </strong><time>Jun 27, 2017</time> </span>
-                  <span class="status active"><strong>Status</strong>Active</span>
-                  <span class="location"><strong>Location</strong>Dhaka,Bangladesh</span>
-                </td>
-                <td class="product-category"><span class="categories">Laptops</span></td>
-                <td class="action" data-title="Action">
-                  <div class="">
-                    <ul class="list-inline justify-content-center">
-                      <li class="list-inline-item">
-                        <a data-toggle="tooltip" data-placement="top" title="View" class="view" href="category.html">
-                          <i class="fa fa-eye"></i>
-                        </a>
-                      </li>
-                      <li class="list-inline-item">
-                        <a class="edit" data-toggle="tooltip" data-placement="top" title="Edit" href="">
-                          <i class="fa fa-pencil"></i>
-                        </a>
-                      </li>
-                      <li class="list-inline-item">
-                        <a class="delete" data-toggle="tooltip" data-placement="top" title="Delete" href="">
-                          <i class="fa fa-trash"></i>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-
-                <td class="product-thumb">
-                  <img width="80px" height="auto" src="images/products/products-4.jpg" alt="image description"></td>
-                <td class="product-details">
-                  <h3 class="title">Macbook Pro 15inch</h3>
-                  <span class="add-id"><strong>Ad ID:</strong> ng3D5hAMHPajQrM</span>
-                  <span><strong>Posted on: </strong><time>Jun 27, 2017</time> </span>
-                  <span class="status active"><strong>Status</strong>Active</span>
-                  <span class="location"><strong>Location</strong>Dhaka,Bangladesh</span>
-                </td>
-                <td class="product-category"><span class="categories">Laptops</span></td>
-                <td class="action" data-title="Action">
-                  <div class="">
-                    <ul class="list-inline justify-content-center">
-                      <li class="list-inline-item">
-                        <a data-toggle="tooltip" data-placement="top" title="View" class="view" href="category.html">
-                          <i class="fa fa-eye"></i>
-                        </a>
-                      </li>
-                      <li class="list-inline-item">
-                        <a class="edit" data-toggle="tooltip" data-placement="top" title="Edit" href="">
-                          <i class="fa fa-pencil"></i>
-                        </a>
-                      </li>
-                      <li class="list-inline-item">
-                        <a class="delete" data-toggle="tooltip" data-placement="top" title="Delete" href="">
-                          <i class="fa fa-trash"></i>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-
-                <td class="product-thumb">
-                  <img width="80px" height="auto" src="images/products/products-1.jpg" alt="image description"></td>
-                <td class="product-details">
-                  <h3 class="title">Macbook Pro 15inch</h3>
-                  <span class="add-id"><strong>Ad ID:</strong> ng3D5hAMHPajQrM</span>
-                  <span><strong>Posted on: </strong><time>Jun 27, 2017</time> </span>
-                  <span class="status active"><strong>Status</strong>Active</span>
-                  <span class="location"><strong>Location</strong>Dhaka,Bangladesh</span>
-                </td>
-                <td class="product-category"><span class="categories">Laptops</span></td>
-                <td class="action" data-title="Action">
-                  <div class="">
-                    <ul class="list-inline justify-content-center">
-                      <li class="list-inline-item">
-                        <a href="category.html" data-toggle="tooltip" data-placement="top" title="View" class="view">
-                          <i class="fa fa-eye"></i>
-                        </a>
-                      </li>
-                      <li class="list-inline-item">
-                        <a class="edit" data-toggle="tooltip" data-placement="top" title="Edit" href="">
-                          <i class="fa fa-pencil"></i>
-                        </a>
-                      </li>
-                      <li class="list-inline-item">
-                        <a class="delete" data-toggle="tooltip" data-placement="top" title="Delete" href="">
-                          <i class="fa fa-trash"></i>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </td>
-              </tr>
+              <?php endforeach; ?>
             </tbody>
           </table>
 
@@ -255,23 +146,16 @@
         <!-- pagination -->
         <div class="pagination justify-content-center">
 					<nav aria-label="Page navigation example">
-						<ul class="pagination">
-							<li class="page-item">
-								<a class="page-link" href="#" aria-label="Previous">
-									<span aria-hidden="true">&laquo;</span>
-									<span class="sr-only">Previous</span>
-								</a>
-							</li>
-							<li class="page-item"><a class="page-link" href="#">1</a></li>
-							<li class="page-item active"><a class="page-link" href="#">2</a></li>
-							<li class="page-item"><a class="page-link" href="#">3</a></li>
-							<li class="page-item">
-								<a class="page-link" href="#" aria-label="Next">
-									<span aria-hidden="true">&raquo;</span>
-									<span class="sr-only">Next</span>
-								</a>
-							</li>
-						</ul>
+						 <div class="paginator paginator" >
+         <ul class="pagination" >
+            <?= $this->Paginator->first('<< ' . __('first')) ?>
+            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->numbers() ?>
+            <?= $this->Paginator->next(__('next') . ' >') ?>
+            <?= $this->Paginator->last(__('last') . ' >>') ?>
+        </ul>                           
+        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
+    </div>
 					</nav>
 				</div>
         <!-- pagination -->
@@ -282,3 +166,35 @@
   </div>
   <!-- Container End -->
 </section>
+<?php endforeach; ?>
+<!-- <script>
+$('document').ready(function(){
+        
+        $('.view').click(function() {
+          var id=this.id;
+          console.log(id);
+          view(id);
+
+        });
+ 
+        function view(id){
+        var data = id;
+
+        $.ajax({
+                    method: 'get',
+                    url : "<?php echo $this->Url->build( [ 'controller' => 'Users', 'action' => 'viewpgowners'] ); ?>",
+                    data: {id:data},
+
+                    success: function( response )
+                    {       
+                       $( '.dashboard-container' ).html(response);
+                    }
+                });
+        };
+
+      });
+
+
+</script> -->
+
+

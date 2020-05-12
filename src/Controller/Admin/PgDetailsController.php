@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 namespace App\Controller\Admin;
-
 use App\Controller\Admin\AppController;
 
 class PgDetailsController extends AppController
@@ -14,45 +13,41 @@ class PgDetailsController extends AppController
     {
         parent::initialize();
         $this->loadComponent('Paginator');
-    }
-    public function main()
-    {}
-    public function index()
+    } 
+    public function allpgs()
     {   
         $this->loadModel('Users');
         $this->loadModel('Rooms');
         $pg_detail=$this->PgDetails->find('all')->where(['PgDetails.status IN' => ['0','1']]);
-        $pg_details = $this->paginate($pg_detail,[
+        $pg = $this->paginate($pg_detail,[
             'contain' => ['Users']]); 
         $pgs = $this->PgDetails->find()->where(['PgDetails.status IN' => ['0','1']])->count();
         $rooms = $this->Rooms->find()->count();
+        $pending = $this->PgDetails->find()->where(['PgDetails.status' => '2'])->count();
         $pgowners = $this->Users->findByRole('1')->count();
         $transients = $this->Users->findByRole('2')->count();
-        $users= $this->Users->findByRole('1');
-        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients  ));
-        $this->set(compact('pg_details'));
-     
+        $users= $this->Users->findByEmail('vj603@gmail.com');
+        $this->set(array('pgs'=> $pgs ,'users'=>$users, 'rooms'=> $rooms ,'pending'=>$pending, 'pgowners'=> $pgowners, 'transients'=>$transients ,'pg'=>$pg ));
     }   
-    public function view($id = null)
+    public function viewpg($id=null)
     {   $this->loadModel('Users');
         $this->loadModel('Rooms');
         $pg_details = $this->PgDetails->get($id, [
             'contain' => ['Users']
         ]);
-        $pgs = $this->PgDetails->find()->where(['PgDetails.status IN' => ['0','1']])->count();
-        $rooms = $this->Rooms->find()->count();
-        $totalusers = $this->Users->find()->count();
-        $room = $this->paginate($this->Rooms); 
+        $room = $this->Rooms->findByPgId($id)->all(); 
+        $pending = $this->PgDetails->find()->where(['PgDetails.status' => '2'])->count();
         $pgs = $this->PgDetails->find()->where(['PgDetails.status IN' => ['0','1']])->count();
         $rooms = $this->Rooms->find()->count();
         $pgowners = $this->Users->findByRole('1')->count();
         $transients = $this->Users->findByRole('2')->count();
-        $users= $this->Users->findByRole('1');
-        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients , 'room' => $this -> paginate( $this ->Rooms->findByPgId($id) )));
+        $users= $this->Users->findByEmail('vj603@gmail.com');
+        $this->set(array('pgs'=> $pgs ,'room'=>$room,'users'=>$users,'pending'=>$pending, 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients ));
         $this->set(compact('pg_details'));
     }
-    public function add()
-    {   $this->loadModel('Rooms');
+    public function addpg()
+    {
+        $this->loadModel('Rooms');
         $this->loadModel('Users');
         $pg_details = $this->PgDetails->newEmptyEntity();
         if ($this->request->is('post')) 
@@ -65,7 +60,7 @@ class PgDetailsController extends AppController
             if ($this->PgDetails->save($pg_details)) 
             { 
                 $this->Flash->success(__('The PG has been saved.'));
-                    return $this->redirect(['action' => 'index']);
+                    return $this->redirect(['action' => 'allpgs']);
             }
             $this->Flash->error(__('The PG could not be saved. Please, try again.'));
         }
@@ -73,15 +68,18 @@ class PgDetailsController extends AppController
             'keyField' => 'user_id',
             'valueField' => 'firstname'
         ]);
-        $pgs = $this->PgDetails->find()->where(['PgDetails.status IN' => ['0','1']])->count();
-        $rooms = $this->Rooms->find()->count();
+        $users=$this ->Users ->find()->where(['email'=>'vj603@gmail.com']) ;
+        $pending = $this->PgDetails->find()->where(['PgDetails.status' => '2'])->count();
         $pgowners = $this->Users->findByRole('1')->count();
         $transients = $this->Users->findByRole('2')->count();
-        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients ,'owner_id' => $owner_id));
-        $this->set(compact('pg_details'));
+        $count=1;
+        $pgs = $this->PgDetails->find()->where(['PgDetails.status IN' => ['0','1']])->count();
+        $rooms = $this->Rooms->find()->count();
+        $this->set(array('pgs'=> $pgs , 'pending'=>$pending,'rooms'=> $rooms, 'pgowners'=> $pgowners, 'owner_id' => $owner_id,'transients'=>$transients , 'users' => $users,'pg_details'=>$pg_details));
     }
-    public function edit($id = null)
-    {   $this->loadModel('Users');
+    public function editpg($id=null)
+    {
+        $this->loadModel('Users');
         $this->loadModel('Rooms');
         $pg_details = $this->PgDetails->get($id, [
             'contain' => [],
@@ -100,13 +98,15 @@ class PgDetailsController extends AppController
             'keyField' => 'user_id',
             'valueField' => 'firstname'
         ]);
-        $room = $this->paginate($this->Rooms);
-        $pgs = $this->PgDetails->find()->where(['PgDetails.status IN' => ['0','1']])->count();
-        $rooms = $this->Rooms->find()->count();
+        $users=$this ->Users ->find()->where(['email'=>'vj603@gmail.com']) ;
+        $pending = $this->PgDetails->find()->where(['PgDetails.status' => '2'])->count();
         $pgowners = $this->Users->findByRole('1')->count();
         $transients = $this->Users->findByRole('2')->count();
-        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients ,'owner_id' => $owner_id,'pg_details'=>$pg_details,'room' => $this -> paginate( $this ->Rooms->findByPgId($id))));
-        
+        $count=1;
+
+        $pgs = $this->PgDetails->find()->where(['PgDetails.status IN' => ['0','1']])->count();
+        $rooms = $this->Rooms->find()->count();
+        $this->set(array('pgs'=> $pgs , 'pending'=>$pending,'rooms'=> $rooms, 'pgowners'=> $pgowners, 'owner_id' => $owner_id,'transients'=>$transients , 'users' => $users,'pg_details'=>$pg_details));
     }
     public function block($id)
     {   
@@ -120,7 +120,7 @@ class PgDetailsController extends AppController
                 $this->Flash->success(__('The PG has been unblocked.'));
             return $this->redirect($this->referer());
         }
-        $this->Flash->error(__('The PG could not be saved. Please, try again.'));
+        $this->Flash->error(__('The PG could not be blocked. Please, try again.'));
     }
     public function approve($id)
     {   
@@ -133,27 +133,19 @@ class PgDetailsController extends AppController
         }
         $this->Flash->error(__('The PG could not be approved. Please, try again.'));
     }
-
-    // public function beforeFilter(\Cake\Event\EventInterface $event)
-    // {
-    //     parent::beforeFilter($event);
-
-    //     $this->Authentication->addUnauthenticatedActions(['login', 'add']);
-    // }
-
-    public function pgrequest()
+    public function pending()
     {
         $this->loadModel('Users');
         $this->loadModel('Rooms');
-        $pg_details = $this->paginate($this->PgDetails->findByStatus('2'),[
+        $pg = $this->paginate($this->PgDetails->findByStatus('2'),[
             'contain' => ['Users']]); 
         $pgs = $this->PgDetails->find()->where(['PgDetails.status IN' => ['0','1']])->count();
         $rooms = $this->Rooms->find()->count();
+        $pending = $this->PgDetails->find()->where(['PgDetails.status' => '2'])->count();
         $pgowners = $this->Users->findByRole('1')->count();
         $transients = $this->Users->findByRole('2')->count();
-        $users= $this->Users->findByRole('1');
-        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients , 'pg_details' => $this -> paginate( $this ->PgDetails->findByStatus('2') )));
-            $this->set(compact('pg_details'));
+        $users= $this->Users->findByEmail('vj603@gmail.com');
+        $this->set(array('pgs'=> $pgs ,'users'=>$users, 'rooms'=> $rooms ,'pending'=>$pending, 'pgowners'=> $pgowners, 'transients'=>$transients ,'pg'=>$pg ));
     } 
     
 }

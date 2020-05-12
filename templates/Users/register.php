@@ -1,13 +1,3 @@
-<?php
-        $myTemplates = [
-            'inputContainer' => '<div class="form-group">{{content}}</div>',
-            'inputContainerError' => '<div class="form-group {{required}} error">{{content}}{{error}}</div>',
-            'error' => '<div class="invalid-feedback">{{content}}</div>',
-        ];
-        $this->Form->setTemplates($myTemplates);
-        
-?>
-
 <section class="login py-5 border-top-1">
         <div class="container">
             <div class="row justify-content-center">
@@ -74,7 +64,7 @@
     </center>
         <br>
         <br>
-    <?= $this->Form->select('role', $roles, ['empty' => 'Select Role', 'id' => 'user_rolename', 'class' =>($this->Form->isFieldError('role')) ? 'form-control is-invalid' : 'form-control']); ?>
+    <?= $this->Form->select('role', $roles, ['empty' => 'Select Role','required'=>false, 'id' => 'user_rolename', 'class' =>($this->Form->isFieldError('role')) ? 'form-control is-invalid' : 'form-control']); ?>
 
   <div class="loggedin-forgot d-inline-flex my-3">
     <input type="checkbox" id="registering" class="mt-1">

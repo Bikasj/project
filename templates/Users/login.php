@@ -14,11 +14,13 @@
                             <div class="loggedin-forgot">
                                     <input type="checkbox" id="keep-me-logged-in">
                                     <label for="keep-me-logged-in" class="pt-3 pb-2">Keep me logged in</label>
+                                    <?php echo $this->Form->checkbox('rememberMe'); ?> Remember Me
                             </div>
-                            <?= $this->Form->submit('Login',[ 'class'=>'d-block py-3 px-5 bg-primary text-white border-0 rounded font-weight-bold mt-3']); ?>
+                            <?= $this->Form->submit('Login',[ 'class'=>'d-block py-3 px-5 bg-primary text-white border-0 rounded font-weight-bold mt-3']); ?><br>
                             <!-- <a class="mt-3 d-block  text-primary" href="#">Forget Password?</a> -->
                             <?= $this->Html->link('Forgot password', ['action'=>'forgotpassword'],['class'=>'btn btn-success']) ?>
-                            <a class="mt-3 d-inline-block text-primary" href="register.html">Register Now</a>
+                            <?= $this->Html->link('Register', ['action'=>'register'],['class'=>'btn btn-info']) ?>
+                            
                         </fieldset>
                     </form>
                 </div>

@@ -1,106 +1,10 @@
 <head>
+	
 
 	<style>
-		.table td, .table th 
-		{
-    padding: 1.0rem;
-		}
-
-
-
-
-		* {
-  box-sizing: border-box;
-}
-
-img {
-  vertical-align: middle;
-}
-
-/* Position the image container (needed to position the left and right arrows) */
-.container {
-  position: relative;
-}
-
-/* Hide the images by default */
-.mySlides {
-  display: none;
-}
-
-/* Add a pointer when hovering over the thumbnail images */
-.cursor {
-  cursor: pointer;
-}
-
-/* Next & previous buttons */
-.prev,
-.next {
-  cursor: pointer;
-  position: absolute;
-  top: 40%;
-  width: auto;
-  padding: 16px;
-  margin-top: -50px;
-  color: white;
-  font-weight: bold;
-  font-size: 20px;
-  border-radius: 0 3px 3px 0;
-  user-select: none;
-  -webkit-user-select: none;
-}
-
-/* Position the "next button" to the right */
-.next {
-  right: 0;
-  border-radius: 3px 0 0 3px;
-}
-
-/* On hover, add a black background color with a little bit see-through */
-.prev:hover,
-.next:hover {
-  background-color: rgba(0, 0, 0, 0.8);
-}
-
-/* Number text (1/3 etc) */
-.numbertext {
-  color: #f2f2f2;
-  font-size: 12px;
-  padding: 8px 12px;
-  position: absolute;
-  top: 0;
-}
-
-/* Container for image text */
-.caption-container {
-  text-align: center;
-  background-color: #222;
-  padding: 2px 16px;
-  color: white;
-}
-
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-/* Six columns side by side */
-.column {
-  float: left;
-  width: 16.66%;
-}
-
-/* Add a transparency effect for thumnbail images */
-.demo {
-  opacity: 0.6;
-}
-
-.active,
-.demo:hover {
-  opacity: 1;
-}
+		<?php echo $this->Html->css('viewroom.css',['block'=>true]); ?>
 </style>
-	</style> 
+	
 
 </head>
 <section class="section bg-gray">
@@ -111,7 +15,7 @@ img {
 			<!-- Left sidebar -->
 			<div class="col-md-8">
 				<div class="product-details">
-					<i><h2 class="product-title"><?= $room->seater?> Seater PG Available for <?php foreach($pgdetails as $pgdetails) echo $pgdetails['gender']; ?>  at a very low rent.</h2></i>
+					<i><h2 class="product-title"><?= $room->seater?> Seater PG Available for <?php echo $pgdetails['gender']; ?>  at a very low rent.</h2></i>
 					<div class="product-meta">
 						<ul class="list-inline">
 							<li class="list-inline-item"><i class="fa fa-user"></i> PG Owner <a href=""><?php foreach($pgowner as $pgowner) echo $pgowner['firstname']." ".$pgowner['lastname']; ?></a></li>
@@ -119,87 +23,49 @@ img {
 						</ul>
 					</div>
 	<?php $imgsrc=base64_encode(stream_get_contents($room->image)); ?>
-					<!-- product slider -->
-					<!-- <div class="product-slider">
-						<?='<div class="product-slider-item my-4" data-image="data:image/jpg;base64,'.$imgsrc.' " >'?> 
-
-							<?= '<img src="data:image/jpg;base64, '.$imgsrc.' " class="img-fluid w-100" height=200px width=500px>'?>
-						<?="</div>"?>
-						<?php
-						if($room->images!=null)
-		{
-						$j=0;
-				$arr2=explode(",",$room->images);
-
-					if(count($arr2)>1)
-					{
-
-						   while(count($arr2)>$j)
-						   { 
-						   	echo '<div class="product-slider-item my-4" data-image="/images/rooms/'.$arr2[$j].'">';
-							
-						
-							   echo "<img src='/images/rooms/".$arr2[$j++]."' class='img-fluid w-100' height=200px width=500px>";
-							   echo "</div>";
-						   }
-					}
-					else 
-						
-				{
-
-					echo '<div class="product-slider-item my-4" data-image="images/products/products-2.jpg">';
-							
-						
-							   echo "<img src='/images/rooms/".$arr2[$j]."' class='img-fluid w-100' height=200px width=500px>";
-
-					echo "</div>";
-				}
-			}
-?>
-
-
-
-
 					
-					</div> -->
-					<!-- product slider -->
 
 <?php
-				
-						$j=0;$i=1;
+			$arr2=explode(",",$room->images);
+			if($room->images==null)
+				$totalimgs=1;
+			else
+				$totalimgs=count($arr2)+1;
+						$j=0;$i=0;
 				
 				?>
 
 <div class="container">
-<div class="mySlides">
-     <?php echo '<div class="numbertext">'.++$i.'';echo "</div>";
-    echo '<img src="data:image/jpg;base64, '.$imgsrc.'" style="width:100%" height=400px width=520px>';?>
-  </div> 
+	<div class="mySlides"> 
+     <?php echo '<div class="numbertext btn-dark"><div class="price">'.++$i.'/'.$totalimgs;echo "</div></div>";
+    echo '<img  data-toggle="tooltip" title="Click to preview" id="imgs'.$i.'" src="data:image/jpg;base64, '.$imgsrc.'" style="width:100%" height=400px width=520px>';?>
+  	</div> 
 
    <?php
    					if($room->images!=null)
 		{
 					
-				$arr2=explode(",",$room->images);
+					$arr2=explode(",",$room->images);
 					if(count($arr2)>1)
 					{
 
 						   while(count($arr2)>$j)
 						   { echo '<div class="mySlides">';
-    echo '<div class="numbertext">'.++$i.'';echo "</div>";
-    echo "<img src='/images/rooms/".$arr2[$j++]."' height=400px width=520px style='width:100%'>";
+    echo '<div class="numbertext btn-dark"><div class="price">'.++$i.'/'.$totalimgs;echo "</div></div>";
+    echo "<img  data-toggle='tooltip' title='Click to preview' id='imgs".$i."' src='/images/rooms/".$arr2[$j++]."' height=400px width=520px style='width:100%'>";
     echo '</div>';
-}
-}
-else 
+							}
+					}
+					else 
 						
 				{
-echo '<div class="mySlides">';
-					echo '<div class="numbertext">'.++$i.'';echo "</div>";
-    echo "<img src='/images/rooms/".$arr2[$j]."' height=400px width=520px style='width:100%'>";
+	echo '<div class="mySlides">';
+	echo '<div class="numbertext btn-dark"><div class="price">'.++$i.'/'.$totalimgs;
+	echo "</div></div>";
+    echo "<img data-toggle='tooltip' title='Click to preview' id='imgs".$i."' src='/images/rooms/".$arr2[$j]."' height=400px width=520px style='width:100%'>";
     echo '</div>';
 				}
-			}
+		}
 			?>
     
   <a class="prev" onclick="plusSlides(-1)">❮</a>
@@ -209,15 +75,23 @@ echo '<div class="mySlides">';
     <!-- <p id="caption"></p> -->
   </div>
 
-  <div class="row">
-  	<center>
-
-
+  <div class="row" style="position:relative;">
+  	
+  		<!-- <img id="myImg" src="img_snow.jpg" alt="Snow" style="width:100%;max-width:300px"> -->
+<div id="myModal" class="modall">
+  <span class="close">&times;</span>
+  <img class="modall-content" id="img01">
+  <div id="caption"></div>
+</div>
+<div style="position: absolute;
+  left: 20%;
+  top: 50%;
+  ">
 <?php
 						$j=0;$i=0;
 				
-echo '<div class="column">';
-echo "<img class='demo cursor' src='data:image/jpg;base64, ".$imgsrc."' height=70px width=140px onclick='currentSlide(".++$i.")'  style='width:100%'>";
+	echo '<div class="column">';
+	echo "<img class='demo cursor' src='data:image/jpg;base64, ".$imgsrc."' height=70px width=140px onclick='currentSlide(".++$i.")'  style='width:100%'>";
     echo '</div>';
 
 ?>
@@ -242,7 +116,7 @@ if($room->images!=null)
 else 
 						
 				{
-echo '<div class="column">';
+	echo '<div class="column">';
 					
     echo "<img class='demo cursor' src='/images/rooms/".$arr2[$j]."' height=70px width=140px  onclick='currentSlide(".++$i.")' style='width:100%'>";
     echo '</div>';
@@ -251,8 +125,8 @@ echo '<div class="column">';
 			?>
 
 
-
-  </div></center>	
+			</div>
+  		</div>	
   </div>				
 
 					<div class="content mt-5 pt-5">
@@ -267,7 +141,7 @@ echo '<div class="column">';
 						<div class="tab-content" id="pills-tabContent">
 	
 					<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-								<h3 class="tab-title">Details</h3>
+								<!-- <h3 class="tab-title">Details</h3> -->
 								<table class="table  product-table">
 									<tbody>
 										</tr>
@@ -275,13 +149,7 @@ echo '<div class="column">';
                     <th><?= __('AC facility') ?></th>
                     <td><?= h($room->ac_facility) ?></td>
                 </tr>
-                <!-- <tr>
-                    <th><?= __('Status') ?></th>
-                    <td><?php if($room->status==1)
-                                    echo "Active";
-                                else
-                                    echo "Inactive"; ?></td>
-                </tr> -->
+               
                 <tr>
                     <th><?= __('Seater') ?></th>
                     <td><?= h($room->seater) ?></td>
@@ -387,9 +255,7 @@ echo '<div class="column">';
 				    </div>
 				  </div>
 				</div>
-				</div></li>
-							<li class="list-inline-item"><a href="" class="btn btn-offer d-inline-block btn-primary ml-n1 my-1 px-lg-4 px-md-3">Make an
-									offer</a></li>
+				</div>
 						</ul>
 					</div>
 
@@ -401,7 +267,7 @@ echo '<div class="column">';
 					<!-- Map Widget -->
 					<div class="widget map">
 						<div class="map">
-							<center><button class="btn btn-success">Book Now!</button>
+							<center><a href="/rooms/book/<?php echo $room->room_id;?>" class="btn btn-success">Book Now!</a>
 							</center></div>
 						</div>
 					</div>
@@ -442,32 +308,59 @@ echo '<div class="column">';
 	<!-- Container End -->
 </section>
 <script>
-var slideIndex = 1;
-showSlides(slideIndex);
 
-function plusSlides(n) {
-  showSlides(slideIndex += n);
-}
+// Get the modal
+var modal = document.getElementById("myModal");
 
-function currentSlide(n) {
-  showSlides(slideIndex = n);
-}
+// Get the image and insert it inside the modal - use its "alt" text as a caption
+var count="<?php echo $totalimgs;?>";
+console.log(count);
+for (i = 1; i <= count; i++) {
+  
+var img = document.getElementById("imgs"+[i]);
+var modalImg = document.getElementById("img01");
+var captionText = document.getElementById("caption");
+		img.onclick = function(){
+		  modal.style.display = "block";
+		  modalImg.src = this.src;
+		  captionText.innerHTML = this.alt;
+		}
 
-function showSlides(n) {
-  var i;
-  var slides = document.getElementsByClassName("mySlides");
-  var dots = document.getElementsByClassName("demo");
-  var captionText = document.getElementById("caption");
-  if (n > slides.length) {slideIndex = 1}
-  if (n < 1) {slideIndex = slides.length}
-  for (i = 0; i < slides.length; i++) {
-      slides[i].style.display = "none";
-  }
-  for (i = 0; i < dots.length; i++) {
-      dots[i].className = dots[i].className.replace(" active", "");
-  }
-  slides[slideIndex-1].style.display = "block";
-  dots[slideIndex-1].className += " active";
-  captionText.innerHTML = dots[slideIndex-1].alt;
-}
+		// Get the <span> element that closes the modal
+		var span = document.getElementsByClassName("close")[0];
+
+		// When the user clicks on <span> (x), close the modal
+		span.onclick = function() { 
+		  modal.style.display = "none";
+		}
+		}
+
+		var slideIndex = 1;
+		showSlides(slideIndex);
+
+		function plusSlides(n) {
+		  showSlides(slideIndex += n);
+		}
+
+		function currentSlide(n) {
+		  showSlides(slideIndex = n);
+		}
+
+		function showSlides(n) {
+		  var i;
+		  var slides = document.getElementsByClassName("mySlides");
+		  var dots = document.getElementsByClassName("demo");
+		  var captionText = document.getElementById("caption");
+		  if (n > slides.length) {slideIndex = 1}
+		  if (n < 1) {slideIndex = slides.length}
+		  for (i = 0; i < slides.length; i++) {
+		      slides[i].style.display = "none";
+		  }
+		  for (i = 0; i < dots.length; i++) {
+		      dots[i].className = dots[i].className.replace(" active", "");
+		  }
+		  slides[slideIndex-1].style.display = "block";
+		  dots[slideIndex-1].className += " active";
+		  captionText.innerHTML = dots[slideIndex-1].alt;
+		}
 </script>

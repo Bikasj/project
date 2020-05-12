@@ -65,10 +65,10 @@
    <!--  </nav> -->
 
     <main class="main">
-        <div class="container">
-            <?= $this->Flash->render() ?>
+        
+            <center><?= $this->Flash->render() ?></center>
             <?= $this->fetch('content') ?>
-        </div>
+        
     </main>
    <?= $this->element('footer') ?>
 </body>

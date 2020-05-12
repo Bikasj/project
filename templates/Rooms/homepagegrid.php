@@ -29,14 +29,6 @@
 <section class="section-sm">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <div class="search-result bg-gray">
-                    <h2>All PGs</h2>
-                    <p></p>
-                </div>
-            </div>
-        </div>
-        <div class="row">
             <div class="col-md-3">
                 <div class="category-sidebar">
 
@@ -127,41 +119,13 @@
 </div>
 </form>
 
-<!-- <div class="widget filter">
-    <h4 class="widget-header">Show Produts</h4>
-    <select>
-        <option>Popularity</option>
-        <option value="1">Top rated</option>
-        <option value="2">Lowest Price</option>
-        <option value="4">Highest Price</option>
-    </select>
-</div> -->
-
-<div class="widget price-range w-100">
-    <h4 class="widget-header">Price Range</h4>
-    <div class="block">
-                        <input class="range-track w-100" type="text" data-slider-min="0" data-slider-max="5000" data-slider-step="5"
-                        data-slider-value="[0,5000]">
-                <div class="d-flex justify-content-between mt-2">
-                        <span class="value">Rs4,000 - Rs30,000</span>
-                </div>
-    </div>
-</div>
-
-
                 </div>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-9 mainbody">
                 <div class="category-search-filter">
                     <div class="row">
-                        <div class="col-md-6">
-                            <strong>Short</strong>
-                            <select>
-                                <option>Most Recent</option>
-                                <option value="1">Most Popular</option>
-                                <option value="2">Lowest Price</option>
-                                <option value="4">Highest Price</option>
-                            </select>
+                       <div class="col-md-6">
+                            <strong><h5>All PGs</h5></strong>
                         </div>
                         <div class="col-md-6">
                             <div class="view">
@@ -183,10 +147,10 @@
     
                 <div class="g">
                 <?php foreach($room as $rooms): ?>
-<div class="ad-listing-list ">
-    <div class="row p-lg-3 p-sm-5 p-4">
+    <div class="ad-listing-list ">
+        <div class="row p-lg-3 p-sm-5 p-4">
        
-        <div class="col-lg-4 align-self-center">
+         <div class="col-lg-4 align-self-center">
             <a href="/rooms/viewroom/<?php echo  $rooms->room_id?>">
                 <?php  
                     if($rooms->image!=NULL)
@@ -265,34 +229,27 @@
        
 </div>
             <?php endforeach; ?>
-</div>   
+  
 
                 
                 <!-- ad listing list  -->
 
                 <!-- pagination -->
-                <div class="pagination justify-content-center py-4">
+                 <div class="pagination justify-content-center">
                     <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                    <span class="sr-only">Next</span>
-                                </a>
-                            </li>
-                        </ul>
+                         <div class="paginator paginator" >
+         <ul class="pagination" >
+            <?= $this->Paginator->first('<< ' . __('first')) ?>
+            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->numbers() ?>
+            <?= $this->Paginator->next(__('next') . ' >') ?>
+            <?= $this->Paginator->last(__('last') . ' >>') ?>
+        </ul>                           
+        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
+    </div>
                     </nav>
                 </div>
-                <!-- pagination -->
+             </div>    <!-- pagination -->
             </div>
         </div>
     </div>
@@ -362,7 +319,7 @@
 
                     success: function( response )
                     {       
-                       $( '.g' ).html(response);
+                       $( '.mainbody' ).html(response);
                     }
                 });
         };
@@ -378,7 +335,7 @@
 
                     success: function( response )
                     {       
-                       $( '.g' ).html(response);
+                       $( '.mainbody' ).html(response);
                     }
                 });
         };
@@ -394,7 +351,7 @@
 
                     success: function( response )
                     {       
-                       $( '.g' ).html(response);
+                       $( '.mainbody' ).html(response);
                     }
                 });
         };

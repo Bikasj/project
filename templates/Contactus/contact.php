@@ -1,15 +1,11 @@
-
 <section class="page-title">
-	<!-- Container Start -->
 	<div class="container">
 		<div class="row">
 			<div class="col-md-8 offset-md-2 text-center">
-				<!-- Title text -->
 				<h3>Contact Us</h3>
 			</div>
 		</div>
 	</div>
-
 </section>
 <section class="section">
     <div class="container">

@@ -2,11 +2,33 @@
 	<script src='https://kit.fontawesome.com/a076d05399.js'></script>
 	</head>
 	<?php if($grid==1) {?>
-<div class="row mt-30">
+        <div class="category-search-filter">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong><h5>Your Results :</h5></strong>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="view">
+                                <strong>Views</strong>
+                                <ul class="list-inline view-switcher">
+                                    <li class="list-inline-item">
+                                        <a href="#"  class="text-info"><i class="fa fa-th-large"></i></a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="/rooms/homepagegrid"><i class="fa fa-reorder"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-grid-list">
+
+                    <div class="row mt-30">
 						<?php foreach($room as $rooms): ?>
 						<div class="col-sm-12 col-lg-4 col-md-6">
 							<!-- product card -->
-							
+							<div class="package-content">
 <div class="product-item bg-light">
 	<div class="card">
 		<div class="thumb-content">
@@ -77,10 +99,8 @@
 	</div>
 </div>
 
-
-						
 						</div>
-					
+					</div>
 						<?php endforeach; ?>
 					</div>
 				</div>
@@ -88,7 +108,32 @@
 
 
 
-<?php } else  { ?><?php foreach($room as $rooms): ?>
+<?php } else  { ?>
+    <div class="category-search-filter">
+                    <div class="row">
+                       <div class="col-md-6">
+                            <strong><h5>Your Results :</h5></strong>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="view">
+                                <strong>Views</strong>
+                                <ul class="list-inline view-switcher">
+                                    <li class="list-inline-item">
+                                        <a href="/rooms/homepage"><i class="fa fa-th-large"></i></a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#" class="text-info"><i class="fa fa-reorder"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ad listing list  -->
+    
+                <div class="g">
+                <?php foreach($room as $rooms): ?>
 	<div class="ad-listing-list ">
 				 <div class="row p-lg-3 p-sm-5 p-4">
                 

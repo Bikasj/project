@@ -100,52 +100,104 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<nav class="navbar navbar-expand-lg navbar-light navigation">
-					<a class="navbar-brand" href="/users/index">
+				<nav class="navbar  navbar-expand-lg navbar-light navigation">
+					<a class="navbar-brand" href="">
 						<img src="/images/logo.jpg" alt="">
 					</a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 					 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="navbar-toggler-icon"></span>
 					</button>
+          <?php if($myinfo=="vj603@gmail.com")
+          { ?>
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul class="navbar-nav ml-auto main-nav ">
 							<li class="nav-item active">
-								<a class="nav-link" href="/users/index" aria-expanded="false">Home</a>
-							</li>
-							<li class="nav-item dropdown dropdown-slide">
-								<a class="nav-link dropdown-toggle" data-toggle="Available for" href="">Available for<span><i class="fa fa-angle-down"></i></span>
-								</a>
-
-								<!-- Dropdown list -->
-								<div class="dropdown-menu">
-									<a class="dropdown-item" href="/rooms/homepageresultsnav2/females">Girls</a>
-									<a class="dropdown-item" href="/rooms/homepageresultsnav2/males">Boys</a>
-									<a class="dropdown-item" href="/rooms/homepageresultsnav2/both">Girls and Boys</a>
-									
-								</div>
+								<a class="nav-link" href="/users/admin/pgowners/allpgs" aria-expanded="false">Home</a>
 							</li>
 							<li class="nav-item dropdown dropdown-slide">
 								<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									Popular Areas <span><i class="fa fa-angle-down"></i></span>
+									Dashboard-listing <span><i class="fa fa-angle-down"></i></span>
 								</a>
 								<!-- Dropdown list -->
 								<div class="dropdown-menu">
-									<a class="dropdown-item" href="/rooms/homepageresultsnav1/Sector-37 Chandigarh">Sector-37 Chandigarh</a>
-									<a class="dropdown-item" href="/rooms/homepageresultsnav1/Sahibzada Ajit Singh Nagar">Sahibzada Ajit Singh Nagar</a>
-									<a class="dropdown-item" href="/rooms/homepageresultsnav1/Daddu Majra colony">Daddu Majra colony</a>
-									<a class="dropdown-item" href="/rooms/homepageresultsnav1/Shivalik Enclave">Shivalik Enclave</a>
-									<a class="dropdown-item" href="/rooms/homepageresultsnav1/Manimajra">Manimajra</a>
-
-                  <a class="dropdown-item" href="/rooms/homepageresultsnav1/Sector-63 Mohali">Sector-63 Mohali</a>
-									<a class="dropdown-item" href="/rooms/homepageresultsnav1/Sector-22 Chandigarh">Sector-22 Chandigarh</a>
-									<a class="dropdown-item" href="/rooms/homepageresultsnav1/Sector-13 Chandigarh">Sector-13 Chandigarh</a>
+									<a class="dropdown-item" href="/admin/users/pgowners">PG Owners</a>
+									<a class="dropdown-item" href="/admin/rooms/roomstatus">Rooms Avaialable/Booked</a>
+									<a class="dropdown-item" href="/admin/users/transients">Transient Guests</a>
+									<a class="dropdown-item" href="/admin/pg-details/allpgs">All PGs</a>
+									<a class="dropdown-item" href="/admin/pg-details/pending">Pending</a>
 								</div>
 							</li>
 							<li class="nav-item ">
 								<a class="nav-link" href="/contactus/contact"  aria-expanded="false">
 									Contact us <span></span>
-								</a>
+								</a><?php }
+               elseif($userrole=="1")
+               { ?>
+               <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto main-nav ">
+              <li class="nav-item active">
+                <a class="nav-link" href="/pg-details/pg" aria-expanded="false">Home</a>
+              </li>
+              <li class="nav-item dropdown dropdown-slide">
+                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  My Dashboard-listing <span><i class="fa fa-angle-down"></i></span>
+                </a>
+                <!-- Dropdown list -->
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="/pg-details/pg">My Pgs</a>
+                  <a class="dropdown-item" href="/users/transients">All Transient Guests</a>
+                  <a class="dropdown-item" href="/pg-details/add">Add New PG</a>
+                  <a class="dropdown-item" href="/rooms/add">Add New Room</a>
+                  <a class="dropdown-item" href="/rooms/roomstatus">Rooms Available/Booked</a>
+                </div>
+              </li>
+              <li class="nav-item ">
+                <a class="nav-link" href="/contactus/contact"  aria-expanded="false">
+                  Contact us <span></span>
+                </a>
+                <?php } 
+                else
+                  {?>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto main-nav ">
+              <li class="nav-item active">
+                <a class="nav-link" href="/rooms/homepage" aria-expanded="false">Home</a>
+              </li>
+              <li class="nav-item dropdown dropdown-slide">
+                <a class="nav-link dropdown-toggle" data-toggle="Available for" href="">Available for<span><i class="fa fa-angle-down"></i></span>
+                </a>
+
+                <!-- Dropdown list -->
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="/rooms/homepageresultsnav2/females">Girls</a>
+                  <a class="dropdown-item" href="/rooms/homepageresultsnav2/males">Boys</a>
+                  <a class="dropdown-item" href="/rooms/homepageresultsnav2/both">Girls and Boys</a>
+                  
+                </div>
+              </li>
+              <li class="nav-item dropdown dropdown-slide">
+                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Popular Areas <span><i class="fa fa-angle-down"></i></span>
+                </a>
+                <!-- Dropdown list -->
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="/rooms/homepageresultsnav1/Sector-37 Chandigarh">Sector-37 Chandigarh</a>
+                  <a class="dropdown-item" href="/rooms/homepageresultsnav1/Sahibzada Ajit Singh Nagar">Sahibzada Ajit Singh Nagar</a>
+                  <a class="dropdown-item" href="/rooms/homepageresultsnav1/Daddu Majra colony">Daddu Majra colony</a>
+                  <a class="dropdown-item" href="/rooms/homepageresultsnav1/Shivalik Enclave">Shivalik Enclave</a>
+                  <a class="dropdown-item" href="/rooms/homepageresultsnav1/Manimajra">Manimajra</a>
+
+                  <a class="dropdown-item" href="/rooms/homepageresultsnav1/Sector-63 Mohali">Sector-63 Mohali</a>
+                  <a class="dropdown-item" href="/rooms/homepageresultsnav1/Sector-22 Chandigarh">Sector-22 Chandigarh</a>
+                  <a class="dropdown-item" href="/rooms/homepageresultsnav1/Sector-13 Chandigarh">Sector-13 Chandigarh</a>
+                </div>
+              </li>
+              <li class="nav-item ">
+                <a class="nav-link" href="/contactus/contact"  aria-expanded="false">
+                  Contact us <span></span>
+                </a>
+               <?php } ?>
 								<!-- Dropdown list -->
 								
 							</li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

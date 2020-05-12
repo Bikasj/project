@@ -6,7 +6,7 @@
 			<div class="card-body">
 				<?php echo $this->Form->create() ?>
 				<div class ="form-group">
-					<?php echo $this->Form->input('email',['class'=>'form-control']) ?>
+					<?php echo $this->Form->input('email',['class'=>'form-control','placeholder'=>'Enter your email address']) ?>
 				</div>
 				<?php 
 				echo $this->Form->button('Get New Password',['class'=>'btn btn-primary']);
