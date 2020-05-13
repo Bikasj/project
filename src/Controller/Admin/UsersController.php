@@ -2,7 +2,8 @@
     namespace App\Controller\Admin;
 
     use App\Controller\Admin\AppController;
-    
+    use Cake\Auth\DefaultPasswordHasher;
+    use Cake\Utility\Security;
 
     class UsersController extends AppController
 {
@@ -122,6 +123,7 @@
             $data['image']=$img;
             $data['created']=date("Y-m-d h:i:s");
             $data['updated']=date("Y-m-d h:i:s");
+            $data['password']=password_hash($data['password'],PASSWORD_DEFAULT);
             $user = $this->Users->newEntity($data);
             if ($this->Users->save($user)) 
             {
@@ -158,6 +160,7 @@
         {
             $data=$this->request->getData();
             $data['updated']=date("Y-m-d h:i:s");
+            $data['password']=password_hash($data['password'],PASSWORD_DEFAULT);
             $user = $this->Users->patchEntity($user, $data);
             if ($this->Users->save($user)) 
             {
@@ -189,11 +192,12 @@
         {
             $data=$this->request->getData();
             $data['updated']=date("Y-m-d h:i:s");
+            $data['password']=password_hash($data['password'],PASSWORD_DEFAULT);
             $user = $this->Users->patchEntity($user, $data);
             if ($this->Users->save($user)) 
             {
                 $this->Flash->success(__('The user has been saved.'));
-                    return $this->redirect(['action' => 'pgowners']);
+                    return $this->redirect(['action' => 'transients']);
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
@@ -248,7 +252,32 @@
         parent::beforeFilter($event);
         $this->Authentication->addUnauthenticatedActions(['login']);
     }
+    public function profile()
+    {
+        $this->loadModel('Userroles');
+        $this->loadModel('Rooms');
+        $this->loadModel('PgDetails');
+        $id=$this ->Users ->find()->where(['email'=>'vj603@gmail.com'])->select('user_id')->firstOrFail();
 
+        $user = $this->Users->get($id['user_id'], [
+            'contain' => [],
+        ]);
+        if ($this->request->is(['put','patch', 'post'])) 
+        {
+            $data=$this->request->getData();
+            $data['updated']=date("Y-m-d h:i:s");
+            $data['password']=password_hash($data['password'],PASSWORD_DEFAULT);
+            $user = $this->Users->patchEntity($user, $data);
+            if ($this->Users->save($user)) 
+            {
+                $this->Flash->success(__('The user has been saved.'));
+                    return $this->redirect($this->referer());
+            }
+            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+        }
+        
+        $this->set(array('user' => $user));
+    }
     public function login() 
     { 
         $this->request->allowMethod([ 'get','post']);

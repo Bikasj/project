@@ -51,7 +51,8 @@ class UsersController extends AppController
             $mypass=$this->request->getData('password');
             $userTable=TableRegistry::get('Users');
             $user=$userTable->find('all')->where(['token'=>$token])->first();
-            $user['password']=$mypass;
+            //$user['password']=$mypass;
+            $user['password']=password_hash($mypass,PASSWORD_DEFAULT);
             if($userTable->save($user))
             {
                 $this->Flash->success('Your have successfully changed your password! ');
@@ -71,6 +72,7 @@ class UsersController extends AppController
         {
             $data=$this->request->getData();
             $data['updated']=date("Y-m-d h:i:s");
+            $data['password']=password_hash($data['password'],PASSWORD_DEFAULT);
             $user = $this->Users->patchEntity($user, $data);
             if ($this->Users->save($user)) 
             {echo "ss";
@@ -169,6 +171,7 @@ class UsersController extends AppController
             $data['image']=$img;
             $data['created']=date("Y-m-d h:i:s");
             $data['updated']=date("Y-m-d h:i:s");
+            $data['password']=password_hash($data['password'],PASSWORD_DEFAULT);
             $user = $this->Users->newEntity($data);
             if ($this->Users->save($user)) 
             {

@@ -30,7 +30,7 @@
             
             <h5 class="text-center"><?=$users['firstname']." ".$users['lastname']?></h5>
             <p>PG Owner</p>
-            <a href="user-profile.html" class="btn btn-main-sm">View Profile</a>
+            <a href="/admin/users/profile" class="btn btn-main-sm">View Profile</a>
           </div>
           <!-- Dashboard Links -->
           <div class="widget user-dashboard-menu">
