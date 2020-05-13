@@ -1,7 +1,7 @@
 <head>
 
   <style>
-   <?php echo $this->Html->css('roomview.css',['block'=>true]); ?>
+    <?php echo $this->Html->css('roomview.css',['block'=>true]); ?>
 </style>
   
 
@@ -35,16 +35,18 @@
           <!-- Dashboard Links -->
           <div class="widget user-dashboard-menu">
             <ul>
-              <li><a href="/pg-details/pg"><i class="fa fa-home"></i>My PG<span><?=$pgs?></span></a></li>
-              <li><a href="/users/transients"><i class="fa fa-user"></i> My Transinet Guests <span><?=$transient_count?></span></a></li>
-              <li><a href="/pg-details/add"><i class="fa fa-plus"></i><i class="fa fa-home"></i>Add New PG <span></span></a></li>
-              <li><a href="/rooms/add"><i class="fa fa-plus"></i><i class="fa fa-bed"></i>Add New Room <span></span></a></li>
-              <li class="active"><a href="/rooms/roomstatus"><i class="fa fa-bed"></i> Rooms Available / Booked<span><?=$room?></span></a></li>
-              <li><a href="/rooms/bookingrequest"><i class="fa fa-bolt"></i> Booking Requests<span><?=$bookingrequest?></span></a></li>
+              <li><a href="/admin/users/pgowners"><i class="fa fa-user"></i> PG Owners<span><?=$pgowners?></span></a></li>
+              <li><a href="/admin/rooms/roomstatus"><i class="fa fa-bed"></i> Rooms Available / Booked <span><?=$room?></span></a></li>
+              <li><a href="/admin/users/transients"><i class="fa fa-user"></i>Transient Guests <span><?=$transients?></span></a></li>
+              <li><a href="/admin/PgDetails/allpgs"><i class="fa fa-home"></i>All PGs <span><?=$pgs?></span></a></li>
+              <li><a href="/admin/PgDetails/pending"><i class="fa fa-bolt"></i> Pending Approval<span><?=$pending?></span></a></li>
+              <li class="active"><a href="/rooms/bookingrequest"><i class="fa fa-bolt"></i> Booking Requests<span><?=$bookingrequest?></span></a></li>
+              
               <!-- <li><a href="/users/logout"><i class="fa fa-cog"></i> Logout</a></li> -->
               <li><a href="" data-toggle="modal" data-target="#logout"><i class="fa fa-power-off"></i>Logout</a></li>
             </ul>
           </div>
+
 
           <!-- delete-account modal -->
                         <!-- delete account popup modal start-->
@@ -81,17 +83,17 @@
 <?php 
         // echo  $this->Html->link('Edit', ['id'=>$user->user_id,'class' => 'edit nav-link text-white btn btn-sm btn-success  float-right'])."  ";  
         //     if($user->status==1)
-               echo '<a data-toggle="tooltip" data-placement="top" class="nav-link text-white btn btn-sm btn-success  float-right" title="Edit" href="/rooms/edit/'.$rooms->room_id.'">
+               echo '<a data-toggle="tooltip" data-placement="top" class="nav-link text-white btn btn-sm btn-success  float-right" title="Edit" href="/admin/rooms/editrooms/'.$rooms->room_id.'">
                           <i class="fa fa-pencil"></i>
                          </a>';
                             if($rooms->room_id==1)
                               
-                        echo '<a data-toggle="tooltip" data-placement="top" class="nav-link text-white btn btn-sm btn-danger  float-right" title="Block" href="/rooms/block/'.$rooms->room_id.'">
+                        echo '<a data-toggle="tooltip" data-placement="top" class="nav-link text-white btn btn-sm btn-danger  float-right" title="Block" href="/admin/rooms/block/'.$rooms->room_id.'">
                           <i class="fa fa-ban"></i>
                         </a></li>'; 
                             else
                     
-                        echo '<a data-toggle="tooltip" data-placement="top" class="nav-link text-white btn btn-sm btn-primary  float-right" title="Unlock" href="/rooms/block/'.$rooms->room_id.'">
+                        echo '<a data-toggle="tooltip" data-placement="top" class="nav-link text-white btn btn-sm btn-primary  float-right" title="Unlock" href="/admin/rooms/block/'.$rooms->room_id.'">
                           <i class="fa fa-ban"></i>
                         </a></li>';
     ?>
@@ -202,6 +204,7 @@ echo '<div class="column">';
 
 
 
+
 </div>
   </div>  
   </div>      
@@ -280,9 +283,73 @@ echo '<div class="column">';
                     <td><?= h($rooms->updated) ?></td>
                 </tr>
             </table><h6>
+                <br><br>
+<?php echo '<a data-toggle="tooltip" data-placement="top" class="nav-link text-white btn btn-sm btn-success  float-right" title="Approve" href="/admin/rooms/approve/'.$rooms->room_id.'">
+                          <i class="fa fa-check"></i>
+                        </a>';?>
+<?php echo '<a data-toggle="tooltip" data-placement="top" class="nav-link text-white btn btn-sm btn-danger  float-right" title="Decline" href="/admin/rooms/decline/'.$rooms->room_id.'">
+                          <i class="fa fa-close"></i>
+                        </a>';?>
         
-            <br><br></h6>
-             <?=  $this->Html->link('View PG', ['action' => 'view','controller'=>'PgDetails', $rooms->pg_id], ['class' => 'text-white btn btn-success btn-md ']) ?> 
+<?=  $this->Html->link('View PG', ['action' => 'viewpg','controller'=>'PgDetails', $rooms->pg_id], ['class' => 'text-white btn btn-success btn-md ']) ?> 
+ <br><br>
+                Booked by :
+                <br>
+                <table class="table">
+                <tr>
+                    
+                    <?php  
+                    if($transient->image!=NULL)
+                    {   echo "<td colspan='2'>";
+                         echo '<img src="data:image/jpg;base64, '.base64_encode(stream_get_contents($transient->image)).' " height=200px width=300px></td>' ;
+                    }
+                    else
+                    {
+                        echo "<td colspan='2' height=200px width=400px><center> <span style='font-size:45px'>No Image available !</span></center></td>";
+                    }
+                    ?>
+                </tr>
+                <tr>
+                    <th><?= __('FirstName') ?></th>
+                    <td><?= h($transient->firstname) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('LastName') ?></th>
+                    <td><?= h($transient->lastname) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Email') ?></th>
+                    <td><?= h($transient->email) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Status') ?></th>
+                    <td><?php if($transient->status==1)
+                                    echo "Active";
+                                else
+                                    echo "Inactive"; ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('transient Id') ?></th>
+                    <td><?= h($transient->user_id) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Adharcard') ?></th>
+                    <td><?= h($transient->adharcard) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Phone') ?></th>
+                    <td><?= h($transient->phone) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Created') ?></th>
+                    <td><?= h($transient->created) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Updated') ?></th>
+                    <td><?= h($transient->updated) ?></td>
+                </tr>
+</table>
+  </h6>
         </div>
     </div>
 </div>
@@ -347,3 +414,4 @@ function showSlides(n) {
   captionText.innerHTML = dots[slideIndex-1].alt;
 }
 </script>
+

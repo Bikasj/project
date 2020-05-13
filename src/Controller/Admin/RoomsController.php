@@ -3,6 +3,10 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 use App\Controller\Admin\AppController;
 use Cake\ORM\TableRegistry;
+use Cake\Mailer\Email;
+use Cake\Mailer\Mailer;
+use Cake\Mailer\Mail;
+use Cake\Mailer\EmailTransport;
 use Cake\ORM\Query;
 
 class RoomsController extends AppController
@@ -27,7 +31,8 @@ class RoomsController extends AppController
         $rooms = $this->Rooms->find()->count();
         $pgowners = $this->Users->findByRole('1')->count();
         $transients = $this->Users->findByRole('2')->count();
-        $this->set(array('pgs'=> $pgs ,'pending'=>$pending,'users'=>$users ,'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients , 'room' => $room ));
+        $bookingrequest=$this->Rooms->find()->where(['booking_request_by IN'=>[ $this->Users->find()->where(['role' => 2])->select('user_id') ]])->count(); 
+        $this->set(array('pgs'=> $pgs ,'pending'=>$pending,'users'=>$users ,'rooms'=> $rooms , 'pgowners'=> $pgowners,'bookingrequest'=>$bookingrequest, 'transients'=>$transients , 'room' => $room ));
     }
     public function viewrooms($id=null)
     {
@@ -42,8 +47,9 @@ class RoomsController extends AppController
         $rooms = $this->Rooms->find()->count();
         $pgowners = $this->Users->findByRole('1')->count();
         $transients = $this->Users->findByRole('2')->count();
+        $bookingrequest=$this->Rooms->find()->where(['booking_request_by IN'=>[ $this->Users->find()->where(['role' => 2])->select('user_id') ]])->count(); 
         $pending = $this->PgDetails->find()->where(['PgDetails.status' => '2'])->count();
-        $this->set(array('pgs'=> $pgs ,'pending'=> $pending ,'users'=> $users , 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients , 'room' => $room));
+        $this->set(array('pgs'=> $pgs ,'pending'=> $pending ,'users'=> $users , 'rooms'=> $rooms , 'pgowners'=> $pgowners,'bookingrequest'=>$bookingrequest, 'transients'=>$transients , 'room' => $room));
     }
     public function addroom()
     {
@@ -123,7 +129,8 @@ class RoomsController extends AppController
         $count=1;
         $pgs = $this->PgDetails->find()->where(['PgDetails.status IN' => ['1']])->count();
         $room = $this->Rooms->find()->count();
-        $this->set(array('pgs'=> $pgs , 'pending'=>$pending, 'pgowners'=> $pgowners, 'transients'=>$transients , 'room' => $room,'pg_id' => $pg_id, 'users' => $users));
+        $bookingrequest=$this->Rooms->find()->where(['booking_request_by IN'=>[ $this->Users->find()->where(['role' => 2])->select('user_id') ]])->count(); 
+        $this->set(array('pgs'=> $pgs , 'pending'=>$pending, 'pgowners'=> $pgowners, 'transients'=>$transients , 'bookingrequest'=>$bookingrequest,'room' => $room,'pg_id' => $pg_id, 'users' => $users));
         $this->set(compact('rooms'));
     }
     public function editrooms($id=null)
@@ -156,7 +163,8 @@ class RoomsController extends AppController
 
         $pgs = $this->PgDetails->find()->where(['PgDetails.status IN' => ['0','1']])->count();
         $rooms = $this->Rooms->find()->count();
-        $this->set(array('pgs'=> $pgs ,'users'=>$users,'pending'=>$pending, 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients ,'pg_id' => $pg_id, 'room' => $room));
+        $bookingrequest=$this->Rooms->find()->where(['booking_request_by IN'=>[ $this->Users->find()->where(['role' => 2])->select('user_id') ]])->count(); 
+        $this->set(array('pgs'=> $pgs ,'users'=>$users,'pending'=>$pending, 'rooms'=> $rooms , 'pgowners'=> $pgowners,'bookingrequest'=>$bookingrequest, 'transients'=>$transients ,'pg_id' => $pg_id, 'room' => $room));
         $this->set(compact('rooms'));
     }
     public function changeupload($id=null)
@@ -257,6 +265,102 @@ class RoomsController extends AppController
                 return $this->redirect($this->referer());
             }
             $this->Flash->error(__('The room could not be saved. Please, try again.'));
+    }
+    public function bookingrequest()
+    {
+        $this->loadModel('PgDetails');
+        $this->loadModel('Users');
+        $this->loadModel('Payments');
+        $bookingrequest=$this->Rooms->find()->where(['booking_request_by IN'=>[ $this->Users->find()->where(['role' => 2])->select('user_id') ]])->count();   
+        $rooms =$this->paginate($this->Rooms->find('all', [
+                                                    'conditions' => [
+                                                    'booking_request_by IN'=>[ $this->Users->find()->where(['role' => 2])->select('user_id') ]
+                                                                    ]
+                                                            ]
+                                                    )
+                                );
+        $users=$this ->Users ->find()->where(['email'=>'vj603@gmail.com']) ;
+        $pending = $this->PgDetails->find()->where(['PgDetails.status' => '2'])->count();
+        $pgowners = $this->Users->findByRole('1')->count();
+        $transients = $this->Users->findByRole('2')->count();
+        $pgs = $this->PgDetails->find()->where(['PgDetails.status IN' => ['0','1']])->count();
+        $room = $this->Rooms->find()->count();
+        $this->set(array('pgs'=> $pgs,'transients'=>$transients,'bookingrequest'=>$bookingrequest ,'pgowners'=>$pgowners,'users'=>$users, 'room'=> $room ,'rooms'=>$rooms,'pending'=>$pending));
+        $this->set(compact('rooms'));  
+
+    }
+    public function viewbookingrequest($id=null)
+    {   $this->loadModel('Users');
+        $this->loadModel('PgDetails');
+        $this->loadModel('Payments');
+        $rooms = $room = $this->Rooms->get($id, [
+            'contain' => [],
+        ]);
+        $transient_id=$rooms->booking_request_by;
+        $transient= $this->Users->get($transient_id, [
+            'contain' => [],
+        ]);
+        $bookingrequest=$this->Rooms->find()->where(['booking_request_by IN'=>[ $this->Users->find()->where(['role' => 2])->select('user_id') ]])->count();
+        $pending = $this->PgDetails->find()->where(['PgDetails.status' => '2'])->count();
+        $pgowners = $this->Users->findByRole('1')->count();
+        $transients = $this->Users->findByRole('2')->count();
+        $pgs = $this->PgDetails->find()->where(['PgDetails.status IN' => ['0','1']])->count();
+        $room = $this->Rooms->find()->count();
+         $users=$this ->Users ->find()->where(['email'=>'vj603@gmail.com'])->firstOrFail() ;
+        $this->set(array('pgs'=> $pgs,'transients'=>$transients,'transient'=>$transient,'bookingrequest'=>$bookingrequest ,'pgowners'=>$pgowners,'users'=>$users, 'room'=> $room ,'rooms'=>$rooms,'pending'=>$pending));
+        $this->set(compact('rooms'));    
+    }
+    public function approve($id)
+    {   
+        $this->loadModel('PgDetails');
+        $this->loadModel('Users');
+        $room= $this->Rooms->get($id);
+        $pgid= $this->Rooms->get($id)->pg_id;
+        $owner_id=$this->PgDetails->get($pgid)->owner_id;
+        $transient_id=$room->booking_request_by;
+        $email=$this->Users->findByUserId($transient_id)->select('email');
+        $rent=$room->rent;
+        $room_id=$room->room_id;
+        $room->booking_request_by=NULL;
+        $room->seats_available=$room->seats_available-1;
+        if ($this->Rooms->save($room)) {
+            $mailer =new Mailer();
+            $mailer=$mailer->setTransport('gmail')
+                                    ->setEmailFormat('both')
+                                    ->setfrom(['bikasjaiswal.zapbuild@gmail.com'=>'bikaskumar '])
+                                    ->setSubject('Congratulations, Your request has been approved.')
+                                    ->setTo("vj660033@gmail.com")
+                                    ->setCc("bikasjaiswal.zapbuild@gmail.com");
+
+                            $mailer->deliver('Hello Transient Guest,<br>, Your request for PG booking has been approved.Feel like your own PG! :) </a> <br>');
+
+            return $this->redirect(['action'=>'payment','controller'=>'Payments',$transient_id,$owner_id,$rent,$room_id]);
+
+        }
+        $this->Flash->error(__('The PG request could not be approved. Please, try again.'));
+    }
+    public function decline($id)
+    {   
+        $this->loadModel('PgDetails');
+        $this->loadModel('Users');
+        $room= $this->Rooms->get($id);
+        $transient_id=$room->booking_request_by;
+        $email=$this->Users->findByUserId($transient_id)->select('email');
+        $room->booking_request_by=NULL;
+        if ($this->Rooms->save($room)) {
+            $mailer =new Mailer();
+            $mailer=$mailer->setTransport('gmail')
+                                    ->setEmailFormat('both')
+                                    ->setfrom(['bikasjaiswal.zapbuild@gmail.com'=>'bikaskumar '])
+                                    ->setSubject('Sorry, Your request has not been approved.')
+                                    ->setTo("vj660033@gmail.com")
+                                    ->setCc("bikasjaiswal.zapbuild@gmail.com");
+                            $mailer->deliver('Hello Transient Guest,<br>, Your request for PG booking has not been approved.Kindly contact the owner for further assistance! :( </a> <br>');
+
+        $this->Flash->success(__('The PG request has successfully been declined!'));
+            return $this->redirect(['action'=>'bookingrequest']);
+        }
+        $this->Flash->error(__('The PG request could not be declined. Please, try again.'));
     }
 }
 

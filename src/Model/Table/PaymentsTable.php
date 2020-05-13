@@ -86,11 +86,11 @@ class PaymentsTable extends Table
             ->requirePresence('payment_mode', 'create')
             ->notEmptyString('payment_mode');
         $validator
-        ->scalar('transaction_id')
-        ->notEmptyString('transaction_id');
+            ->scalar('transaction_id')
+            ->notEmptyString('transaction_id');
         $validator
-        ->scalar('room_id')
-        ->notEmptyString('room_id');
+            ->scalar('room_id')
+            ->notEmptyString('room_id');
         return $validator;
     }
 

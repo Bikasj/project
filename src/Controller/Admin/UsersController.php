@@ -2,6 +2,7 @@
     namespace App\Controller\Admin;
 
     use App\Controller\Admin\AppController;
+    
 
     class UsersController extends AppController
 {
@@ -47,7 +48,8 @@
         $transients = $this->Users->findByRole('2')->count();
         $pgowner=$this -> paginate(  $this->Users->findByRole('1'));
         $count=1;
-        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'pgowners'=> $pgowners,'pending'=> $pending,'transients'=>$transients,'pgowner'=>$pgowner , 'users' => $users));
+        $bookingrequest=$this->Rooms->find()->where(['booking_request_by IN'=>[ $this->Users->find()->where(['role' => 2])->select('user_id') ]])->count(); 
+        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'pgowners'=> $pgowners,'pending'=> $pending,'transients'=>$transients,'bookingrequest'=>$bookingrequest,'pgowner'=>$pgowner , 'users' => $users));
     }     
     public function transients()
     {
@@ -61,15 +63,22 @@
         $pgowners = $this->Users->findByRole('1')->count();
         $transients = $this->Users->findByRole('2')->count();
         $user= $this->Users->findByRole('2');
-        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients ,'pending'=>$pending, 'users'=>$users,'user' => $this -> paginate( $this ->Users ->findByRole('2'))));
+        $bookingrequest=$this->Rooms->find()->where(['booking_request_by IN'=>[ $this->Users->find()->where(['role' => 2])->select('user_id') ]])->count(); 
+        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients ,'pending'=>$pending, 'bookingrequest'=>$bookingrequest,'users'=>$users,'user' => $this -> paginate( $this ->Users ->findByRole('2'))));
     }
     public function viewtransients($id=null)
-    {   $this->loadModel('Userroles');
+    {   
+        $this->loadModel('Userroles');
         $this->loadModel('PgDetails');
         $this->loadModel('Rooms');
+        $this->loadModel('Payments');
         $user = $this->Users->get($id, [
             'contain' => [],
         ]);
+        $no_room=0;
+        $room_id=$this->Payments->findByTransientuserId($id)->select('room_id')->first();
+        if($room_id=="") 
+            $no_room=1;
         $users=$this ->Users ->find()->where(['email'=>'vj603@gmail.com']) ;
         $role= $this->Userroles->findById($user->role)->firstOrFail();
         $pgs = $this->PgDetails->find()->where(['PgDetails.status IN' => ['0','1']])->count();
@@ -77,10 +86,12 @@
         $pgowners = $this->Users->findByRole('1')->count();
         $transients = $this->Users->findByRole('2')->count();
         $pending = $this->PgDetails->find()->where(['PgDetails.status' => '2'])->count();
-        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients ,'role' => $role,'users' => $users, 'pending' => $pending,'user' => $user));
+        $bookingrequest=$this->Rooms->find()->where(['booking_request_by IN'=>[ $this->Users->find()->where(['role' => 2])->select('user_id') ]])->count(); 
+        $this->set(array('room_id'=>$room_id,'pgs'=> $pgs , 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients ,'bookingrequest'=>$bookingrequest,'role' => $role,'users' => $users,'no_room'=>$no_room, 'pending' => $pending,'user' => $user));
     }
     public function viewpgowners($id=null)
-    {   $this->loadModel('Userroles');
+    {   
+        $this->loadModel('Userroles');
         $this->loadModel('PgDetails');
         $this->loadModel('Rooms');
         $user = $this->Users->get($id, [
@@ -93,7 +104,8 @@
         $pgowners = $this->Users->findByRole('1')->count();
         $transients = $this->Users->findByRole('2')->count();
         $pending = $this->PgDetails->find()->where(['PgDetails.status' => '2'])->count();
-        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients ,'role' => $role,'users' => $users, 'pending' => $pending,'user' => $user));
+        $bookingrequest=$this->Rooms->find()->where(['booking_request_by IN'=>[ $this->Users->find()->where(['role' => 2])->select('user_id') ]])->count(); 
+        $this->set(array('pgs'=> $pgs , 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients ,'role' => $role,'users' => $users,'bookingrequest'=>$bookingrequest, 'pending' => $pending,'user' => $user));
     }
     public function adduser()
     {
@@ -130,7 +142,8 @@
 
         $pgs = $this->PgDetails->find()->where(['PgDetails.status IN' => ['0','1']])->count();
         $rooms = $this->Rooms->find()->count();
-        $this->set(array('pgs'=> $pgs , 'pending'=>$pending,'rooms'=> $rooms, 'pgowners'=> $pgowners, 'transients'=>$transients ,'roles'=>$roles, 'users' => $users, 'user' => $user));
+        $bookingrequest=$this->Rooms->find()->where(['booking_request_by IN'=>[ $this->Users->find()->where(['role' => 2])->select('user_id') ]])->count(); 
+        $this->set(array('pgs'=> $pgs , 'pending'=>$pending,'rooms'=> $rooms, 'pgowners'=> $pgowners, 'transients'=>$transients ,'bookingrequest'=>$bookingrequest,'roles'=>$roles, 'users' => $users, 'user' => $user));
     }
     public function editpgowners($id=null)
     {   
@@ -161,7 +174,8 @@
 
         $pgs = $this->PgDetails->find()->where(['PgDetails.status IN' => ['0','1']])->count();
         $rooms = $this->Rooms->find()->count();
-        $this->set(array('pgs'=> $pgs , 'pending'=>$pending,'rooms'=> $rooms, 'pgowners'=> $pgowners, 'transients'=>$transients , 'users' => $users, 'user' => $user));
+        $bookingrequest=$this->Rooms->find()->where(['booking_request_by IN'=>[ $this->Users->find()->where(['role' => 2])->select('user_id') ]])->count(); 
+        $this->set(array('pgs'=> $pgs , 'pending'=>$pending,'rooms'=> $rooms, 'pgowners'=> $pgowners, 'transients'=>$transients ,'bookingrequest'=>$bookingrequest, 'users' => $users, 'user' => $user));
     }
     public function edittransients($id=null)
     {   
@@ -188,10 +202,10 @@
         $pgowners = $this->Users->findByRole('1')->count();
         $transients = $this->Users->findByRole('2')->count();
         $count=1;
-
+        $bookingrequest=$this->Rooms->find()->where(['booking_request_by IN'=>[ $this->Users->find()->where(['role' => 2])->select('user_id') ]])->count(); 
         $pgs = $this->PgDetails->find()->where(['PgDetails.status IN' => ['0','1']])->count();
         $rooms = $this->Rooms->find()->count();
-        $this->set(array('pgs'=> $pgs , 'pending'=>$pending,'rooms'=> $rooms, 'pgowners'=> $pgowners, 'transients'=>$transients , 'users' => $users, 'user' => $user));
+        $this->set(array('pgs'=> $pgs , 'pending'=>$pending,'rooms'=> $rooms, 'pgowners'=> $pgowners, 'transients'=>$transients , 'bookingrequest'=>$bookingrequest,'users' => $users, 'user' => $user));
     }
     public function changeupload($id=null)
     {   

@@ -26,21 +26,22 @@
             <a href="user-profile.html" class="btn btn-main-sm">View Profile</a>
           </div>
           <!-- Dashboard Links -->
+          
           <div class="widget user-dashboard-menu">
             <ul>
               <li><a href="/admin/users/pgowners"><i class="fa fa-user"></i> PG Owners<span><?=$pgowners?></span></a></li>
-              <li><a href="/admin/rooms/roomstatus"><i class="fa fa-bed"></i> Rooms Available / Booked <span><?=$rooms?></span></a></li>
+              <li><a href="/admin/rooms/roomstatus"><i class="fa fa-bed"></i> Rooms Available / Booked <span><?=$room?></span></a></li>
               <li><a href="/admin/users/transients"><i class="fa fa-user"></i>Transient Guests <span><?=$transients?></span></a></li>
-              <li class="active"><a href="/admin/PgDetails/allpgs"><i class="fa fa-home"></i>All PGs <span><?=$pgs?></span></a></li>
+              <li><a href="/admin/PgDetails/allpgs"><i class="fa fa-home"></i>All PGs <span><?=$pgs?></span></a></li>
               <li><a href="/admin/PgDetails/pending"><i class="fa fa-bolt"></i> Pending Approval<span><?=$pending?></span></a></li>
-              <li><a href="/admin/rooms/bookingrequest"><i class="fa fa-bolt"></i> Booking Requests<span><?=$bookingrequest?></span></a></li>
+              <li class="active"><a href="/rooms/bookingrequest"><i class="fa fa-bolt"></i> Booking Requests<span><?=$bookingrequest?></span></a></li>
               <!-- <li><a href="/users/logout"><i class="fa fa-cog"></i> Logout</a></li> -->
               <li><a href="" data-toggle="modal" data-target="#logout"><i class="fa fa-power-off"></i>Logout</a></li>
             </ul>
           </div>
 
           <!-- delete-account modal -->
-                                  <!-- delete account popup modal start-->
+                        <!-- delete account popup modal start-->
                 <!-- Modal -->
                 <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
                   aria-hidden="true">
@@ -58,99 +59,21 @@
                       </div>
                       <div class="modal-footer border-top-0 mb-3 mx-5 justify-content-lg-between justify-content-center">
                         <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-                        <?=  $this->Html->link('Logout', ['action' => 'logout', ], ['class' => 'text-white btn btn-primary btn-sm ']) ?> 
+                        <?=  $this->Html->link('Logout', ['action' => 'logout','controller'=>'users' ], ['class' => 'text-white btn btn-primary btn-sm ']) ?> 
                       </div>
                     </div>
                   </div>
                 </div>
                 <!-- delete account popup modal end-->
           <!-- delete-account modal -->
-
+  <?php endforeach; ?>
         </div>
       </div>
       <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-0">
         <!-- Recently Favorited -->
-        <div class="widget dashboard-container my-adslist"><h3 style="text-shadow: 2px 2px 5px grey;"><i class="fa fa-home" ></i> All PGs</h3>
-
-<?php 
-        // echo  $this->Html->link('Edit', ['id'=>$user->user_id,'class' => 'edit nav-link text-white btn btn-sm btn-success  float-right'])."  ";  
-        //     if($user->status==1)
-               echo '<a data-toggle="tooltip" data-placement="top" class="nav-link text-white btn btn-sm btn-success  float-right" title="Edit" href="/admin/PgDetails/editpg/'.$pg_details->pg_id.'">
-                          <i class="fa fa-pencil"></i>
-                        </a>';
-                            if($pg_details->status==1)
-                              
-                        echo '<a data-toggle="tooltip" data-placement="top" class="nav-link text-white btn btn-sm btn-danger  float-right" title="Block" href="/admin/PgDetails/block/'.$pg_details->pg_id.'">
-                          <i class="fa fa-ban"></i>
-                        </a></li>'; 
-                            else
-                    
-                        echo '<a data-toggle="tooltip" data-placement="top" class="nav-link text-white btn btn-sm btn-primary  float-right" title="Unlock" href="/admin/PgDetails/block/'.$pg_details->pg_id.'">
-                          <i class="fa fa-ban"></i>
-                        </a></li>';
-    ?>
-    
-<!-- title="view" class="view" href="#" -->
-    <div class="column-responsive column-80 view">
-        <div class="users view content " ><br>
-            
-           PG Details
-            <table class="table">
-                <tr>
-                    <th><?= __('PG ID') ?></th>
-                    <td><?= h($pg_details->pg_id) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Owner Name') ?></th>
-                    <td> <?=  $this->Html->link($pg_details->user->firstname." ".$pg_details->user->lastname, ['action' => 'viewpgowners','controller' => 'users', $pg_details->user->user_id]) 
-                         ?> </td>
-                </tr>
-                <tr>
-                    <th><?= __('Status') ?></th>
-                    <td><?php if($pg_details->status==1)
-                                    echo "Active";
-                                else
-                                    echo "Inactive"; ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Location') ?></th>
-                    <td><?= h($pg_details->location) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Address') ?></th>
-                    <td><?= $pg_details->address ?></td>
-                </tr>
-                 <tr>
-                    <th><?= __('Area') ?></th>
-                    <td><?= h($pg_details->area) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Availability') ?></th>
-                    <td><?= h($pg_details->availability) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('No. of Rooms') ?></th>
-                    <td><?= h($pg_details->no_of_room) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Contact No.') ?></th>
-                    <td><?= h($pg_details->phone) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Created') ?></th>
-                    <td><?= h($pg_details->created) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Updated') ?></th>
-                    <td><?= h($pg_details->updated) ?></td>
-                </tr>
-            </table><h6>
-
-        
-            <br><br></h6>
-            <h5><b>Rooms in PG</b></h5><br>
-    
-            <table class="table table-responsive product-dashboard-table">
+        <div class="widget dashboard-container my-adslist">
+          <h3 style="text-shadow: 2px 2px 5px grey;"><i class="fa fa-bolt" ></i> Booking Requests </h3>
+          <table class="table table-responsive product-dashboard-table">
             <thead>
               <tr>
                 <th>Image</th>
@@ -161,10 +84,10 @@
             </thead>
             <tbody>
               
-               <?php    
+                <?php    
                 //echo "<pre>";print_r($room);echo "</pre>";die();
                     $i=1;
-                     foreach ($room as $rooms): ?>
+                     foreach ($rooms as $rooms): ?>
                 <tr>
                 <td class="product-thumb">
                 <?='<img  src="data:image/jpg;base64, '.base64_encode(stream_get_contents($rooms->image)).' " height=50px width=70px>'?></td></td>
@@ -202,26 +125,20 @@
                   <div class="">
                     <ul class="list-inline justify-content-center">
                       <li class="list-inline-item">
-                        <a  id="<?=$rooms->room_id?>" data-toggle="" data-placement="top" title="view" class="view" href="/admin/Rooms/viewrooms/<?php echo $rooms->room_id?>">
+                       <a data-toggle="tooltip" data-placement="top" title="view" class="view" href="/admin/rooms/viewbookingrequest/<?php echo $rooms->room_id?>">
                           <i class="fa fa-eye"></i>
                         </a>
                       </li>
                       <li class="list-inline-item">
-                        <a class="edit" id="<?=$rooms->room_id?>" data-toggle="" data-placement="top" title="Edit" href="/admin/Rooms/editrooms/<?php echo $rooms->room_id?>">
-                          <i class="fa fa-pencil"></i>
+                        <a class="edit" data-toggle="tooltip" data-placement="top" title="Approve" href="/admin/rooms/approve/<?php echo $rooms->room_id?>">
+                          <i class="fa fa-check"></i>
                         </a>
                       </li>
-                        <?php 
-                            if($rooms->status==1)
-                               echo '<li class="list-inline-item">
-                        <a class="delete" data-toggle="" data-placement="top" title="Block" href="/admin/Rooms/block/'.$rooms->room_id.'">
-                          <i class="fa fa-ban"></i>
-                        </a></li>'; 
-                            else
-                                echo '<li class="list-inline-item">
-                        <a class="delete" data-toggle="" data-placement="top" title="Unblock" href="/admin/Rooms/block/'.$rooms->room_id.'">
-                          <i class="fa fa-ban"></i>
-                        </a></li>';  ?>
+                      <li class="list-inline-item">
+                        <a class="delete" data-toggle="tooltip" data-placement="top" title="Decline" href="/admin/rooms/decline/<?php echo $rooms->room_id?>">
+                          <i class="fa fa-close"></i>
+                        </a>
+                      </li>
                       
                     </ul>
                   </div>
@@ -232,14 +149,22 @@
           </table>
 
         </div>
+         <div class="pagination justify-content-center">
+          <nav aria-label="Page navigation example">
+             <div class="paginator paginator" >
+         <ul class="pagination" >
+            <?= $this->Paginator->first('<< ' . __('first')) ?>
+            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->numbers() ?>
+            <?= $this->Paginator->next(__('next') . ' >') ?>
+            <?= $this->Paginator->last(__('last') . ' >>') ?>
+        </ul>                           
+        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
     </div>
-  </div>
+          </nav>
+        </div>
 </div>
-    </div>
-    <!-- Row End -->
-  </div>
-  <!-- Container End -->
+</div>
+</div>
 </section>
-<?php endforeach; ?>
-
-
+</body>

@@ -22,6 +22,7 @@
             <li><a href="/admin/users/transients">Transient Guests</a></li>
             <li><a href="/admin/pg-details/allpgs">All PGs</a></li>
             <li><a href="/admin/pg-details/pending">Pending</a></li>
+            <li><a href="/admin/rooms/bookingrequest">BookingRequests</a></li>
           </ul>
         </div>
       </div>
@@ -83,6 +84,7 @@
             <li><a href="/pg-details/add">Add New PG</a></li>
             <li><a href="/rooms/add">Add New Room</a></li>
             <li><a href="/rooms/roomstatus">Rooms Available/Booked</a></li>
+            <li><a href="/rooms/bookingrequest">Booking Requests</a></li>
           </ul>
         </div>
       </div>
@@ -218,15 +220,6 @@
             </script>. All Rights Reserved</p>
         </div>
       </div>
-      <!-- <div class="col-sm-6 col-12">
-        
-        <ul class="social-media-icons text-right">
-          <li><a class="fa fa-facebook" href="https://www.facebook.com/themefisher" target="_blank"></a></li>
-          <li><a class="fa fa-twitter" href="https://www.twitter.com/themefisher" target="_blank"></a></li>
-          <li><a class="fa fa-pinterest-p" href="https://www.pinterest.com/themefisher" target="_blank"></a></li>
-          <li><a class="fa fa-vimeo" href=""></a></li>
-        </ul>
-      </div> -->
     </div>
   </div>
   <!-- Container End -->

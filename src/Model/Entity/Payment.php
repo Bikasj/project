@@ -37,7 +37,6 @@ class Payment extends Entity
         'payment_mode' => true,
         'transaction_id' => true,
         'created' => true,
-        'user' => true,
-        'transaction' => true,
+        'room_id' => true,
     ];
 }

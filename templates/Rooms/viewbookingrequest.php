@@ -1,7 +1,7 @@
 <head>
 
   <style>
-    <?php echo $this->Html->css('viewbookingrequest.css',['block'=>true]); ?>
+    <?php echo $this->Html->css('roomview.css',['block'=>true]); ?>
 </style>
   
 
@@ -84,7 +84,7 @@
         //     if($user->status==1)
                echo '<a data-toggle="tooltip" data-placement="top" class="nav-link text-white btn btn-sm btn-success  float-right" title="Edit" href="/rooms/edit/'.$rooms->room_id.'">
                           <i class="fa fa-pencil"></i>
-                        </a>';
+                         </a>';
                             if($rooms->room_id==1)
                               
                         echo '<a data-toggle="tooltip" data-placement="top" class="nav-link text-white btn btn-sm btn-danger  float-right" title="Block" href="/rooms/block/'.$rooms->room_id.'">
@@ -203,6 +203,7 @@ echo '<div class="column">';
 
 
 
+
 </div>
   </div>  
   </div>      
@@ -282,6 +283,16 @@ echo '<div class="column">';
                 </tr>
             </table><h6>
                 <br><br>
+<?php echo '<a data-toggle="tooltip" data-placement="top" class="nav-link text-white btn btn-sm btn-success  float-right" title="Approve" href="/rooms/approve/'.$rooms->room_id.'">
+                          <i class="fa fa-check"></i>
+                        </a>';?>
+<?php echo '<a data-toggle="tooltip" data-placement="top" class="nav-link text-white btn btn-sm btn-danger  float-right" title="Decline" href="/rooms/decline/'.$rooms->room_id.'">
+                          <i class="fa fa-close"></i>
+                        </a>';?>
+        
+            
+<?=  $this->Html->link('View PG', ['action' => 'view','controller'=>'PgDetails', $rooms->pg_id], ['class' => 'text-white btn btn-success btn-md ']) ?> 
+<br><br>
                 Booked by :
                 <br>
                 <table class="table">
@@ -338,15 +349,7 @@ echo '<div class="column">';
                     <td><?= h($transient->updated) ?></td>
                 </tr>
 </table>
-<?php echo '<a data-toggle="tooltip" data-placement="top" class="nav-link text-white btn btn-sm btn-success  float-right" title="Approve" href="/rooms/approve/'.$rooms->room_id.'">
-                          <i class="fa fa-check"></i>
-                        </a>';?>
-<?php echo '<a data-toggle="tooltip" data-placement="top" class="nav-link text-white btn btn-sm btn-danger  float-right" title="Decline" href="/rooms/decline/'.$rooms->room_id.'">
-                          <i class="fa fa-close"></i>
-                        </a>';?>
-        
-            <br><br></h6>
-             <?=  $this->Html->link('View PG', ['action' => 'view','controller'=>'PgDetails', $rooms->pg_id], ['class' => 'text-white btn btn-success btn-md ']) ?> 
+  </h6>
         </div>
     </div>
 </div>

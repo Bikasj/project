@@ -126,12 +126,14 @@
 									<a class="dropdown-item" href="/admin/users/transients">Transient Guests</a>
 									<a class="dropdown-item" href="/admin/pg-details/allpgs">All PGs</a>
 									<a class="dropdown-item" href="/admin/pg-details/pending">Pending</a>
+                  <a class="dropdown-item" href="/admin/rooms/bookingrequest">Booking Requests</a>
 								</div>
 							</li>
 							<li class="nav-item ">
 								<a class="nav-link" href="/contactus/contact"  aria-expanded="false">
 									Contact us <span></span>
-								</a><?php }
+								</a>
+              <?php }
                elseif($userrole=="1")
                { ?>
                <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -150,6 +152,7 @@
                   <a class="dropdown-item" href="/pg-details/add">Add New PG</a>
                   <a class="dropdown-item" href="/rooms/add">Add New Room</a>
                   <a class="dropdown-item" href="/rooms/roomstatus">Rooms Available/Booked</a>
+                  <a class="dropdown-item" href="/rooms/bookingrequest">Booking Requests</a>
                 </div>
               </li>
               <li class="nav-item ">
@@ -218,52 +221,45 @@
 							<li class="nav-item">	
 
 <?php
-$conn = mysqli_connect('localhost', 'root','1234', 'paying_guest');
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-$sql = "SELECT * FROM users where email='".$myinfo."'";
-$result = mysqli_query($conn, $sql);
-if (mysqli_num_rows($result) > 0) {
+  $conn = mysqli_connect('localhost', 'root','1234', 'paying_guest');
+  if (!$conn) 
+  {
+      die("Connection failed: " . mysqli_connect_error());
+  }
+  $sql = "SELECT * FROM users where email='".$myinfo."'";
+  $result = mysqli_query($conn, $sql);
+  if (mysqli_num_rows($result) > 0) {
 
-    while($row = mysqli_fetch_assoc($result)) {
+      while($row = mysqli_fetch_assoc($result)) {
 
 ?>
  	<li class="nav-item dropdown user user-menu">
     <a href="#" class="nav-link " data-toggle="dropdown">
      <span class="d-none d-md-block float-right">
-      <?php if($myinfo=="vj603@gmail.com") { ?> Admin <?php } else { ?>
-      <?=$row['firstname']; }?><span class="dropdown-toggle"></dropdown-togglespan> 
-     	<?= '<img class="user-image img-fluid img-circle elevation-2" height="40px" width="40px" alt="User Image" src="data:image/jpg;base64, '.base64_encode($row['image']).' " height=200px style="border-radius: 50%;" width=300px></td>' ;?>
-     </span><a>
+      <?php if($myinfo=="vj603@gmail.com") { 
+        ?> Admin <?php
+         } else { 
+          ?>
+          <?=$row['firstname']; }?><span class="dropdown-toggle"></dropdown-togglespan> 
+         	<?= '<img class="user-image img-fluid img-circle elevation-2" height="40px" width="40px" alt="User Image" src="data:image/jpg;base64, '.base64_encode($row['image']).' " height=200px style="border-radius: 50%;" width=300px></td>' ;?>
+     </span>
+     <a>
     <ul style=" padding: 0px 0px;
     margin: 1.25rem -27px 0px -37px;" class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
       <!-- User image -->
       <li class="user-header bg-primary">
-<center>
+          <center>
        <?= '<img src="data:image/jpg;base64, '.base64_encode($row['image']).' "  height="100px" width="100px" style="border-radius: 50%;" alt="User Image">' ?></center>
 
         <p class="text-white text-center">
           <?=$row['firstname']." ".$row['lastname'] ?>
-          <small><p class="text-white text-center">Member since <?= date("M,Y",strtotime($row['created']))?></p></small>
+          <small>
+            <p class="text-white text-center">Member since <?= date("M,Y",strtotime($row['created']))?>
+              
+            </p>
+          </small>
         </p>
       </li>
-      <!-- Menu Body -->
-      <!-- <li class="user-body">
-        <div class="row">
-          <div class="col-4 text-center">
-            <a href="#">Followers</a>
-          </div>
-          <div class="col-4 text-center">
-            <a href="#">Sales</a>
-          </div>
-          <div class="col-4 text-center">
-            <a href="#">Friends</a>
-          </div>
-        </div>
-        <!-- /.row -->
-    <!--   </li> --> 
-      <!-- Menu Footer-->
       <li class="user-footer">
         <div class="container">
           <a href="/users/profile" class="btn btn-default btn-flat"><span class="glyphicon glyphicon-user"></span>Profile</a>

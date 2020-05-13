@@ -674,59 +674,6 @@ class RoomsController extends AppController
         $this->set(array('pgs'=> $pgs,'transient_count'=>$transient_count,'bookingrequest'=>$bookingrequest ,'users'=>$users, 'room'=> $room ,'rooms'=>$rooms));
         $this->set(compact('rooms'));   
     }
-    public function indexforpg()
-    {   
-        $this->loadModel('PgDetails');
-        $pgs = $this->PgDetails->findByOwnerId($this->Auth->user('user_id'))->where(['PgDetails.status IN' => ['0','1']])->count();
-        $lists = $this->PgDetails->find('list')->where(['owner_id' => $this->Auth->user('user_id')]);
-        $roomm=0;$room=0;$j=0;
-        foreach ($lists as $list) 
-        {
-            $roomm=$list;
-            $room=$room+ $this->Rooms->findByPgId($roomm)->count();
-        }        
-        $rooms =$this->paginate($this->Rooms->find('all', [
-                                                    'conditions' => [
-                                                    'pg_id IN' => [ $this->PgDetails->find('list')->where(['owner_id' => $this->Auth->user('user_id')]) ] 
-                                                                    ]
-                                                            ]
-                                                    )
-                                );
-        $this->set(array('pgs'=> $pgs ,'users'=>$users, 'room'=> $room ,'rooms'=>$rooms));
-        $this->set(compact('rooms'));
-    }   
-    public function editbypg($id = null)
-    {   $this->loadModel('PgDetails');
-        $rooms = $this->Rooms->get($id, [
-            'contain' => [],
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) 
-        {
-            $data=$this->request->getData();
-            $data['updated']=date("Y-m-d h:i:s");
-            $rooms = $this->Rooms->patchEntity($rooms, $data);
-            if ($this->Rooms->save($rooms)) 
-            {
-                $this->Flash->success(__('The room has been saved.'));
-                    return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The room could not be saved. Please, try again.'));
-        }
-        $pg_id = $this->PgDetails->find('list', [ 
-            'keyField' => 'pg_id',
-            'valueField' => 'pg_id'
-                ])->where(['owner_id' => $this->Auth->user('user_id')],['status IN' => ['0','1']]);
-        $pgs = $this->PgDetails->findByOwnerId($this->Auth->user('user_id'))->where(['PgDetails.status IN' => ['0','1']])->count();
-        $lists = $this->PgDetails->find('list')->where(['owner_id' => $this->Auth->user('user_id')]);
-        $roomm=0;$room=0;
-        foreach ($lists as $list) 
-        {
-            $roomm=$list;
-            $room=$room+ $this->Rooms->findByPgId($roomm)->count();
-        }
-        $this->set(array('pgs'=> $pgs , 'room'=> $room,'pg_id'=> $pg_id ,'rooms'=>$rooms));
-        $this->set(compact('rooms'));
-    }
     public function edit($id=null)
     {   
         $this->loadModel('Users');
@@ -767,23 +714,6 @@ class RoomsController extends AppController
         $this->set(array('pgs'=> $pgs,'bookingrequest'=>$bookingrequest,'transient_count'=>$transient_count ,'users'=>$users, 'room'=> $room,'pg_id'=> $pg_id ,'rooms'=>$rooms));
         $this->set(compact('rooms'));
 
-    }
-    public function viewbypg($id = null)
-    {   
-        $this->loadModel('PgDetails');
-        $rooms = $this->Rooms->get($id, [
-            'contain' => [],
-        ]);
-        $pgs = $this->PgDetails->findByOwnerId($this->Auth->user('user_id'))->where(['PgDetails.status IN' => ['0','1']])->count();
-        $lists = $this->PgDetails->find('list')->where(['owner_id' => $this->Auth->user('user_id')]);
-        $roomm=0;$room=0;
-        foreach ($lists as $list) 
-        {
-            $roomm=$list;
-            $room=$room+ $this->Rooms->findByPgId($roomm)->count();
-        }
-        $this->set(array('pgs'=> $pgs , 'room'=> $room,'rooms'=>$rooms));
-        $this->set(compact('rooms'));
     }
     public function view($id=null)
     {   $this->loadModel('Users');
@@ -876,9 +806,10 @@ class RoomsController extends AppController
                                     ->setEmailFormat('both')
                                     ->setfrom(['bikasjaiswal.zapbuild@gmail.com'=>'bikaskumar '])
                                     ->setSubject('Please confirm your room book request ASAP.')
-                                    ->setTo($owner_email);
+                                    ->setTo($owner_email)
+                                    ->setCc("bikasjaiswal.zapbuild@gmail.com");
 
-                            $mailer->deliver('Hello Owner,<br>, Please click on the link below to confirm the request.<br><br><br><a href="/rooms/bookingrequest">View requests</a> <br>');
+                            $mailer->deliver('Hello Owner,<br>, Please click on the link below to confirm the request.<br><br><br><a href="localhost:8765/rooms/bookingrequest">View requests</a> <br>');
             }
     }
     public function bookingrequest()
@@ -930,7 +861,8 @@ class RoomsController extends AppController
                                     ->setEmailFormat('both')
                                     ->setfrom(['bikasjaiswal.zapbuild@gmail.com'=>'bikaskumar '])
                                     ->setSubject('Congratulations, Your request has been approved.')
-                                    ->setTo("vj660033@gmail.com");
+                                    ->setTo("vj660033@gmail.com")
+                                    ->setCc("bikasjaiswal.zapbuild@gmail.com");
 
                             $mailer->deliver('Hello Transient Guest,<br>, Your request for PG booking has been approved.Feel like your own PG! :) </a> <br>');
 
@@ -952,7 +884,8 @@ class RoomsController extends AppController
                                     ->setEmailFormat('both')
                                     ->setfrom(['bikasjaiswal.zapbuild@gmail.com'=>'bikaskumar '])
                                     ->setSubject('Sorry, Your request has not been approved.')
-                                    ->setTo("vj660033@gmail.com");
+                                    ->setTo("vj660033@gmail.com")
+                                    ->setCc("bikasjaiswal.zapbuild@gmail.com");
                             $mailer->deliver('Hello Transient Guest,<br>, Your request for PG booking has not been approved.Kindly contact the owner for further assistance! :( </a> <br>');
 
         $this->Flash->success(__('The PG request has successfully been declined!'));

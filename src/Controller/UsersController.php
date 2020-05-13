@@ -117,7 +117,7 @@ class UsersController extends AppController
             'contain' => [],
         ]);
         $room_id=$this->Payments->findByTransientuserId($id)->select('room_id')->firstOrFail(); 
-        $bookingrequest=$this->Rooms->find()->where(['booking_request_by IN'=>[ $this->Users->find()->where(['role' => 2])->select('user_id') ]])->count();
+        $bookingrequest=$this->Rooms->find()->where(['booking_request_by IN'=>[$this->Users->find()->where(['role' => 2])->select('user_id') ]])->count();
         $pgs = $this->PgDetails->findByOwnerId($this->Auth->user('user_id'))->where(['PgDetails.status IN' => ['0','1']])->count();
         $users=$this->Users->findByUserId($this->Auth->user('user_id'))->firstOrFail();
         $lists = $this->PgDetails->find('list')->where(['owner_id' => $this->Auth->user('user_id')]);

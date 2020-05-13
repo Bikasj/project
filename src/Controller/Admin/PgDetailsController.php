@@ -27,7 +27,8 @@ class PgDetailsController extends AppController
         $pgowners = $this->Users->findByRole('1')->count();
         $transients = $this->Users->findByRole('2')->count();
         $users= $this->Users->findByEmail('vj603@gmail.com');
-        $this->set(array('pgs'=> $pgs ,'users'=>$users, 'rooms'=> $rooms ,'pending'=>$pending, 'pgowners'=> $pgowners, 'transients'=>$transients ,'pg'=>$pg ));
+        $bookingrequest=$this->Rooms->find()->where(['booking_request_by IN'=>[ $this->Users->find()->where(['role' => 2])->select('user_id') ]])->count(); 
+        $this->set(array('pgs'=> $pgs ,'users'=>$users, 'bookingrequest'=>$bookingrequest,'rooms'=> $rooms ,'pending'=>$pending, 'pgowners'=> $pgowners, 'transients'=>$transients ,'pg'=>$pg ));
     }   
     public function viewpg($id=null)
     {   $this->loadModel('Users');
@@ -42,7 +43,8 @@ class PgDetailsController extends AppController
         $pgowners = $this->Users->findByRole('1')->count();
         $transients = $this->Users->findByRole('2')->count();
         $users= $this->Users->findByEmail('vj603@gmail.com');
-        $this->set(array('pgs'=> $pgs ,'room'=>$room,'users'=>$users,'pending'=>$pending, 'rooms'=> $rooms , 'pgowners'=> $pgowners, 'transients'=>$transients ));
+        $bookingrequest=$this->Rooms->find()->where(['booking_request_by IN'=>[ $this->Users->find()->where(['role' => 2])->select('user_id') ]])->count(); 
+        $this->set(array('pgs'=> $pgs ,'room'=>$room,'users'=>$users,'pending'=>$pending, 'rooms'=> $rooms ,'bookingrequest'=>$bookingrequest, 'pgowners'=> $pgowners, 'transients'=>$transients ));
         $this->set(compact('pg_details'));
     }
     public function addpg()
@@ -75,7 +77,8 @@ class PgDetailsController extends AppController
         $count=1;
         $pgs = $this->PgDetails->find()->where(['PgDetails.status IN' => ['0','1']])->count();
         $rooms = $this->Rooms->find()->count();
-        $this->set(array('pgs'=> $pgs , 'pending'=>$pending,'rooms'=> $rooms, 'pgowners'=> $pgowners, 'owner_id' => $owner_id,'transients'=>$transients , 'users' => $users,'pg_details'=>$pg_details));
+        $bookingrequest=$this->Rooms->find()->where(['booking_request_by IN'=>[ $this->Users->find()->where(['role' => 2])->select('user_id') ]])->count(); 
+        $this->set(array('pgs'=> $pgs , 'pending'=>$pending,'rooms'=> $rooms, 'pgowners'=> $pgowners,'bookingrequest'=>$bookingrequest, 'owner_id' => $owner_id,'transients'=>$transients , 'users' => $users,'pg_details'=>$pg_details));
     }
     public function editpg($id=null)
     {
@@ -106,7 +109,8 @@ class PgDetailsController extends AppController
 
         $pgs = $this->PgDetails->find()->where(['PgDetails.status IN' => ['0','1']])->count();
         $rooms = $this->Rooms->find()->count();
-        $this->set(array('pgs'=> $pgs , 'pending'=>$pending,'rooms'=> $rooms, 'pgowners'=> $pgowners, 'owner_id' => $owner_id,'transients'=>$transients , 'users' => $users,'pg_details'=>$pg_details));
+        $bookingrequest=$this->Rooms->find()->where(['booking_request_by IN'=>[ $this->Users->find()->where(['role' => 2])->select('user_id') ]])->count(); 
+        $this->set(array('pgs'=> $pgs , 'pending'=>$pending,'rooms'=> $rooms, 'pgowners'=> $pgowners,'bookingrequest'=>$bookingrequest, 'owner_id' => $owner_id,'transients'=>$transients , 'users' => $users,'pg_details'=>$pg_details));
     }
     public function block($id)
     {   
@@ -145,7 +149,8 @@ class PgDetailsController extends AppController
         $pgowners = $this->Users->findByRole('1')->count();
         $transients = $this->Users->findByRole('2')->count();
         $users= $this->Users->findByEmail('vj603@gmail.com');
-        $this->set(array('pgs'=> $pgs ,'users'=>$users, 'rooms'=> $rooms ,'pending'=>$pending, 'pgowners'=> $pgowners, 'transients'=>$transients ,'pg'=>$pg ));
+        $bookingrequest=$this->Rooms->find()->where(['booking_request_by IN'=>[ $this->Users->find()->where(['role' => 2])->select('user_id') ]])->count(); 
+        $this->set(array('pgs'=> $pgs ,'users'=>$users, 'rooms'=> $rooms ,'pending'=>$pending, 'pgowners'=> $pgowners,'bookingrequest'=>$bookingrequest, 'transients'=>$transients ,'pg'=>$pg ));
     } 
     
 }
