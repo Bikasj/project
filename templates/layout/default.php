@@ -64,7 +64,7 @@
         </div> -->
    <!--  </nav> -->
 
-    <main class="main">
+    <main class="main" style="margin-top: 70px;">
         
             <center><?= $this->Flash->render() ?></center>
             <?= $this->fetch('content') ?>

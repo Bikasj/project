@@ -74,17 +74,17 @@
 
 <?php 
       
-                       echo '<a data-toggle="tooltip" data-placement="top" class="nav-link text-white btn btn-sm btn-success  float-right" title="Edit" href="edittransients/'.$user->user_id.'">
+                       echo '<a data-toggle="tooltip" data-placement="top" class="nav-link text-white btn btn-sm btn-success  float-right" title="Edit" href="/admin/users/edittransients/'.$user->user_id.'">
                                   <i class="fa fa-pencil"></i>
                                 </a>';
                             if($user->status==1)
                               
-                        echo '<a data-toggle="tooltip" data-placement="top" class="nav-link text-white btn btn-sm btn-danger  float-right" title="Block" href="block/'.$user->user_id.'">
+                        echo '<a data-toggle="tooltip" data-placement="top" class="nav-link text-white btn btn-sm btn-danger  float-right" title="Block" href="/admin/users/block/'.$user->user_id.'">
                           <i class="fa fa-ban"></i>
                         </a></li>'; 
                             else
                     
-                         echo '<a data-toggle="tooltip" data-placement="top" class="nav-link text-white btn btn-sm btn-primary  float-right" title="Unlock" href="block/'.$user->user_id.'">
+                         echo '<a data-toggle="tooltip" data-placement="top" class="nav-link text-white btn btn-sm btn-primary  float-right" title="Unlock" href="/admin/users/block/'.$user->user_id.'">
                           <i class="fa fa-ban"></i>
                         </a></li>';
     ?>

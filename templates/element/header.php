@@ -100,7 +100,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<nav class="navbar  navbar-expand-lg navbar-light navigation">
+				<nav style=" background-color: white;" class="navbar fixed-top   navbar-expand-lg navbar-light navigation">
 					<a class="navbar-brand" href="">
 						<img src="/images/logo.jpg" alt="">
 					</a>
@@ -113,7 +113,7 @@
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul class="navbar-nav ml-auto main-nav ">
 							<li class="nav-item active">
-								<a class="nav-link" href="/users/admin/pgowners/allpgs" aria-expanded="false">Home</a>
+								<a class="nav-link" href="/admin/users/pgowners/allpgs" aria-expanded="false">Home</a>
 							</li>
 							<li class="nav-item dropdown dropdown-slide">
 								<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -208,9 +208,14 @@
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              
 							
               <?php if($myinfo): ?>
-							<li class="nav-item"><a class="nav-link disableClick" href=""  aria-expanded="false">
+							<li class="nav-item float-right"><a class="nav-link disableClick" href=""  aria-expanded="false">
 									Welcome<span></span>
 								</a></li>
 						</ul>

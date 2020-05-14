@@ -52,7 +52,7 @@ class PgDetailsTable extends Table
 
         $validator
             ->scalar('address')
-            ->maxLength('address', 30)
+            ->maxLength('address', 100)
             ->requirePresence('address', 'create')
             ->notEmptyString('address');
 

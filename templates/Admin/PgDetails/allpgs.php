@@ -93,7 +93,7 @@
                     $i=1;
                      foreach ($pg as $pg): ?>
                 <tr>
-                <td class="product-thumb">
+                <td style="padding:5px;" class="product-thumb">
                   <?='<img style="border-radius: 50%;" src="data:image/jpg;base64, '.base64_encode(stream_get_contents($pg->user->image)).' " height=50px width=50px>'?><br>
                 <?=  $this->Html->link($pg->user->firstname."  ".$pg->user->lastname, ['action' => 'viewpgowners','controller' => 'users', $pg->user->user_id]) 
                          ?></td></td>
