@@ -69,7 +69,7 @@ class PgDetailsTable extends Table
             ->notEmptyString('availability');
         $validator
             ->scalar('gender')
-            ->maxLength('gender', 10)
+            ->maxLength('gender', 20)
             ->requirePresence('gender', 'create')
             ->notEmptyString('gender');
 

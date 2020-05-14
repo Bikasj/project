@@ -93,7 +93,7 @@ class PgDetailsController extends AppController
             $pg_details = $this->PgDetails->patchEntity($pg_details, $data);
             if ($this->PgDetails->save($pg_details)) {
                 $this->Flash->success(__('The user has been modified.'));
-                    return $this->redirect(['action' => 'index']);
+                    return $this->redirect(['action' => 'allpgs']);
             }
             $this->Flash->error(__('The user could not be modified. Please, try again.'));
         }

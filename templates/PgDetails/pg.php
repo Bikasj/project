@@ -102,10 +102,14 @@
                   
                   <span><strong>Added on: </strong><time><?= date("M,Y",strtotime($pg['created']))?></time> </span>
                 </td>
-                <td class="product-category"><span class="status active"><?php if($pg->status==0)
+                <td class="product-category"><span class="status active">
+                  <?php if($pg->status==0)
                                 echo "<font color='red'>Inactive</font>";
-                               else
-                                echo "<font color=#32CD32>Active</font>"; ?></td></span></td>
+                               else if($pg->status==2)
+                                echo "<font color='red'>Pending</font>";
+                              else
+                                echo "<font color=#32CD32>Active</font>"; ?>
+                  </td></span></td>
                     <td class="action" data-title="Action">
                   <div class="">
                     <ul class="list-inline justify-content-center">
